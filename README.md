@@ -15,7 +15,7 @@
 
 | Student Name          | Student Email         | GitHub Username |
 |         :---:         |         :---:         |      :---:      |
-| Akshat sohal          |                       | sohal786        |
+| Akshat sohal          |       asohal@mail.sfsu.edu                | sohal786        |
 | Zuriel Respicio       | zrespicio@sfsu.edu    | Azistara        |
 | Charter Lin           | clin25@sfsu.edu       | charterlin      |
 | Andy Byeon            | abyeon@mail.sfsu.edu  | AndyByeon       |
