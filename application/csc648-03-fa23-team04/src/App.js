@@ -1,3 +1,4 @@
+
 import "./css/global.css";
 
 import NavigationBar from "./include/navigation";
@@ -41,6 +42,7 @@ function App() {
         </div>
       </div>
     </Router>
+
   );
 }
 
