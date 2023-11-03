@@ -5,6 +5,8 @@ import NavigationBar from "./include/navigation";
 
 import HomePage from "./pages/Home";
 import AboutPage from "./pages/About";
+import LoginPage from "./pages/accts/Login";
+import RegPage from "./pages/accts/Registration";
 import NotFound from "./include/NotFound";
 
 // Bootstrap CSS
@@ -30,8 +32,11 @@ function App() {
         <div className="content">
           <Routes>
             <Route exact path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="*" element={<NotFound />} />
+            {/* Team member pages */}
             <Route path="akshat" element={<Akshat />} />
             <Route path="aakanksha" element={<Aakanksha/>} />
             <Route path="andy" element={<Andy />} />
