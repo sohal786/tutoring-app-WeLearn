@@ -93,5 +93,9 @@ html {
  }
 
  .loginForm {
-   border:#f1356d
+   padding: 3%;
+   margin: 2% 20%;
+   /* border: 1px solid #8e8e8e; */
+   border-radius: 10px;
+   box-shadow: 2px 2px 50px #00000023
  }
