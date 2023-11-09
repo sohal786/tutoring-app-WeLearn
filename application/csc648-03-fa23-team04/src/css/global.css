@@ -86,3 +86,12 @@ html {
  button {
    margin: 0 10px !important;
  }
+
+ /*Login form*/
+ .loginContainer {
+   text-align: center;
+ }
+
+ .loginForm {
+   border:#f1356d
+ }
