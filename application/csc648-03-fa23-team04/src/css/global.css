@@ -15,19 +15,6 @@ html {
     
  }
 
- @media screen and (min-width:1085px) {
-    .content{
-        margin: 0 100px;
-        
-    }
-}
-
-@media screen and (min-height:1000px) {
-   .content {
-      height: 100%;
-   }
-}
-
  h1 {
    font-weight: 600 !important;
  }
@@ -94,8 +81,29 @@ html {
 
  .loginForm {
    padding: 3%;
-   margin: 2% 20%;
+   margin: 2% 0%;
    /* border: 1px solid #8e8e8e; */
    border-radius: 10px;
    box-shadow: 2px 2px 50px #00000023
  }
+
+ /* Responsiveness */
+ @media screen and (min-width:1085px) {
+    .content{
+        margin: 1%;
+    }
+
+    .loginForm{
+      margin: 2% 30%;
+    }
+}
+
+@media screen and (min-height:1000px) {
+   .content {
+      height: 100%;
+   }
+
+   .loginForm{
+      margin: 5% 20%;
+    }
+}
