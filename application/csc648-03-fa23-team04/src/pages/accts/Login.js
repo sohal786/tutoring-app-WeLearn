@@ -75,7 +75,8 @@ const LoginPage = () => {
               controlId="formBasicEmail"
               label="SFSU Email Address"
             >
-              <OverlayTrigger overlay= {
+              <OverlayTrigger
+                overlay={
                   <Tooltip id="tooltip-disabled">
                     Use only @sfsu.edu, not @mail.sfsu.edu
                   </Tooltip>
@@ -111,7 +112,7 @@ const LoginPage = () => {
                 type="password"
                 placeholder="Password"
                 value={password || ""}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(event) => setPassword(event.target.value)}
                 isInvalid={
                   password !== null && password !== "" && !validatePassword()
                 }
