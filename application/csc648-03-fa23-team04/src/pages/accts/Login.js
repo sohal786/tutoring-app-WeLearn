@@ -5,12 +5,16 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import {Form, Button, OverlayTrigger, Tooltip, FloatingLabel} from "react-bootstrap";
+import {Form, Button, OverlayTrigger, Tooltip, FloatingLabel, Modal} from "react-bootstrap";
 
 const LoginPage = () => {
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
 
   const validateEmail = () => {
     // Check if this is a valid sfsu email
@@ -54,8 +58,7 @@ const LoginPage = () => {
           className="loginForm"
           noValidate
           validated={validated}
-          onSubmit={handleValidation}
-        >
+          onSubmit={handleValidation}>
           <p>
             Sign in using your San Francisco State University email address to
             get started.
@@ -67,15 +70,13 @@ const LoginPage = () => {
               required
               className="mb-3"
               controlId="formBasicEmail"
-              label="SFSU Email Address"
-            >
+              label="SFSU Email Address">
               <OverlayTrigger
                 overlay={
                   <Tooltip id="tooltip-disabled">
                     Use only @sfsu.edu, not @mail.sfsu.edu
                   </Tooltip>
-                }
-              >
+                }>
                 <Form.Control
                   required
                   type="email"
@@ -100,8 +101,7 @@ const LoginPage = () => {
               required
               className="mb-3"
               controlId="formBasicPassword"
-              label="Password"
-            >
+              label="Password">
               <Form.Control
                 type="password"
                 placeholder="Password"
@@ -115,12 +115,12 @@ const LoginPage = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Link to="/">
-              <a>Forgot password?</a>
-            </Link>
+            <a href="#" onClick={handleOpen}>
+              Forgot password?
+            </a>
             <p> </p>
             <Link to="/register">
-              <a>Sign Up </a>
+              <a>Don't have an account? Sign Up </a>
             </Link>
 
             <br></br>
@@ -132,6 +132,20 @@ const LoginPage = () => {
           </Form.Group>
         </Form>
       </div>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body>
+          <Form>
+            The password reset service will not be implemented.
+          </Form>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

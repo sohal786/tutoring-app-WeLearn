@@ -9,12 +9,13 @@ import {Form, Button, OverlayTrigger, Tooltip, FloatingLabel, Col, Row, InputGro
 
 const RegPage = () => {
   const [validated, setValidated] = useState(false);
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [sid, setSid] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [confPassword, setConfPassword] = useState(null);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [sid, setSid] = useState("");
+  const [password, setPassword] = useState("");
+  const [confPassword, setConfPassword] = useState("");
+  const [interactionStarted, setInteractionStarted] = useState(false);
 
   const validateEmail = () => {
     // Check if this is a valid sfsu email
@@ -38,14 +39,19 @@ const RegPage = () => {
 
   const validateConfPassword = () => {
     //Check against password.
-    if(confPassword != ""){
-        return confPassword && confPassword === password;
-    }
-  };
+    return confPassword.trim() !== "" && confPassword === password;
+  }
 
   const isFormValid = () => {
     // Check if both email and password are not empty
-    return email && password;
+    return (
+      email.trim() !== "" &&
+      sid.trim() !== "" &&
+      password.trim() !== "" &&
+      confPassword.trim() !== "" &&
+      firstName.trim() !== "" &&
+      lastName.trim() !== ""
+    );
   };
 
   const handleValidation = (event) => {
@@ -66,6 +72,8 @@ const RegPage = () => {
     setValidated(true);
   };
 
+
+
   return (
     <div className="content">
       <div className="loginContainer">
@@ -75,7 +83,8 @@ const RegPage = () => {
           noValidate
           validated={validated}
           onSubmit={handleValidation}>
-          <p></p>
+          <p>You must be a currently enrolled undergraduate, graduate, or faculty at San Francisco State University 
+            to use this service.</p>
           {/* First Name/Last Name */}
           <Form.Group className="mb-3" controlId="formBasicName">
             <Row>
@@ -192,9 +201,8 @@ const RegPage = () => {
                 placeholder="Password"
                 value={password || ""}
                 onChange={(event) => setPassword(event.target.value)}
-                isInvalid={
-                  password !== null && password !== "" && !validatePassword()
-                }
+                onBlur={() => setInteractionStarted(true)}
+                isInvalid={(interactionStarted && password.trim() !== "" && !validatePassword())}
               />
 
               <Form.Control.Feedback type="invalid">
@@ -217,7 +225,7 @@ const RegPage = () => {
                 placeholder="Confirm Password"
                 value={confPassword || ""}
                 onChange={(event) => setConfPassword(event.target.value)}
-                isInvalid={confPassword === "" && validateConfPassword()}
+                isInvalid={confPassword !== password || (confPassword.trim() !== "" && !validateConfPassword())}
               />
               <Form.Control.Feedback type="invalid">
                 {confPassword === null
