@@ -5,9 +5,13 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import { FloatingLabel } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  OverlayTrigger,
+  Tooltip,
+  FloatingLabel,
+} from "react-bootstrap";
 
 const LoginPage = () => {
   const [validated, setValidated] = useState(false);
@@ -22,7 +26,7 @@ const LoginPage = () => {
 
   const validatePassword = () => {
     //Checks is the length of the password entered is at least 8 or more characters long
-    return password && password.length >=8;
+    return password && password.length >= 8;
   };
 
   const isFormValid = () => {
@@ -42,7 +46,6 @@ const LoginPage = () => {
       } else {
         console.log("[ERROR] Form validation failure");
       }
-
     }
 
     setValidated(true);
@@ -70,16 +73,23 @@ const LoginPage = () => {
               required
               className="mb-3"
               controlId="formBasicEmail"
-              label="Email Address"
+              label="SFSU Email Address"
             >
-              <Form.Control
-                required
-                type="email"
-                placeholder="Email Address"
-                value={email || ""}
-                onChange={(event) => setEmail(event.target.value)}
-                isInvalid={email !== null && email !== "" && !validateEmail()}
-              />
+              <OverlayTrigger overlay= {
+                  <Tooltip id="tooltip-disabled">
+                    Use only @sfsu.edu, not @mail.sfsu.edu
+                  </Tooltip>
+                }
+              >
+                <Form.Control
+                  required
+                  type="email"
+                  placeholder="SFSU Email Address"
+                  value={email || ""}
+                  onChange={(event) => setEmail(event.target.value)}
+                  isInvalid={email !== null && email !== "" && !validateEmail()}
+                />
+              </OverlayTrigger>
 
               <Form.Control.Feedback type="invalid">
                 {email === null
