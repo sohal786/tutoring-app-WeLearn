@@ -5,13 +5,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Form,
-  Button,
-  OverlayTrigger,
-  Tooltip,
-  FloatingLabel,
-} from "react-bootstrap";
+import {Form, Button, OverlayTrigger, Tooltip, FloatingLabel} from "react-bootstrap";
 
 const LoginPage = () => {
   const [validated, setValidated] = useState(false);
