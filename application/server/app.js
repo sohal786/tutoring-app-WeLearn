@@ -1,3 +1,7 @@
+//Header
+//Team Number: 04
+//Description: This file sets up the view engine, handles backend errors, gets data from the database, and can search through the database depending on what the user inputs in the front end.
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
