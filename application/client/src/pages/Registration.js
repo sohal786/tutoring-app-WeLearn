@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {Form, Button, OverlayTrigger, Tooltip, FloatingLabel, Col, Row, InputGroup} from "react-bootstrap";
 
-const RegPage = () => {
+const Registration = () => {
   const [validated, setValidated] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -261,4 +261,4 @@ const RegPage = () => {
   );
 };
 
-export default RegPage;
+export default Registration;
