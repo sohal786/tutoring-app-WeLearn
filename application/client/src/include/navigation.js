@@ -5,7 +5,10 @@ const NavigationBar = () => {
       <nav className="navbar">
         <Link to="/"><h1>weLearn</h1></Link>
         <div className="links">
+          <Link to="/home">Home</Link>
+          <Link to="/apply">Apply as Tutor</Link>
           <Link to="/about">About</Link>
+          <Link to="/login">Login</Link>
         </div>
       </nav>
     );
