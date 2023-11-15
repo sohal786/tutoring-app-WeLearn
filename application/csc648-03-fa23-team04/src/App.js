@@ -1,4 +1,3 @@
-
 import "./css/global.css";
 
 import NavigationBar from "./include/navigation";
@@ -52,3 +51,4 @@ function App() {
 }
 
 export default App;
+
