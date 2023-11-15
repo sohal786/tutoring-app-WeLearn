@@ -14,13 +14,13 @@ const HomePage = () => {
             </h2>
             <br></br>
             <div className="button-row">
-              <Link to="/about">
+              <Link to="/login">
                 <Button variant="primary">
                   <h3>Login</h3>
                 </Button>
               </Link>
 
-              <Link to="/about">
+              <Link to="/register">
                 <Button variant="secondary">
                   <h3>Sign Up</h3>
                 </Button>
