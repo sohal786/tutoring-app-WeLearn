@@ -59,11 +59,11 @@ const LoginPage = () => {
           noValidate
           validated={validated}
           onSubmit={handleValidation}>
-          <p>
+          {/* <p>
             Sign in using your San Francisco State University email address to
             get started.
           </p>
-
+ */}
           {/* Email Address form */}
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <FloatingLabel
