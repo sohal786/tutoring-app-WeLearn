@@ -5,7 +5,7 @@ import NavigationBar from "./include/navigation";
 
 import HomePage from "./pages/Home";
 import AboutPage from "./pages/About";
-import LoginPage from "./pages/accts/Login";
+import LoginPage from "../../client/src/pages/Login";
 import RegPage from "./pages/accts/Registration";
 import NotFound from "./include/NotFound";
 
