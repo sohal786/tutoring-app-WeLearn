@@ -171,17 +171,20 @@ function SearchComponent() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [results, setResults] = useState([]); // Add state to store search results
+  const [results, setResults] = useState([]);
 
+  // Handle category selection
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setShowDropdown(false);
   };
 
+  // Handle search term change
   const handleSearchTermChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
+  // Perform search based on selected category and search term
   const handleSearch = () => {
     fetch(`http://54.219.143.67:5001/search?category=${selectedCategory}&searchTerm=${searchTerm}`)
       .then((response) => response.json())
@@ -193,6 +196,7 @@ function SearchComponent() {
       });
   };
 
+  // Handle key press (Enter) to trigger search
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSearch();
@@ -201,12 +205,45 @@ function SearchComponent() {
 
   const categories = ['Math', 'CSC', 'Physics'];
 
+  // Styling for each search result card
+  const cardStyle = {
+    border: '1px solid #ddd',
+    padding: '10px',
+    borderRadius: '8px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    flexDirection: 'row', // Changed to row to place the image on the left
+    alignItems: 'center',
+    cursor: 'pointer',
+    width: '100%', // Occupies full width
+    marginBottom: '15px', // Separation between cards
+  };
+
+  // Styling for the profile picture in each card
+  const imageStyle = {
+    maxWidth: '150px', // Adjust the width of the image
+    height: 'auto',
+    borderRadius: '4px',
+    marginRight: '10px', // Aligns the image to the left
+  };
+
   return (
-    <div className="SearchComponent">
-      <h1>Tutor Search</h1>
-      <button onClick={() => setShowDropdown(!showDropdown)}>Select Category</button>
+    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1 style={{ textAlign: 'center', color: '#333' }}>Tutor Search</h1>
+      <button
+        style={{
+          backgroundColor: '#4caf50',
+          color: 'white',
+          padding: '10px 15px',
+          marginTop: '10px',
+          cursor: 'pointer',
+        }}
+        onClick={() => setShowDropdown(!showDropdown)}
+      >
+        Select Category
+      </button>
       {showDropdown && (
-        <div className="dropdown">
+        <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px' }}>
           {categories.map((category) => (
             <button key={category} onClick={() => handleCategorySelect(category)}>
               {category}
@@ -220,21 +257,31 @@ function SearchComponent() {
         value={searchTerm}
         onChange={handleSearchTermChange}
         onKeyPress={handleKeyPress}
+        style={{ width: '100%', padding: '10px', marginTop: '10px', boxSizing: 'border-box' }}
       />
-      <button onClick={handleSearch}>Search</button>
+      <button
+        style={{ backgroundColor: '#4caf50', color: 'white', padding: '10px 15px', marginTop: '10px', cursor: 'pointer' }}
+        onClick={handleSearch}
+      >
+        Search
+      </button>
       <p>Selected Category: {selectedCategory}</p>
       <p>Search Term: {searchTerm}</p>
 
-      {/* Display search results */}
-      <div>
-        
+      <div style={{ marginTop: '20px' }}>
         {results.map((result, index) => (
-          <div key={index}>
-            <h3>Tutor Name: {result.tutorName}</h3>
-            <p>Description: {result.description}</p>
-            <p>Topic Name: {result.topicName}</p>
-            <p>Resume: {result.resume}</p>
-            <img src={result.profilePicture} alt="Profile Picture" />
+          <div key={index} style={cardStyle}>
+            <img
+              src={result.profilePicture}
+              alt="Profile"
+              style={imageStyle}
+            />
+            <div>
+              <h3 style={{ color: '#333' }}>Tutor Name: {result.tutorName}</h3>
+              <p style={{ margin: '8px 0', color: '#666' }}>Description: {result.description}</p>
+              <p style={{ margin: '8px 0', color: '#666' }}>Topic Name: {result.topicName}</p>
+              <p style={{ margin: '8px 0', color: '#666' }}>Resume: {result.resume}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -242,9 +289,7 @@ function SearchComponent() {
   );
 }
 
-
-
-export default App;
+export default SearchComponent;
 
 
 
