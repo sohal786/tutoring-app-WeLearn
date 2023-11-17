@@ -11,6 +11,12 @@ const TutorApply = () => {
     video: null,
   });
 
+  const [fieldStatus, setFieldStatus] = useState({
+    topic: false,
+    description: false,
+    resume: false,
+  });
+
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
 
@@ -19,12 +25,27 @@ const TutorApply = () => {
     } else {
       setFormData({ ...formData, [name]: value });
     }
+
+    // Update fieldStatus to indicate whether the field is filled
+    setFieldStatus((prevFieldStatus) => ({
+      ...prevFieldStatus,
+      [name]: value.trim() !== "",
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your form submission logic here
-    console.log(formData);
+
+    // Check if mandatory fields are filled before submission
+    const mandatoryFields = ["topic", "description", "resume"];
+    const isFormValid = mandatoryFields.every((field) => formData[field]);
+
+    if (isFormValid) {
+      console.log(formData);
+    } else {
+      // Alert the user that mandatory fields are not filled
+      alert("Please fill in all mandatory fields.");
+    }
   };
 
   return (
@@ -32,7 +53,9 @@ const TutorApply = () => {
       <div className="loginContainer">
         <h1>Tutor Application</h1>
         <Form onSubmit={handleSubmit} className="loginForm">
-          <p style={{ color: "red" }}>Fields marked with * are required.</p>
+          <p style={{ color: "black" }}>
+            Fields marked with <span style={{ color: "red" }}>*</span> are required.
+          </p>
 
           <Form.Group className="mb-3" controlId="topic">
             <Form.Label>
@@ -43,6 +66,7 @@ const TutorApply = () => {
               value={formData.topic}
               onChange={handleInputChange}
               required
+              style={{ borderColor: fieldStatus.topic ? "green" : "red" }}
             >
               <option value="">Select a Topic</option>
               <option value="Math">Math</option>
@@ -62,10 +86,9 @@ const TutorApply = () => {
               value={formData.description}
               onChange={handleInputChange}
               required
+              style={{ borderColor: fieldStatus.description ? "green" : "red" }}
             />
           </Form.Group>
-
-          {/* ... other form fields ... */}
 
           <Form.Group className="mb-3" controlId="resume">
             <Form.Label>
@@ -77,16 +100,18 @@ const TutorApply = () => {
               accept=".pdf,.doc,.docx"
               onChange={handleInputChange}
               required
+              style={{ borderColor: fieldStatus.resume ? "green" : "red" }}
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="profilePicture">
+          <Form.Group className="mb-3" controlId="picture">
             <Form.Label>Profile Picture</Form.Label>
             <Form.Control
               type="file"
-              name="profilePicture"
+              name="picture"
               accept="image/*"
               onChange={handleInputChange}
+              style={{ borderColor: fieldStatus.picture ? "green" : "" }}
             />
           </Form.Group>
 
@@ -97,6 +122,7 @@ const TutorApply = () => {
               name="video"
               accept="video/*"
               onChange={handleInputChange}
+              style={{ borderColor: fieldStatus.video ? "green" : "" }}
             />
           </Form.Group>
 
