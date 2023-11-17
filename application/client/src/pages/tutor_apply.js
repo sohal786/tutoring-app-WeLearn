@@ -37,7 +37,7 @@ const TutorApply = () => {
     e.preventDefault();
 
     // Check if mandatory fields are filled before submission
-    const mandatoryFields = ["topic", "description", "resume"];
+    const mandatoryFields = ["topic", "description", "course_numbers", "resume"];
     const isFormValid = mandatoryFields.every((field) => formData[field]);
 
     if (isFormValid) {
@@ -53,13 +53,13 @@ const TutorApply = () => {
       <div className="loginContainer">
         <h1>Tutor Application</h1>
         <Form onSubmit={handleSubmit} className="loginForm">
-          <p style={{ color: "black" }}>
-            Fields marked with <span style={{ color: "red" }}>*</span> are required.
+          <p style={{ color: "GrayText" }}>
+            Fields marked with <span style={{ color: "red" }}>*</span> are required
           </p>
-
+          <br></br>
           <Form.Group className="mb-3" controlId="topic">
-            <Form.Label>
-              Topic <span style={{ color: "red" }}>*</span>
+            <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>
+              Topic: <span style={{ color: "red" }}>*</span>
             </Form.Label>
             <Form.Select
               name="topic"
@@ -76,8 +76,8 @@ const TutorApply = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="description">
-            <Form.Label>
-              Description <span style={{ color: "red" }}>*</span>
+            <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>
+              Description: <span style={{ color: "red" }}>*</span>
             </Form.Label>
             <Form.Control
               as="textarea"
@@ -87,12 +87,29 @@ const TutorApply = () => {
               onChange={handleInputChange}
               required
               style={{ borderColor: fieldStatus.description ? "green" : "red" }}
+              placeholder="Enter a brief description about yourself and the classes you tutor..."
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="course_numbers">
+            <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>
+              Courses: <span style={{ color: "red" }}>*</span>
+            </Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              name="course_numbers"
+              value={formData.course_numbers}
+              onChange={handleInputChange}
+              required
+              style={{ borderColor: fieldStatus.course_numbers ? "green" : "red" }}
+              placeholder="Enter a list of classes by course number (i.e. MATH 225) that you can tutor..."
             />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="resume">
-            <Form.Label>
-              Resume <span style={{ color: "red" }}>*</span>
+            <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>
+              Resume: <span style={{ color: "red" }}>*</span>
             </Form.Label>
             <Form.Control
               type="file"
@@ -101,28 +118,31 @@ const TutorApply = () => {
               onChange={handleInputChange}
               required
               style={{ borderColor: fieldStatus.resume ? "green" : "red" }}
+              placeholder="Resume"
             />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="picture">
-            <Form.Label>Profile Picture</Form.Label>
+            <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>Picture: </Form.Label>
             <Form.Control
               type="file"
               name="picture"
               accept="image/*"
               onChange={handleInputChange}
               style={{ borderColor: fieldStatus.picture ? "green" : "" }}
+              placeholder="Picture"
             />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="video">
-            <Form.Label>Video</Form.Label>
+            <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>Video: </Form.Label>
             <Form.Control
               type="file"
               name="video"
               accept="video/*"
               onChange={handleInputChange}
               style={{ borderColor: fieldStatus.video ? "green" : "" }}
+              placeholder="Video"
             />
           </Form.Group>
 
