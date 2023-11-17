@@ -5,15 +5,16 @@ const TutorApply = () => {
   const [formData, setFormData] = useState({
     topic: "",
     description: "",
-    classNumbers: "",
+    course_numbers: "",
     resume: null,
-    profilePicture: null,
+    picture: null,
     video: null,
   });
 
   const [fieldStatus, setFieldStatus] = useState({
     topic: false,
     description: false,
+    course_numbers: false,
     resume: false,
   });
 
