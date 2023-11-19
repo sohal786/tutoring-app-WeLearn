@@ -51,7 +51,7 @@ class App extends Component {
             { <Route path="/login" element={<Login />} /> }
             <Route path="/apply" element={<TutorApply />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/Registration" element={<Registration />} />
+            <Route path="/register" element={<Registration />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/akshat" element={<Akshat />} />
             <Route path="/aakanksha" element={<Aakanksha />} />
