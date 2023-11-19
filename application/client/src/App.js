@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
  // Adjust the path as needed
  import Login from './pages/Login'; // If you have a login component
  import Registration from './pages/Registration';
+ import AboutPage from './pages/About';
 
 // Bootstrap CSS and JS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -46,6 +47,8 @@ class App extends Component {
             { <Route path="/login" element={<Login />} /> }
             {/* Define other routes here */}
             <Route path="/Registration" element={<Registration />} />
+            {/* Remove this line after testing */}
+            <Route path="/about" element={<AboutPage />} />
           </Routes>
 
           <p className="App-intro">{this.state.home}</p>
