@@ -100,4 +100,3 @@ const teamMembers = [
 
 
 export default AboutPage;
-
