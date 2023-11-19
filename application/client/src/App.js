@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Bootstrap CSS and JS
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import DashboardHome from "./pages/Dashboard";
 
 class App extends Component {
   constructor(props) {
@@ -32,25 +33,23 @@ class App extends Component {
 
   render() {
     return (
-      
-        <div className="App">
-          <header className="App-header">
-            <NavigationBar />
-          </header>
-          <br />
+      <div className="App">
+        <header className="App-header">
+          <NavigationBar />
+        </header>
+        <br />
 
-          <Routes>
-            <Route exact path="/" element={<SearchComponent />} />
-           
-           
-            { <Route path="/login" element={<Login />} /> }
-            {/* Define other routes here */}
-            <Route path="/Registration" element={<Registration />} />
-          </Routes>
+        <Routes>
+          <Route exact path="/" element={<SearchComponent />} />
 
-          <p className="App-intro">{this.state.home}</p>
-        </div>
-      
+          {<Route path="/login" element={<Login />} />}
+          {/* Define other routes here */}
+          <Route path="/register" element={<Registration />} />
+          <Route path="/dashboard" element={<DashboardHome />} />
+        </Routes>
+
+        <p className="App-intro">{this.state.home}</p>
+      </div>
     );
   }
 }
