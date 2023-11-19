@@ -4,6 +4,19 @@ import { Link } from 'react-router-dom';
 const AboutPage = () => {
   const [hoveredCards, setHoveredCards] = useState([]);
 
+  const headingStyle = {
+    textAlign: 'center',
+    width: '30%',
+    margin: '0 auto',
+    borderBottom: '0.5px solid #ccc',
+    paddingBottom: '10px',
+  };
+
+  const descriptionContainerStyle = {
+    width: '80%',
+    margin: '0 auto',
+  };
+  
   const containerStyle = {
     width: '80%',
     margin: '0 auto',
@@ -50,14 +63,26 @@ const AboutPage = () => {
 
   return (
     <div>
-      <h2 style={{ textAlign: 'center' }}>About Us</h2>
+      <h2 style={headingStyle}>About Us</h2>
       <br />
-      <p style={{ textAlign: 'center'}}>
-        Welcome to our app! This is a brief description of what the app is about.
-        Feel free to explore and get to know our team members.
-      </p>
+      <div style={descriptionContainerStyle}>
+        <p>
+          Welcome to our tutoring application – a product born out of a shared commitment to addressing
+          the academic challenges faced by students during their educational journeys, especially in the
+          rigorous environments of schools and colleges. As students ourselves, we understand that the
+          path to graduation often involves overcoming hurdles, particularly in challenging courses.
+        </p>
+        <p>
+          Our innovative tutoring web application is crafted to provide essential support to students
+          navigating their courses. What sets us apart is our unique focus on the San Francisco State
+          University (SFSU) community. Unlike generic tutoring platforms, our application exclusively
+          connects SFSU students seeking academic assistance with their peers who have excelled in the
+          same courses. This tailored approach not only improves academic outcomes but also cultivates a
+          sense of camaraderie within the SFSU student body.
+        </p>
+      </div>
       <br />
-      <h2 style={{ textAlign: 'center' }}>Meet the Team</h2>
+      <h2 style={headingStyle}>Meet the Team</h2>
       <br />
       <div style={containerStyle}>
         {teamMembers.map((member, index) => (
