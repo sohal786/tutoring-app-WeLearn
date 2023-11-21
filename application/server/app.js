@@ -181,7 +181,7 @@ app.get("/search", (req, res) => {
           console.error(err);
           res.status(500).json({ error: 'An error occurred' });
         } else {
-          const topicId = topicResults[0] ? topicResults[0].Topic_ID : null;
+          const topicId = topicResults[0] ? topicResults[0].id : null;
 
           if (topicId) {
             // Use the obtained topic_id to search the tutor_table.
@@ -224,7 +224,25 @@ app.get("/search", (req, res) => {
   }
 });
 
-
+app.get("/recent_tutor", (req,res) =>{
+  connection.query(
+    `SELECT 
+      tutor_database.tutor.tutor_name AS tutorName,
+      tutor_database.tutor.description AS description,
+      tutor_database.tutor.resume AS resume,
+      tutor_database.tutor.profile_picture AS profilePicture,
+      tutor_database.topic.topic_name AS topicName
+    FROM tutor_database.tutor
+    LEFT JOIN tutor_database.topic ON tutor.fk_topic_id = topic.id
+    ORDER BY tutor_database.tutor.id DESC LIMIT 3`, function(err, results) {
+      if(err) {
+        console.log(err);
+      } else {
+        res.send(results);
+      }
+    }
+  )
+});
 
 
 
