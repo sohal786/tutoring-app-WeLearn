@@ -23,6 +23,13 @@ html {
    font-size: 20px;
  }
 
+ /*Profile image*/
+ .profileImage {
+  border-radius: 100%;
+  width: 256px;
+  height: 256px;
+ }
+
 /*Navbar*/
 .navbar {
     padding: 20px;
