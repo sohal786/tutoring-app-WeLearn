@@ -6,16 +6,28 @@ import placeholderFox from "../img/placeholder.png"
 const DashboardHome = () => {
     return (
       <div className="content">
-        <h1>Hello, [username]</h1>
         <br></br>
         <div className="profileArea">
           <Card>
             <Card.Body>
-              <Card.Title>User</Card.Title>
               <div className="userInformationArea">
                 <img class="profileImage" src={placeholderFox}></img>
+                <div className="textfield">
+                  <h1>Username</h1>
+                  <i>San Francisco State University, Student</i>
+                  <br></br>
+                  <br></br>
+                  <ul>
+                    <li>Computer Science</li>
+                    <li>Math</li>
+                    <li>Business</li>
+                  </ul>
+                </div>
               </div>
             </Card.Body>
+            <Card.Footer class="cardFooter">
+              <Button variant="primary">Edit</Button>
+            </Card.Footer>
           </Card>
         </div>
         <br></br>
@@ -23,7 +35,56 @@ const DashboardHome = () => {
           <Card>
             <Card.Body>
               <Card.Title>Recently Contacted</Card.Title>
-              Recently Contacted
+              <br></br>
+              <br></br>
+              {/* Cards for people recently interacted with */}
+              <div className="contactContainer">
+                {/* TODO: Map function here */}
+                <Card class="contactCard">
+                  <Card.Body>
+                    <img class="profileImage" src={placeholderFox}></img>
+                    <br></br>
+                    <br></br>
+                    <Card.Title>John Smith</Card.Title>
+                  </Card.Body>
+                </Card>
+
+                <Card class="contactCard">
+                  <Card.Body>
+                    <img class="profileImage" src={placeholderFox}></img>
+                    <br></br>
+                    <br></br>
+                    <Card.Title>John Smith</Card.Title>
+                  </Card.Body>
+                </Card>
+
+                <Card class="contactCard">
+                  <Card.Body>
+                    <img class="profileImage" src={placeholderFox}></img>
+                    <br></br>
+                    <br></br>
+                    <Card.Title>John Smith</Card.Title>
+                  </Card.Body>
+                </Card>
+
+                <Card class="contactCard">
+                  <Card.Body>
+                    <img class="profileImage" src={placeholderFox}></img>
+                    <br></br>
+                    <br></br>
+                    <Card.Title>John Smith</Card.Title>
+                  </Card.Body>
+                </Card>
+
+                <Card class="contactCard">
+                  <Card.Body>
+                    <img class="profileImage" src={placeholderFox}></img>
+                    <br></br>
+                    <br></br>
+                    <Card.Title>John Smith</Card.Title>
+                  </Card.Body>
+                </Card>
+              </div>
             </Card.Body>
           </Card>
         </div>
