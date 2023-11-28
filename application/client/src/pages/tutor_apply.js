@@ -88,23 +88,7 @@ const TutorApply = () => {
               onChange={handleInputChange}
               required
               style={{ borderColor: fieldStatus.description ? "green" : "red" }}
-              placeholder="Enter a brief description about yourself and the classes you tutor..."
-            />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="course_numbers">
-            <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>
-              Courses: <span style={{ color: "red" }}>*</span>
-            </Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              name="course_numbers"
-              value={formData.course_numbers}
-              onChange={handleInputChange}
-              required
-              style={{ borderColor: fieldStatus.course_numbers ? "green" : "red" }}
-              placeholder="Enter a list of classes by course number (i.e. MATH 225) that you can tutor..."
+              placeholder="Enter a list of classes by course number that you can tutor (i.e. MATH 225, CSC 340, PHYS 220, etc.)."
             />
           </Form.Group>
 
