@@ -47,8 +47,6 @@ class App extends Component {
 
           <Routes>
             <Route exact path="/" element={<SearchComponent />} />
-
-            { <Route path="/login" element={<Login />} /> }
             <Route path="/apply" element={<TutorApply />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Registration />} />
