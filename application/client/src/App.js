@@ -12,7 +12,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Bootstrap CSS and JS
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import DashboardHome from "./pages/Dashboard";
 
 class App extends Component {
   constructor(props) {
@@ -45,7 +44,6 @@ class App extends Component {
           {<Route path="/login" element={<Login />} />}
           {/* Define other routes here */}
           <Route path="/register" element={<Registration />} />
-          <Route path="/dashboard" element={<DashboardHome />} />
         </Routes>
 
         <p className="App-intro">{this.state.home}</p>

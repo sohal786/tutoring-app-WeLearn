@@ -54,6 +54,12 @@ html {
   gap: 50px;
  }
 
+ /* Recent messages container */
+ .messageContainer .card{
+  padding: 0px;
+  margin-bottom: 15px;
+ }
+
 /*Navbar*/
 .navbar {
     padding: 20px;
