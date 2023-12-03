@@ -11,7 +11,9 @@ const NavigationBar = () => {
           <Link to="/apply">Apply as Tutor</Link>
           <Link to="/Registration">Registration</Link>
           <Link to="/login">Login</Link>
-          <DashboardPopover/>
+          <Link>
+            <DashboardPopover />
+          </Link>
         </div>
       </nav>
     );

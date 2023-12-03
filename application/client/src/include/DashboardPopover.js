@@ -3,7 +3,6 @@ import placeholderFox from "../img/placeholder.png";
 
 const DashboardPopover = () => {
     return (
-      <div>
         <OverlayTrigger
           trigger="click"
           placement="bottom"
@@ -39,7 +38,6 @@ const DashboardPopover = () => {
           }>
           <a href="#">Open menu</a>
         </OverlayTrigger>
-      </div>
     );
 }
  
