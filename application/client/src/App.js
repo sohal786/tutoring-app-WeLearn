@@ -18,6 +18,7 @@ import Jorge from "./pages/jorge.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import TutorApply from "./pages/tutor_apply.js";
+import HomePage from "./pages/Home.js";
 
 class App extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class App extends Component {
         <br />
 
           <Routes>
-            <Route exact path="/" element={<SearchComponent />} />
+            <Route exact path="/" element={<HomePage />} />
             <Route path="/apply" element={<TutorApply />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Registration />} />
