@@ -38,12 +38,11 @@ class App extends Component {
 
   render() {
     return (
-      
-        <div className="App">
-          <header className="App-header">
-            <NavigationBar />
-          </header>
-          <br />
+      <div className="App">
+        <header className="App-header">
+          <NavigationBar />
+        </header>
+        <br />
 
           <Routes>
             <Route exact path="/" element={<SearchComponent />} />
@@ -59,9 +58,8 @@ class App extends Component {
             <Route path="/jorge" element={<Jorge />} />
           </Routes>
 
-          <p className="App-intro">{this.state.home}</p>
-        </div>
-      
+        <p className="App-intro">{this.state.home}</p>
+      </div>
     );
   }
 }

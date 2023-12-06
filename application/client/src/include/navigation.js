@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom'
+import DashboardPopover from './DashboardPopover';
 
 const NavigationBar = () => {
     return (
       <nav className="navbar">
-        <Link to="/"><h1>weLearn</h1></Link>
+        <Link to="/">
+          <h1>weLearn</h1>
+        </Link>
         <div className="links">
           <Link to="/apply">Apply as Tutor</Link>
           <Link to="/register">Registration</Link>
           <Link to="/login">Login</Link>
-          {/*remove this about line after testing*/}
-          <Link to="/about">About</Link> 
+          <Link>
+            <DashboardPopover />
+          </Link>
         </div>
       </nav>
     );

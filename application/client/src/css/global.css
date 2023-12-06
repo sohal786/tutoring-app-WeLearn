@@ -12,7 +12,6 @@ html {
     /* max-width: 75%; */
     /* margin: 40px auto; */
     padding: 20px;
-    
  }
 
  h1 {
@@ -21,6 +20,44 @@ html {
 
  p { 
    font-size: 20px;
+ }
+
+ .card {
+  padding: 10px;
+ }
+
+ .card .cardFooter {
+    display:flex;
+    justify-content: end;
+ }
+
+ .contactCard {
+  width: 18rem;
+ }
+
+ .contactContainer {
+  display: flex;
+  gap: 25px;
+ }
+
+ /*Profile image*/
+ .profileImage {
+  border-radius: 100%;
+  max-width: 256px;
+  max-height: 256px;
+ }
+
+ /*User information area*/
+ .userInformationArea {
+  display:flex;
+  align-items: flex-start;
+  gap: 50px;
+ }
+
+ /* Recent messages container */
+ .messageContainer .card{
+  padding: 0px;
+  margin-bottom: 15px;
  }
 
 /*Navbar*/
