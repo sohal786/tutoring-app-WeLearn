@@ -9,7 +9,7 @@ const NavigationBar = () => {
         </Link>
         <div className="links">
           <Link to="/apply">Apply as Tutor</Link>
-          <Link to="/Registration">Registration</Link>
+          <Link to="/register">Registration</Link>
           <Link to="/login">Login</Link>
           <Link>
             <DashboardPopover />

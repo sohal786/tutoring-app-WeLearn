@@ -76,7 +76,7 @@ app.get("/", (req,res)=>{
 
 app.get("/topic", (req,res) =>{
   connection.query(
-    "SELECT Topic_Name FROM tutor_database.topic_table", function(err, results) {
+    "SELECT topic_name FROM tutor_database.topic", function(err, results) {
       if(err) {
         console.log(err);
       } else {
@@ -161,31 +161,31 @@ app.get("/search", (req, res) => {
   // Define query and queryValues outside of if conditions
   let query = `
     SELECT 
-      tutor_database.tutor_table.tutor_name AS tutorName,
-      tutor_database.tutor_table.description AS description,
-      tutor_database.tutor_table.resume AS resume,
-      tutor_database.tutor_table.profile_picture AS profilePicture,
-      tutor_database.topic_table.Topic_Name AS topicName
-    FROM tutor_database.tutor_table
-    LEFT JOIN tutor_database.topic_table ON tutor_table.Topic_ID = topic_table.Topic_ID
+      tutor_database.tutor.tutor_name AS tutorName,
+      tutor_database.tutor.description AS description,
+      tutor_database.tutor.resume AS resume,
+      tutor_database.tutor.profile_picture AS profilePicture,
+      tutor_database.topic.topic_name AS topicName
+    FROM tutor_database.tutor
+    LEFT JOIN tutor_database.topic ON tutor.fk_topic_id = topic.id
   `;
   const queryValues = [];
 
   if (searchCategory) {
     // First, query the topic_table to get the corresponding topic_id.
     connection.query(
-      "SELECT Topic_ID FROM tutor_database.topic_table WHERE Topic_Name = ?",
+      "SELECT id FROM tutor_database.topic WHERE topic_name = ?",
       [searchCategory],
       function (err, topicResults) {
         if (err) {
           console.error(err);
           res.status(500).json({ error: 'An error occurred' });
         } else {
-          const topicId = topicResults[0] ? topicResults[0].Topic_ID : null;
+          const topicId = topicResults[0] ? topicResults[0].id : null;
 
           if (topicId) {
             // Use the obtained topic_id to search the tutor_table.
-            query += ' WHERE tutor_database.tutor_table.Topic_ID = ?'; // Remove 'tutor_database.tutor_table'
+            query += ' WHERE tutor_database.tutor.fk_topic_id = ?'; // Remove 'tutor_database.tutor_table'
             queryValues.push(topicId);
           }
 
@@ -205,7 +205,7 @@ app.get("/search", (req, res) => {
       } else {
         query += ' AND';
       }
-      query += ' (tutor_database.tutor_table.tutor_name LIKE ? OR tutor_database.tutor_table.description LIKE ?)';
+      query += ' (tutor_database.tutor.tutor_name LIKE ? OR tutor_database.tutor.description LIKE ?)';
       queryValues.push(`%${searchTerm}%`);
       queryValues.push(`%${searchTerm}%`);
     }
@@ -224,7 +224,25 @@ app.get("/search", (req, res) => {
   }
 });
 
-
+app.get("/recent_tutor", (req,res) =>{
+  connection.query(
+    `SELECT 
+      tutor_database.tutor.tutor_name AS tutorName,
+      tutor_database.tutor.description AS description,
+      tutor_database.tutor.resume AS resume,
+      tutor_database.tutor.profile_picture AS profilePicture,
+      tutor_database.topic.topic_name AS topicName
+    FROM tutor_database.tutor
+    LEFT JOIN tutor_database.topic ON tutor.fk_topic_id = topic.id
+    ORDER BY tutor_database.tutor.id DESC LIMIT 3`, function(err, results) {
+      if(err) {
+        console.log(err);
+      } else {
+        res.send(results);
+      }
+    }
+  )
+});
 
 
 
