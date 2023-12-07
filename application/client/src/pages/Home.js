@@ -22,7 +22,7 @@ const HomePage = () => {
 
   return (
     <div className="homeContent">
-      <div className="hero">
+      <div className="welcomeSection">
         <div className="featureContent">
           <h1 className="titles">Welcome to San Francisco State's tutoring management platform.</h1>
           <br />

@@ -12,7 +12,7 @@
   padding-bottom: 15px;
 }
 
-.hero {
+.welcomeSection {
   padding: 50px;
   padding-top: 80px;
   padding-bottom: 80px;
@@ -145,7 +145,7 @@
     padding: 10px; /* Add padding to avoid edges of the screen */
   }
 
-  .hero {
+  .welcomeSection {
     padding-top: 40px;
     padding-bottom: 40px;
   }
