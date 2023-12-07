@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./css/global.css";
 import SearchComponent from './include/searchcomponent'; // Adjust the path as needed
 import NavigationBar from './include/navigation.js';
+import Footer from "./include/footer.js";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from './pages/Login'; // If you have a login component
@@ -61,6 +62,7 @@ class App extends Component {
           </Routes>
 
         <p className="App-intro">{this.state.home}</p>
+        <Footer />
       </div>
     );
   }
