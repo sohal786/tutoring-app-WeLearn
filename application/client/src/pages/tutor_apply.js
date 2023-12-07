@@ -95,11 +95,14 @@ const TutorApply = () => {
           <Form.Group className="mb-3" controlId="resume">
             <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>
               Resume: <span style={{ color: "red" }}>*</span>
+              <span style={{ fontSize: "0.8em", color: "GrayText", display: "block" }}>
+                Accepted formats: PDF
+              </span>
             </Form.Label>
             <Form.Control
               type="file"
               name="resume"
-              accept=".pdf,.doc,.docx"
+              accept=".pdf"
               onChange={handleInputChange}
               required
               style={{ borderColor: fieldStatus.resume ? "green" : "red" }}
@@ -109,10 +112,13 @@ const TutorApply = () => {
 
           <Form.Group className="mb-3" controlId="picture">
             <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>Picture: </Form.Label>
+              <span style={{ fontSize: "0.8em", color: "GrayText", display: "block", textAlign: "left"}}>
+                Accepted formats: PDF, JPG
+              </span>
             <Form.Control
               type="file"
               name="picture"
-              accept="image/*"
+              accept=".pdf,.jpg"
               onChange={handleInputChange}
               style={{ borderColor: fieldStatus.picture ? "green" : "" }}
               placeholder="Picture"
@@ -121,10 +127,13 @@ const TutorApply = () => {
 
           <Form.Group className="mb-3" controlId="video">
             <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>Video: </Form.Label>
+            <span style={{ fontSize: "0.8em", color: "GrayText", display: "block", textAlign: "left"}}>
+                Accepted formats: MP4, MOV
+              </span>
             <Form.Control
               type="file"
               name="video"
-              accept="video/*"
+              accept=".mp4,.mov"
               onChange={handleInputChange}
               style={{ borderColor: fieldStatus.video ? "green" : "" }}
               placeholder="Video"
