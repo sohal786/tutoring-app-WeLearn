@@ -1,3 +1,190 @@
+import React, { useState } from 'react';
+import { Form, Button, FloatingLabel } from 'react-bootstrap';
+
+const Registration = () => {
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [agreeTerms, setAgreeTerms] = useState(false);
+
+  const [errors, setErrors] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    agreeTerms: ''
+  });
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { ...errors };
+
+    if (!fullName.trim()) {
+      newErrors.fullName = 'Full Name is required';
+      isValid = false;
+    } else {
+      newErrors.fullName = '';
+    }
+
+    if (!email.trim() || !/^[^\s@]+@sfsu\.edu|mail\.sfsu\.edu$/.test(email)) {
+      newErrors.email = 'Enter a valid SFSU email address';
+      isValid = false;
+    } else {
+      newErrors.email = '';
+    }
+
+    if (!password || !/^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,20}$/.test(password)) {
+      newErrors.password = 'Password must meet the requirements';
+      isValid = false;
+    } else {
+      newErrors.password = '';
+    }
+
+    if (password !== confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+      isValid = false;
+    } else {
+      newErrors.confirmPassword = '';
+    }
+
+    if (!agreeTerms) {
+      newErrors.agreeTerms = 'You must agree to the terms and conditions';
+      isValid = false;
+    } else {
+      newErrors.agreeTerms = '';
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleRegistration = (event) => {
+    event.preventDefault();
+
+    if (validateForm()) {
+      console.log("[OK] Form validation success");
+      // Add your registration logic here
+    } else {
+      console.log("[ERROR] Form validation failure");
+    }
+  };
+
+  return (
+    <div className="loginContainer">
+      <h2 className="mb-4">Registration</h2>
+
+      <Form noValidate onSubmit={handleRegistration} className="loginForm">
+        <p>
+          You must be a currently enrolled undergraduate,
+          graduate, or faculty at San Francisco State
+          University to use this service.
+         </p>
+        <FloatingLabel
+          controlId="fullName"
+          label="Full Name"
+          className="mb-3"
+        >
+          <Form.Control
+            type="text"
+            placeholder="Full Name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            isInvalid={errors.fullName !== ''}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.fullName}
+          </Form.Control.Feedback>
+        </FloatingLabel>
+
+        <FloatingLabel
+          controlId="email"
+          label="SFSU Email Address"
+          className="mb-3"
+        >
+          <Form.Control
+            type="email"
+            placeholder="SFSU Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            isInvalid={errors.email !== ''}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.email}
+          </Form.Control.Feedback>
+        </FloatingLabel>
+
+        <FloatingLabel
+          controlId="password"
+          label="Password"
+          className="mb-3"
+        >
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            isInvalid={errors.password !== ''}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.password}
+          </Form.Control.Feedback>
+        </FloatingLabel>
+
+        <FloatingLabel
+          controlId="confirmPassword"
+          label="Confirm Password"
+          className="mb-3"
+        >
+          <Form.Control
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            isInvalid={errors.confirmPassword !== ''}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.confirmPassword}
+          </Form.Control.Feedback>
+        </FloatingLabel>
+
+        <div className="form-check mb-3 d-flex">
+          <input
+            type="checkbox"
+            className={`form-check-input ${errors.agreeTerms ? 'is-invalid' : ''}`}
+            id="agreeTerms"
+            checked={agreeTerms}
+            onChange={() => setAgreeTerms(!agreeTerms)}
+          />
+          <div className="me-2">
+            <label className="form-check-label" htmlFor="agreeTerms">
+              &nbsp;&nbsp;I agree to the{' '}
+              <a className="text-decoration-underline" href="#">
+                terms and conditions
+              </a>
+            </label>
+            {errors.agreeTerms && (
+              <div className="text-danger text-center">{errors.agreeTerms}</div>
+            )}
+          </div>
+        </div>
+
+        <div className="text-muted mb-3">
+          Passwords must be 8-20 characters long and contain one uppercase letter, one special character (!@#$%^&*), and one number.
+        </div>
+
+        <Button type="submit" className="btn btn-primary">
+          Submit
+        </Button>
+      </Form>
+    </div>
+  );
+};
+
+export default Registration;
+
+
+/*
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -18,6 +205,7 @@ const Registration = () => {
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
   const [interactionStarted, setInteractionStarted] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const validateEmail = () => {
     const emailRegex = /@sfsu\.edu$/;
@@ -38,18 +226,23 @@ const Registration = () => {
     return confPassword.trim() !== "" && confPassword === password && confPassword !== null;
   };
 
+  const handleCheckboxChange = () => {
+    setAgreedToTerms(!agreedToTerms);
+  };
+
   const isFormValid = () => {
     return (
       email.trim() !== "" &&
       password.trim() !== "" &&
       confPassword.trim() !== "" &&
-      fullName.trim() !== ""
+      fullName.trim() !== "" &&
+      agreedToTerms
     );
   };
 
   const handleValidation = (event) => {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+    if (form.checkValidity() === false || !agreedToTerms) {
       event.preventDefault();
 
       if (
@@ -67,6 +260,8 @@ const Registration = () => {
     setValidated(true);
   };
 
+  const isCheckboxValid = agreedToTerms && validated;
+
   return (
     <div className="content">
       <div className="loginContainer">
@@ -82,7 +277,7 @@ const Registration = () => {
             graduate, or faculty at San Francisco State
             University to use this service.
           </p>
-          {/* Full Name */}
+          {/* Full Name */ /*
           <Form.Group className="mb-3" controlId="formBasicName">
             <FloatingLabel
               required
@@ -93,28 +288,32 @@ const Registration = () => {
               <Form.Control
                 type="text"
                 placeholder="Full Name"
-                onChange={(event) =>
-                  setFullName(event.target.value)
-                }
+                onChange={(event) => setFullName(event.target.value)}
                 isInvalid={
-                  fullName !== null &&
                   fullName !== "" &&
-                  /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9]/.test(fullName)
+                  (
+                    /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9]/.test(fullName) ||
+                    !/^[a-zA-Z\s]*$/.test(fullName)
+                  )
                 }
+                className={validated && fullName !== "" && !/^[a-zA-Z\s]*$/.test(fullName) ? "is-invalid" : ""}
                 style={{ width: "100%" }}
               />
             </FloatingLabel>
 
             <Form.Control.Feedback>
-              {fullName !== null &&
-              fullName !== "" &&
-              /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9]/.test(fullName)
+              {fullName !== "" &&
+                (
+                  /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9]/.test(fullName) ||
+                  !/^[a-zA-Z\s]*$/.test(fullName)
+                )
                 ? "Full Name cannot contain special characters or numbers"
                 : ""}
             </Form.Control.Feedback>
           </Form.Group>
 
-          {/* Email Address form */}
+
+          {/* Email Address form */ /*
           <Form.Group className="mb-3" controlId="formBasicInfo">
             <FloatingLabel
               required
@@ -154,7 +353,7 @@ const Registration = () => {
             </FloatingLabel>
           </Form.Group>
 
-          {/* Password */}
+          {/* Password */ /*
           <InputGroup className="mb-2" controlId="formBasicPassword">
               <FloatingLabel
                 required
@@ -192,7 +391,7 @@ const Registration = () => {
             
           </InputGroup>
 
-          {/* Confirm Password */}
+          {/* Confirm Password */ /*
           <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
             <FloatingLabel
               required
@@ -204,13 +403,10 @@ const Registration = () => {
                 type="password"
                 placeholder="Confirm Password"
                 value={confPassword || ""}
-                onChange={(event) =>
-                  setConfPassword(event.target.value)
-                }
+                onChange={(event) => setConfPassword(event.target.value)}
                 isInvalid={
                   confPassword !== password ||
-                  (confPassword.trim() !== "" &&
-                    !validateConfPassword())
+                  (confPassword.trim() !== "" && !validateConfPassword())
                 }
                 style={{ width: "100%" }}
               />
@@ -224,8 +420,27 @@ const Registration = () => {
             </FloatingLabel>
           </Form.Group>
 
-          {/* Rest */}
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Group controlId="formBasicCheckbox">
+            <Form.Check
+              type="checkbox"
+              label={
+                <span className={isCheckboxValid ? "custom-checkbox-label" : ""}>
+                  I agree to the{" "}
+                  <Link to="#" className="dummy-link">
+                    terms and conditions
+                  </Link>
+                </span>
+              }
+              onChange={handleCheckboxChange}
+              checked={agreedToTerms}
+              isInvalid={!isCheckboxValid && validated}
+            />
+            <Form.Control.Feedback type="invalid">
+              You must agree to the terms and conditions.
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicInfo">
             <Form.Text
               id="passwordHelpBlock"
               muted
@@ -254,4 +469,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default Registration; */
