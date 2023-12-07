@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import DashboardPopover from './DashboardPopover';
+import SearchComponent from './searchcomponent';
 
 const NavigationBar = () => {
     return (
@@ -7,6 +8,7 @@ const NavigationBar = () => {
         <Link to="/">
           <h1>weLearn</h1>
         </Link>
+        <SearchComponent />
         <div className="links">
           <Link to="/apply">Apply as Tutor</Link>
           <Link to="/register">Registration</Link>
