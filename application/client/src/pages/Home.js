@@ -1,17 +1,18 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../css/HomePage.css';
+
+const API_ENDPOINT = 'http://54.219.143.67:5001/recent_tutor';
 
 const HomePage = () => {
   const [recentTutors, setRecentTutors] = useState([]);
 
   useEffect(() => {
-    // Make API call to fetch recent tutors
-    fetch('http://54.219.143.67:5001/recent_tutor')
+    fetch(API_ENDPOINT)
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Failed to fetch recent tutors');
         }
         return response.json();
       })
@@ -24,7 +25,7 @@ const HomePage = () => {
       <div className="hero">
         <div className="featureContent">
           <h1 className="titles">Welcome to San Francisco State's tutoring management platform.</h1>
-          <br></br>
+          <br />
           <h4>Tutoring for SFSU students by SFSU students.</h4>
           <p className="sectionText">
             Elevate your academic journey with our tutoring platform exclusively designed
@@ -55,33 +56,29 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* New Section: Why Choose Our Tutoring Platform? */}
-      <div className="feature-background section0">
+      <div className="feature-background why-choose-us">
         <div className="featureContent">
           <h1 className="titles">Why Choose Us?</h1>
           <div className="benefitsContainer">
-            {/* Benefit 1 */}
             <div className="benefitItem">
-              <h3>Personalized Learning</h3>
-              <p>Get personalized tutoring sessions tailored to your specific needs and learning style.</p>
+              <h3>Student-Led Development</h3>
+              <p>Experience a tutoring platform developed by SFSU students, ensuring a student-centric design and features that cater specifically to the needs of the SFSU community.</p>
             </div>
 
-            {/* Benefit 2 */}
             <div className="benefitItem">
-              <h3>Expert Tutors</h3>
-              <p>Connect with experienced tutors who have excelled in their respective subjects.</p>
+              <h3>Peer-to-Peer Excellence</h3>
+              <p>Connect with high-achieving SFSU students who have excelled in the same courses, offering peer-to-peer tutoring that goes beyond traditional approaches.</p>
             </div>
 
-            {/* Benefit 3 */}
             <div className="benefitItem">
-              <h3>Convenient and Flexible</h3>
-              <p>Access tutoring sessions at your convenience from the comfort of your home.</p>
+              <h3>Opportunities for Growth</h3>
+              <p>Become a tutor and share your expertise with fellow students, contributing to the academic success of the SFSU community and gaining valuable teaching experience.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="feature-background section1">
+      <div className="feature-background meet-our-tutors">
         <div className="featureContent">
           <h1 className="titles">Meet our newest tutors</h1>
           <div className="recentTutorsContainer">
@@ -100,7 +97,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="feature-background section2">
+      <div className="feature-background become-a-tutor">
         <div className="featureContent">
           <h1 className="titles">Want to be a tutor?</h1>
           <p className="sectionText">
@@ -109,7 +106,7 @@ const HomePage = () => {
 
             Consider becoming a tutor with us!
           </p>
-          <br></br>
+          <br />
           <Link to="/apply">
             <Button variant="primary" size="lg">
               Become a Tutor

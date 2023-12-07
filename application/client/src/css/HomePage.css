@@ -1,7 +1,7 @@
 /* HomePage.css */
 
 .homeContent {
-  margin: -24px auto; /* Adjust as needed */
+  margin: -24px auto;
   background-color: #e5f2ff;
   padding: 20px;
 }
@@ -26,6 +26,14 @@
 
 .button-row {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.button-row a {
+  flex: 1;
+  margin: 0 5px;
+  max-width: 200px; /* Set a maximum width for the buttons */
 }
 
 .benefitsContainer {
@@ -36,7 +44,7 @@
 }
 
 .benefitItem {
-  flex: 0 0 30%; /* Adjust the width of each benefit item */
+  flex: 0 0 30%;
   margin: 10px;
   padding: 20px;
   border: 1px solid #ddd;
@@ -53,8 +61,8 @@
   color: #666;
 }
 
-.section0 {
-  background-color: #ffff; /* Set the background color */
+.why-choose-us {
+  background-color: #ffff;
   padding: 50px;
   padding-top: 75px;
   padding-bottom: 75px;
@@ -63,17 +71,17 @@
   text-align: center;
 }
 
-.section1 {
+.meet-our-tutors {
   background-color: #f2f2f2;
   padding: 50px;
   padding-top: 50px;
   padding-bottom: 50px;
   text-align: center;
-  margin-left: -20px; /* Counteract the left padding of .content */
-  margin-right: -20px; /* Counteract the right padding of .content */
+  margin-left: -20px;
+  margin-right: -20px;
 }
 
-.section2 {
+.become-a-tutor {
   background-color: #e5f2ff;
   padding: 50px;
   padding-top: 75px;
@@ -82,7 +90,7 @@
 }
 
 .sectionText {
-  padding:20px;
+  padding: 20px;
   max-width: 950px;
   margin: 0 auto;
 }
@@ -122,11 +130,81 @@
 .recentTutorCard h3,
 .recentTutorCard .card-title {
   color: #333;
-  text-align: left; /* Left-align the heading */
+  text-align: left;
 }
 
 .recentTutorCard p {
   margin: 8px 0;
   color: #666;
-  text-align: left; /* Left-align the paragraphs */
+  text-align: left;
+}
+
+@media screen and (max-width: 767px) {
+  .homeContent {
+    margin: 0 auto;
+    padding: 10px; /* Add padding to avoid edges of the screen */
+  }
+
+  .hero {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .button-row {
+    flex-direction: column; /* Display buttons in a column on small screens */
+    align-items: center;
+  }
+
+  .button-row a {
+    flex: 1;
+    margin: 0 5px;
+    max-width: 100%;
+    margin-bottom: 10px; /* Add bottom margin between buttons */
+  }
+
+  .benefitsContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .benefitItem {
+    flex: 0 0 90%; /* Adjust width as needed */
+    margin: 10px;
+  }
+
+  .recentTutorsContainer {
+    flex-direction: column;
+    align-items: left; /* Left-align all items in the recent tutors container */
+  }
+
+  .recentTutorCard {
+    width: 100%; /* Adjust width as needed */
+    margin: 0 auto 20px;
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+    flex-direction: column;
+  }
+
+  .recentTutorCard img {
+    max-width: 100%; /* Adjust the maximum width of the images */
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    align-self: center;
+  }
+
+  .recentTutorCard div {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text */
+  }
+
+  .recentTutorCard h3,
+  .recentTutorCard .card-title,
+  .recentTutorCard p {
+    color: #333;
+    text-align: center; /* Center text in each card */
+    max-width: 100%;
+    padding: 0 10px; /* Add padding to prevent text from sticking to the edges */
+  }
 }
