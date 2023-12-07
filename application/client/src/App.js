@@ -39,32 +39,31 @@ class App extends Component {
 
   render() {
     return (
-      
         <div className="App">
           <header className="App-header">
             <NavigationBar />
           </header>
-          <br />
+          <div className="content">
+            <Routes>
+              <Route exact path="/" element={<Home />} /> 
+              { <Route path="/login" element={<Login />} /> }
+              <Route path="/Registration" element={<Registration />} />
 
-          <Routes>
-            <Route exact path="/" element={<Home />} /> 
-            { <Route path="/login" element={<Login />} /> }
-            <Route path="/Registration" element={<Registration />} />
+              <Route exact path="/" element={<SearchComponent />} />
 
-            <Route exact path="/" element={<SearchComponent />} />
+              { <Route path="/login" element={<Login />} /> }
+              <Route path="/register" element={<Registration />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/akshat" element={<Akshat />} />
+              <Route path="/aakanksha" element={<Aakanksha />} />
+              <Route path="/andy" element={<Andy />} />
+              <Route path="/azi" element={<Azi />} />
+              <Route path="/charter" element={<Charter />} />
+              <Route path="/jorge" element={<Jorge />} />
+            </Routes>
+            <p className="App-intro">{this.state.home}</p>
+          </div>
 
-            { <Route path="/login" element={<Login />} /> }
-            <Route path="/register" element={<Registration />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/akshat" element={<Akshat />} />
-            <Route path="/aakanksha" element={<Aakanksha />} />
-            <Route path="/andy" element={<Andy />} />
-            <Route path="/azi" element={<Azi />} />
-            <Route path="/charter" element={<Charter />} />
-            <Route path="/jorge" element={<Jorge />} />
-          </Routes>
-
-          <p className="App-intro">{this.state.home}</p>
           <Footer />
         </div>
     );
