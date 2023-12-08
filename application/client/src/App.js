@@ -27,17 +27,6 @@ class App extends Component {
     this.state = { apiResponse: "" };
   }
 
-  callHome() {
-    fetch("http://54.219.143.67")
-      .then(res => res.text())
-      .then(res => this.setState({ home: res }))
-      .catch(err => err);
-  }
-
-  componentWillMount() {
-    this.callHome();
-  }
-
   render() {
     return (
       <div className="App">
