@@ -1,5 +1,3 @@
-// TutorPage.js
-
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import defaultProfilePicture from "../img/DefaultProfile.jpeg";
@@ -9,11 +7,12 @@ function TutorPage() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [message, setMessage] = useState("");
   const [messageSent, setMessageSent] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const tutorInfo = {
     name: "Tutor Name",
     topic: "Math",
-    description: "Tutor for various math courses",
+    description: "Experienced in Math topics",
     picture: null,
     video: null,
   };
@@ -25,6 +24,13 @@ function TutorPage() {
   };
 
   const handleSendMessage = () => {
+    // Check if the message is not empty
+    if (!message.trim()) {
+      // If the message is empty, set an error message
+      setErrorMessage("Please enter a message before sending.");
+      return;
+    }
+
     // Add logic to send the message to the tutor (e.g., using an API)
     console.log("Message sent:", message);
 
@@ -32,6 +38,7 @@ function TutorPage() {
     setMessage("");
     setShowContactForm(false);
     setMessageSent(true);
+    setErrorMessage(""); // Clear the error message
 
     // Reset the success message after a delay (e.g., 3 seconds)
     setTimeout(() => {
@@ -40,9 +47,10 @@ function TutorPage() {
   };
 
   const handleCancel = () => {
-    // Clear the message input and hide the contact form
+    // Clear the message input, hide the contact form, and clear the error message
     setMessage("");
     setShowContactForm(false);
+    setErrorMessage("");
   };
 
   return (
@@ -55,8 +63,8 @@ function TutorPage() {
           <div className="col-md-8">
             <h1 className="display-4">{tutorInfo.name}</h1>
             <p className="lead">
-              <strong>Topic:</strong> {tutorInfo.topic}<br />
-              <strong>Description:</strong> {tutorInfo.description}
+              <strong>Topic:</strong> <br />{tutorInfo.topic}<br /><br />
+              <strong>Description:</strong> <br />{tutorInfo.description}<br /><br />
             </p>
             {tutorInfo.video && (
               <div className="row justify-content-center mt-4">
@@ -69,21 +77,22 @@ function TutorPage() {
                 </div>
               </div>
             )}
+            <br /><br />
+            <div className="contact-section mt-4">
+              <button className="btn btn-primary contact-button" onClick={handleContactButtonClick}>
+                Contact Tutor
+              </button>
+            </div>
           </div>
         </div>
-        
-        {/* Contact button added here */}
-        <div className="contact-section mt-4">
-          <button className="btn btn-primary contact-button" onClick={handleContactButtonClick}>
-            Contact Tutor
-          </button>
-        </div>
       </div>
-
-      {/* Separate container for the send message feature */}
       <div className={`container mt-4 ${showContactForm ? 'visible' : 'hidden'}`}>
         {showContactForm && (
           <div className="contact-form mt-3">
+            <p className="text-muted">
+              Please provide your contact information in the message so the tutor 
+              can reach out to you.
+            </p>
             <textarea
               className="form-control"
               rows="4"
@@ -91,12 +100,17 @@ function TutorPage() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             ></textarea>
-            <button className="btn btn-secondary mt-4 cancel-button" onClick={handleCancel}>
-              Cancel
-            </button>
-            <button className="btn btn-primary mt-4 send-button" onClick={handleSendMessage}>
-              Send
-            </button>
+            {errorMessage && (
+              <div className="alert alert-danger mt-2">{errorMessage}</div>
+            )}
+            <div className="button-row mt-3">
+              <button className="btn btn-secondary cancel-button" onClick={handleCancel}>
+                Cancel
+              </button>
+              <button className="btn btn-primary send-button" onClick={handleSendMessage}>
+                Send
+              </button>
+            </div>
           </div>
         )}
       </div>
