@@ -22,7 +22,7 @@ const connection = mysql.createConnection({
   host: '54.219.143.67',
   port: '3306',
   database: 'tutor_database',
-  user: 'root',
+  user: 'your_user',
   password: 'your_password'
 });
 
