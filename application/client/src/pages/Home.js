@@ -1,3 +1,5 @@
+// HomePage.js
+
 import React, { useState, useEffect } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -83,15 +85,20 @@ const HomePage = () => {
           <h1 className="titles">Meet our newest tutors</h1>
           <div className="recentTutorsContainer">
             {recentTutors.map((tutor, index) => (
-              <Card key={index} className="recentTutorCard">
-                <Card.Img variant="top" src={tutor.profilePicture} alt={tutor.tutorName} />
-                <Card.Body>
-                  <Card.Title>{tutor.tutorName}</Card.Title>
-                  <Card.Text>Description: {tutor.description}</Card.Text>
-                  <Card.Text>Topic: {tutor.topicName}</Card.Text>
-                  <Card.Text>Resume: {tutor.resume}</Card.Text>
-                </Card.Body>
-              </Card>
+              <Link to="/tutor" key={index} className="recentTutorLink">
+                <div key={index} className="recentTutorCard">
+                  <img
+                    src={tutor.profilePicture}
+                    alt={tutor.tutorName}
+                  />
+                  <div>
+                    <h3>{tutor.tutorName}</h3>
+                    <p>Topic: {tutor.topicName}</p>
+                    <p>Description:</p>
+                    <p>{tutor.description}</p>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -118,4 +125,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default HomePage; 
