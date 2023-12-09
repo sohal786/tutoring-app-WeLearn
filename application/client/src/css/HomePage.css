@@ -1,7 +1,7 @@
 /* HomePage.css */
 
 .homeContent {
-  margin: -24px auto;
+  margin: 0 auto;
   background-color: #e5f2ff;
   padding: 20px;
 }
@@ -33,7 +33,7 @@
 .button-row a {
   flex: 1;
   margin: 0 5px;
-  max-width: 200px; /* Set a maximum width for the buttons */
+  max-width: 200px; 
 }
 
 .benefitsContainer {
@@ -102,6 +102,11 @@
   justify-content: center;
 }
 
+.recentTutorLink {
+  text-decoration: none;
+  width: 100%;
+}
+
 .recentTutorCard {
   border: 1px solid #ddd;
   padding: 10px;
@@ -142,7 +147,7 @@
 @media screen and (max-width: 767px) {
   .homeContent {
     margin: 0 auto;
-    padding: 10px; /* Add padding to avoid edges of the screen */
+    padding: 10px; 
   }
 
   .welcomeSection {
@@ -151,7 +156,7 @@
   }
 
   .button-row {
-    flex-direction: column; /* Display buttons in a column on small screens */
+    flex-direction: column; 
     align-items: center;
   }
 
@@ -159,7 +164,7 @@
     flex: 1;
     margin: 0 5px;
     max-width: 100%;
-    margin-bottom: 10px; /* Add bottom margin between buttons */
+    margin-bottom: 10px; 
   }
 
   .benefitsContainer {
@@ -168,24 +173,24 @@
   }
 
   .benefitItem {
-    flex: 0 0 90%; /* Adjust width as needed */
+    flex: 0 0 90%; 
     margin: 10px;
   }
 
   .recentTutorsContainer {
     flex-direction: column;
-    align-items: left; /* Left-align all items in the recent tutors container */
+    align-items: left; 
   }
 
   .recentTutorCard {
-    width: 100%; /* Adjust width as needed */
+    width: 100%; 
     margin: 0 auto 20px;
-    box-sizing: border-box; /* Ensure padding and border are included in width */
+    box-sizing: border-box; 
     flex-direction: column;
   }
 
   .recentTutorCard img {
-    max-width: 100%; /* Adjust the maximum width of the images */
+    max-width: 100%;
     height: auto;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -195,16 +200,16 @@
   .recentTutorCard div {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center items horizontally */
-    text-align: center; /* Center text */
+    align-items: center; 
+    text-align: center; 
   }
 
   .recentTutorCard h3,
   .recentTutorCard .card-title,
   .recentTutorCard p {
     color: #333;
-    text-align: center; /* Center text in each card */
+    text-align: center;
     max-width: 100%;
-    padding: 0 10px; /* Add padding to prevent text from sticking to the edges */
+    padding: 0 10px;
   }
 }
