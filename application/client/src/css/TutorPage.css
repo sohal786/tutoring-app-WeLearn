@@ -1,26 +1,87 @@
 /* TutorProfile.css */
 
-.tutor-profile-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .profile-heading {
+.container {
+  max-width: 75%;
+  margin-top: 50px;
+  padding: 20px;
+  border: 1px solid #ced4da;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.col-md-4 {
+  text-align: center;
+}
+
+/* Image styles */
+.img-fluid {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ced4da;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* Added border-radius for rounded corners */
+}
+
+.col-md-8 {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align content to the start of the column */
+}
+
+h1.display-4 {
+  width: 100%; /* Use the full width of the column */
+  margin: 0 0 15px; /* Remove the margin-left and set bottom margin */
+  border-bottom: 0.5px solid #ccc;
+  padding-bottom: 15px;
+}
+
+p.lead {
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+.contact-section {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.contact-button {
+  margin-right: 10px;
+  padding: 10px 20px;
+}
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.cancel-button,
+.send-button {
+  margin: 0; /* Remove default margin */
+  padding: 10px 20px; /* Adjust padding as needed */
+}
+
+.alert-success {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #28a745;
+  border-radius: 5px;
+  background-color: #d4edda;
+  color: #155724;
+}
+
+@media (max-width: 767px) {
+  .col-md-4,
+  .col-md-8 {
     text-align: center;
   }
-  
-  .profile-section {
-    margin-top: 20px;
-  }
-  
-  .profile-picture {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-  }
-  
-  .video-container {
-    margin-top: 20px;
-  }
-  
+}

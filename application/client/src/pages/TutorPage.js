@@ -1,42 +1,110 @@
 // TutorPage.js
-import React from "react";
-import '../css/TutorPage.css';
+
+import React, { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import defaultProfilePicture from "../img/DefaultProfile.jpeg";
+import '../css/TutorPage.css'; // Import your modified CSS file
 
 function TutorPage() {
-  // Assume you have the tutor's information from the database
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageSent, setMessageSent] = useState(false);
+
   const tutorInfo = {
     name: "Tutor Name",
     topic: "Math",
     description: "Tutor for various math courses",
-    picture: null, // Replace with the actual picture URL or data (if available)
-    video: null,   // Replace with the actual video URL or data (if available)
+    picture: null,
+    video: null,
   };
 
-  // Use the default profile picture if tutorInfo.picture is null
   const profilePicture = tutorInfo.picture || defaultProfilePicture;
 
+  const handleContactButtonClick = () => {
+    setShowContactForm(!showContactForm);
+  };
+
+  const handleSendMessage = () => {
+    // Add logic to send the message to the tutor (e.g., using an API)
+    console.log("Message sent:", message);
+
+    // Clear the message input, hide the contact form, and set the success message
+    setMessage("");
+    setShowContactForm(false);
+    setMessageSent(true);
+
+    // Reset the success message after a delay (e.g., 3 seconds)
+    setTimeout(() => {
+      setMessageSent(false);
+    }, 3000);
+  };
+
+  const handleCancel = () => {
+    // Clear the message input and hide the contact form
+    setMessage("");
+    setShowContactForm(false);
+  };
+
   return (
-    <div className="tutor-profile-container">
-      <h1 className="profile-heading">{tutorInfo.name}'s Profile</h1>
-
-      <div className="profile-section">
-        <h2>Topic: {tutorInfo.topic}</h2>
-        <p>Description: {tutorInfo.description}</p>
+    <div>
+      <div className="container mt-4">
+        <div className="row">
+          <div className="col-md-4">
+            <img src={profilePicture} alt="Profile" className="img-fluid rounded" />
+          </div>
+          <div className="col-md-8">
+            <h1 className="display-4">{tutorInfo.name}</h1>
+            <p className="lead">
+              <strong>Topic:</strong> {tutorInfo.topic}<br />
+              <strong>Description:</strong> {tutorInfo.description}
+            </p>
+            {tutorInfo.video && (
+              <div className="row justify-content-center mt-4">
+                <div className="col-md-12">
+                  <h2>Video</h2>
+                  <video width="100%" controls>
+                    <source src={tutorInfo.video} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {/* Contact button added here */}
+        <div className="contact-section mt-4">
+          <button className="btn btn-primary contact-button" onClick={handleContactButtonClick}>
+            Contact Tutor
+          </button>
+        </div>
       </div>
 
-      <div className="profile-section">
-        <h2>Profile Picture</h2>
-        <img src={profilePicture} alt="Profile" className="profile-picture" />
+      {/* Separate container for the send message feature */}
+      <div className={`container mt-4 ${showContactForm ? 'visible' : 'hidden'}`}>
+        {showContactForm && (
+          <div className="contact-form mt-3">
+            <textarea
+              className="form-control"
+              rows="4"
+              placeholder="Type your message..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            ></textarea>
+            <button className="btn btn-secondary mt-4 cancel-button" onClick={handleCancel}>
+              Cancel
+            </button>
+            <button className="btn btn-primary mt-4 send-button" onClick={handleSendMessage}>
+              Send
+            </button>
+          </div>
+        )}
       </div>
 
-      {tutorInfo.video && (
-        <div className="profile-section video-container">
-          <h2>Video</h2>
-          <video width="400" controls>
-            <source src={tutorInfo.video} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+      {/* Display success message */}
+      {messageSent && (
+        <div className="container mt-4 alert alert-success">
+          Message sent successfully! Thank you.
         </div>
       )}
     </div>
@@ -44,4 +112,3 @@ function TutorPage() {
 }
 
 export default TutorPage;
-  
