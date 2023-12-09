@@ -19,13 +19,11 @@ const port = 5001;
 const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
-  // host: '54.219.143.67',
-  host: '127.0.0.1',
+  host: '54.219.143.67',
   port: '3306',
   database: 'tutor_database',
   user: 'root',
-  password: 'andy0115'
-  // password: 'your_password'
+  password: 'your_password'
 });
 
 //these were for testing routes
