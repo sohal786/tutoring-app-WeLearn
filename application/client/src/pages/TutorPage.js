@@ -65,8 +65,9 @@ function TutorPage() {
             <p className="lead">
               <strong>Topic:</strong> <br />{tutorInfo.topic}<br /><br />
               <strong>Description:</strong> <br />{tutorInfo.description}<br /><br />
+              <strong>Video:</strong>
             </p>
-            {tutorInfo.video && (
+            {tutorInfo.video ? (
               <div className="row justify-content-center mt-4">
                 <div className="col-md-12">
                   <h2>Video</h2>
@@ -76,6 +77,8 @@ function TutorPage() {
                   </video>
                 </div>
               </div>
+            ) : (
+              <p className="text-muted">No video provided</p>
             )}
             <br /><br />
             <div className="contact-section mt-4">
