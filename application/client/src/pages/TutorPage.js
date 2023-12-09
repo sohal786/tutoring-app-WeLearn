@@ -1,8 +1,10 @@
 // TutorPage.js
 import React from "react";
+import '../css/TutorPage.css';
+import defaultProfilePicture from "../img/DefaultProfile.jpeg";
 
 function TutorPage() {
-  // Assume you have the tutor's information from database
+  // Assume you have the tutor's information from the database
   const tutorInfo = {
     name: "Tutor Name",
     topic: "Math",
@@ -10,6 +12,9 @@ function TutorPage() {
     picture: null, // Replace with the actual picture URL or data (if available)
     video: null,   // Replace with the actual video URL or data (if available)
   };
+
+  // Use the default profile picture if tutorInfo.picture is null
+  const profilePicture = tutorInfo.picture || defaultProfilePicture;
 
   return (
     <div className="tutor-profile-container">
@@ -22,11 +27,7 @@ function TutorPage() {
 
       <div className="profile-section">
         <h2>Profile Picture</h2>
-        {tutorInfo.picture ? (
-          <img src={tutorInfo.picture} alt="Profile" className="profile-picture" />
-        ) : (
-          <p>No profile picture available</p>
-        )}
+        <img src={profilePicture} alt="Profile" className="profile-picture" />
       </div>
 
       {tutorInfo.video && (
