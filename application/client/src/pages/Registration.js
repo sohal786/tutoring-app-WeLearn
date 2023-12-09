@@ -70,6 +70,28 @@ const Registration = () => {
     }
   };
 
+  
+  
+
+  async function sendRegisterInfo(e){
+    e.preventDefault()
+    if (fullName=='' || email == '' || password == '') {return}
+    try {
+      const res = await fetch('http://localhost:5001/sendRegister',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {fullName, email, password}
+        })
+      })
+    }catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
   return (
     <div className="loginContainer">
       <h2 className="mb-4">Registration</h2>
@@ -173,7 +195,7 @@ const Registration = () => {
           Passwords must be 8-20 characters long and contain one uppercase letter, one special character (!@#$%^&*), and one number.
         </div>
 
-        <Button type="submit" className="btn btn-primary">
+        <Button type="submit" className="btn btn-primary" onClick={sendRegisterInfo}>
           Submit
         </Button>
       </Form>

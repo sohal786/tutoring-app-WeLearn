@@ -19,11 +19,13 @@ const port = 5001;
 const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
-  host: '54.219.143.67',
+  // host: '54.219.143.67',
+  host: '127.0.0.1',
   port: '3306',
   database: 'tutor_database',
-  user: 'your_user',
-  password: 'your_password'
+  user: 'root',
+  password: 'andy0115'
+  // password: 'your_password'
 });
 
 //these were for testing routes
@@ -172,6 +174,62 @@ app.get("/recent_tutor", (req,res) =>{
   )
 });
 
+
+app.post("/sendregister", (req,res)=>{
+  const {data} = req.body;
+  const jsonstring = JSON.stringify(data);
+  const jsondata = JSON.parse(jsonstring);
+  console.log(jsondata.fullName);
+  console.log(jsondata.email);
+  console.log(jsondata.password);
+  var username = jsondata.fullName;
+  var email = jsondata.email;
+  var pass = jsondata.password;
+  
+  connection.query(
+    `INSERT INTO tutor_database.users (user_name, email, password) VALUES (?, ?, ?)`, [username, email, pass], (error, results, fields) => {
+      if(error) {
+        console.error('Error while inserting data:', error);
+        return;
+      }
+      if(results.length === 0){
+        console.log('register Fail:', results);
+      }
+      else{
+        console.log('register success:', results);
+      }
+    }
+  )
+})
+
+
+
+
+
+app.post("/sendLogin", (req,res)=>{
+  const {data} = req.body;
+  const jsonstring = JSON.stringify(data);
+  const jsondata = JSON.parse(jsonstring);
+  console.log(jsondata.email);
+  console.log(jsondata.password);
+  var email = jsondata.email;
+  var pass = jsondata.password;
+  
+  connection.query(
+    `SELECT * FROM tutor_database.users WHERE email = ? AND password = ?`, [email, pass], (error, results, fields) => {
+      if(error) {
+        console.error('Error while checking login data:', error);
+        return;
+      }
+      if(results.length === 0){
+        console.log('Login Fail:', results);
+      }
+      else{
+        console.log('Login success:', results);
+      }
+    }
+  ) 
+})
 
 
 app.listen(port,()=> {

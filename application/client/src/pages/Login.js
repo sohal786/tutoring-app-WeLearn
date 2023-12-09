@@ -50,6 +50,27 @@ const LoginPage = () => {
     }
   };
 
+
+  async function sendLoginInfo(e){
+    e.preventDefault()
+    if (email == '' || password == '') {return}
+    try {
+      const res = await fetch('http://localhost:5001/sendLogin',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {email, password}
+        })
+      })
+    }catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+
   return (
     <div className="loginContainer">
       <h1 className="mb-4">Hello.</h1>
@@ -103,7 +124,7 @@ const LoginPage = () => {
           <br></br>
           <br></br>
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" onClick={sendLoginInfo}>
             Log in
           </Button>
         </Form.Group>

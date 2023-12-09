@@ -50,7 +50,7 @@ class App extends Component {
             <Route path="/jorge" element={<Jorge />} />
           </Routes>
 
-        <p className="App-intro">{this.state.home}</p>
+        {/* <p className="App-intro">{this.state.home}</p> */}
         <Footer />
       </div>
     );
