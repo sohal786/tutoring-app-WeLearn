@@ -52,13 +52,6 @@ app.use(express.json());
 // app.use("/testAPI", testAPIRouter);
 // app.use("/home", homeRouter);
 
-//delete this
-/*
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
-*/
 // // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -85,71 +78,6 @@ app.get("/topic", (req,res) =>{
     }
   )
 });
-
-//delete this
-/*
-// app.get("/search", (req, res) => {
-//   console.log('hi');
-//   const searchCategory = req.query.category;
-//   const searchTerm = req.query.searchTerm;
-
-//   console.log('Received request with category:', searchCategory);
-//   console.log('Received request with searchTerm:', searchTerm);
-
-//   // Define query and queryValues outside of if conditions
-//   let query = 'SELECT * FROM tutor_database.tutor_table';
-//   const queryValues = [];
-
-//   if (searchCategory) {
-//     // First, query the topic_table to get the corresponding topic_id.
-//     connection.query(
-//       "SELECT Topic_ID FROM tutor_database.topic_table WHERE Topic_Name = ?",
-//       [searchCategory],
-//       function (err, topicResults) {
-//         if (err) {
-//           console.error(err);
-//           res.status(500).json({ error: 'An error occurred' });
-//         } else {
-//           const topicId = topicResults[0] ? topicResults[0].Topic_ID : null;
-
-//           if (topicId) {
-//             // Use the obtained topic_id to search the tutor_table.
-//             query = 'SELECT * FROM tutor_database.tutor_table WHERE Topic_ID = ?';
-//             queryValues.push(topicId);
-//           }
-//         }
-
-//         handleQuery();
-//       }
-//     );
-//   } else {
-//     handleQuery();
-//   }
-*/
-
-
-//delete this
-/*
-//   function handleQuery() {
-//     if (searchTerm) {
-//       query += ' AND description LIKE ?';
-//       queryValues.push(`%${searchTerm}%`);
-//     }
-
-//     console.log('Constructed SQL query:', query, 'with values:', queryValues);
-
-//     connection.query(query, queryValues, (error, results) => {
-//       if (error) {
-//         console.error('Database error:', error);
-//         res.status(500).json({ error: 'An error occurred' });
-//       } else {
-//         // Send the results as JSON
-//         res.json(results);
-//       }
-//     });
-//   }
-// });
-*/
 
 app.get("/search", (req, res) => {
   const searchCategory = req.query.category;

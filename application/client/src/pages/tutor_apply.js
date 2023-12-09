@@ -88,34 +88,21 @@ const TutorApply = () => {
               onChange={handleInputChange}
               required
               style={{ borderColor: fieldStatus.description ? "green" : "red" }}
-              placeholder="Enter a brief description about yourself and the classes you tutor..."
-            />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="course_numbers">
-            <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>
-              Courses: <span style={{ color: "red" }}>*</span>
-            </Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              name="course_numbers"
-              value={formData.course_numbers}
-              onChange={handleInputChange}
-              required
-              style={{ borderColor: fieldStatus.course_numbers ? "green" : "red" }}
-              placeholder="Enter a list of classes by course number (i.e. MATH 225) that you can tutor..."
+              placeholder="Enter a list of classes by course number that you can tutor (i.e. MATH 225, CSC 340, PHYS 220, etc.)."
             />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="resume">
             <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>
               Resume: <span style={{ color: "red" }}>*</span>
+              <span style={{ fontSize: "0.8em", color: "GrayText", display: "block" }}>
+                Accepted formats: PDF
+              </span>
             </Form.Label>
             <Form.Control
               type="file"
               name="resume"
-              accept=".pdf,.doc,.docx"
+              accept=".pdf"
               onChange={handleInputChange}
               required
               style={{ borderColor: fieldStatus.resume ? "green" : "red" }}
@@ -125,10 +112,13 @@ const TutorApply = () => {
 
           <Form.Group className="mb-3" controlId="picture">
             <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>Picture: </Form.Label>
+              <span style={{ fontSize: "0.8em", color: "GrayText", display: "block", textAlign: "left"}}>
+                Accepted formats: PDF, JPG
+              </span>
             <Form.Control
               type="file"
               name="picture"
-              accept="image/*"
+              accept=".pdf,.jpg"
               onChange={handleInputChange}
               style={{ borderColor: fieldStatus.picture ? "green" : "" }}
               placeholder="Picture"
@@ -137,10 +127,13 @@ const TutorApply = () => {
 
           <Form.Group className="mb-3" controlId="video">
             <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>Video: </Form.Label>
+            <span style={{ fontSize: "0.8em", color: "GrayText", display: "block", textAlign: "left"}}>
+                Accepted formats: MP4, MOV
+              </span>
             <Form.Control
               type="file"
               name="video"
-              accept="video/*"
+              accept=".mp4,.mov"
               onChange={handleInputChange}
               style={{ borderColor: fieldStatus.video ? "green" : "" }}
               placeholder="Video"

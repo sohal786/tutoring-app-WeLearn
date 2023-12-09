@@ -1,18 +1,27 @@
 /*Global CSS*/
 
-html {
-   padding: 0;
+html, body {
+   height: 100%;
    margin: 0;
+   padding: 0;
    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Variable', 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 
    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
    sans-serif;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh !important;
+}
+
+.App {
+  height: 100vh;
+}
+
 .content {
-    /* max-width: 75%; */
-    /* margin: 40px auto; */
+    flex-grow: 1;
     padding: 20px;
-    
  }
 
  h1 {
@@ -23,13 +32,53 @@ html {
    font-size: 20px;
  }
 
+ .card {
+  padding: 10px;
+ }
+
+ .card .cardFooter {
+    display:flex;
+    justify-content: end;
+ }
+
+ .contactCard {
+  width: 18rem;
+ }
+
+ .contactContainer {
+  display: flex;
+  gap: 25px;
+ }
+
+ /*Profile image*/
+ .profileImage {
+  border-radius: 100%;
+  max-width: 256px;
+  max-height: 256px;
+ }
+
+ /*User information area*/
+ .userInformationArea {
+  display:flex;
+  align-items: flex-start;
+  gap: 50px;
+ }
+
+ /* Recent messages container */
+ .messageContainer .card{
+  padding: 0px;
+  margin-bottom: 15px;
+ }
+
 /*Navbar*/
 .navbar {
     padding: 20px;
     display: flex;
     align-items: center;
-    max-width: 80%;
+    max-width: 100%;
     margin: 0 auto;
+    margin-left: 10%;
+    margin-right: 10%;
     border-bottom: 1px solid #f2f2f2;
  }
 
@@ -47,27 +96,33 @@ html {
     padding: 6px;
  }
 
+
  /*Homepage*/
+ /*
  .hero, .feature-background {
+  text-align: center;
    background-color: rgb(202, 230, 255);
    /* background: url("../img/Paper Planes.jpg");
-   background-position: -30px -150px; */
+   background-position: -30px -150px; 
    width: 100%;
    height:35vh auto;
    border-radius: 20px;
    padding: 25px;
    padding: 0 !important;
    margin: 0 !important;
- }
+ } */
  /*Reusable Components*/
+ /*
  .feature-background {
    background-color: rgb(236, 236, 236);
- }
+ } */
 
+ /*
   .featureContent {
    margin: 50px 30px;
    padding: 50px;
  }
+ */
 
  /*Flex*/
  button {
@@ -76,7 +131,8 @@ html {
 
  /*Login form*/
  .loginContainer {
-   text-align: center;
+  margin-top: 30px;
+  text-align: center;
  }
 
  .loginForm {
