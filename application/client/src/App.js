@@ -9,7 +9,6 @@ import HomePage from "./pages/Home.js";
 import TutorApply from "./pages/tutor_apply.js";
 import Login from './pages/Login'; // If you have a login component
 import Registration from './pages/Registration';
-import TutorPage from "./pages/TutorPage.js";
 import AboutPage from './pages/About';
 import Akshat from "./pages/akshat.js";
 import Aakanksha from "./pages/aakanksha.js";
@@ -36,7 +35,6 @@ class App extends Component {
         </header>
           <Routes>
             <Route exact path="/" element={<HomePage />} />
-            <Route path="/tutor" element={TutorPage} />
             <Route path="/apply" element={<TutorApply />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Registration />} />
