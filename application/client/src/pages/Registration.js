@@ -65,6 +65,7 @@ const Registration = () => {
     if (validateForm()) {
       console.log("[OK] Form validation success");
       // Add your registration logic here
+      sendRegisterInfo()
     } else {
       console.log("[ERROR] Form validation failure");
     }
@@ -73,8 +74,8 @@ const Registration = () => {
   
   
 
-  async function sendRegisterInfo(e){
-    e.preventDefault()
+  async function sendRegisterInfo(){
+    // e.preventDefault()
     if (fullName=='' || email == '' || password == '') {return}
     try {
       const res = await fetch('http://localhost:5001/sendRegister',
@@ -87,6 +88,12 @@ const Registration = () => {
           data: {fullName, email, password}
         })
       })
+      if(res.ok){
+        console.log('register was successful')
+        //switch page
+      }else{
+        console.log('register has failed')
+      }
     }catch (error) {
       console.error('Error:', error);
     }
@@ -195,7 +202,7 @@ const Registration = () => {
           Passwords must be 8-20 characters long and contain one uppercase letter, one special character (!@#$%^&*), and one number.
         </div>
 
-        <Button type="submit" className="btn btn-primary" onClick={sendRegisterInfo}>
+        <Button type="submit" className="btn btn-primary">
           Submit
         </Button>
       </Form>

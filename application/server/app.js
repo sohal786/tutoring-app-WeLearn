@@ -190,17 +190,14 @@ app.post("/sendregister", (req,res)=>{
     `INSERT INTO tutor_database.users (user_name, email, password) VALUES (?, ?, ?)`, [username, email, pass], (error, results, fields) => {
       if(error) {
         console.error('Error while inserting data:', error);
+        res.status(500).json({success: false});
         return;
       }
-      if(results.length === 0){
-        console.log('register Fail:', results);
+      console.log('register success:', results);
+      res.status(200).json({success: true});
       }
-      else{
-        console.log('register success:', results);
-      }
-    }
-  )
-})
+    );
+  });
 
 
 
@@ -223,9 +220,11 @@ app.post("/sendLogin", (req,res)=>{
       }
       if(results.length === 0){
         console.log('Login Fail:', results);
+        res.json({success: false})
       }
       else{
         console.log('Login success:', results);
+        res.json({success:true, email: email, pass: pass})
       }
     }
   ) 

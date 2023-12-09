@@ -39,12 +39,23 @@ const LoginPage = () => {
     return isValid;
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
 
     if (validateForm()) {
       console.log("[OK] Form validation success");
       // Add your login logic here
+      try{
+        const res = await sendLoginInfo();
+        if(res.success){
+          console.log("[Success] Login successful");
+          //switch to another page when login was successful
+        } else {
+          console.log("[ERROR] Login failed");
+        }
+      } catch (error) {
+        console.error("Error occured during login:", error);
+      }
     } else {
       console.log("[ERROR] Form validation failure");
     }
@@ -52,7 +63,7 @@ const LoginPage = () => {
 
 
   async function sendLoginInfo(e){
-    e.preventDefault()
+    // e.preventDefault()
     if (email == '' || password == '') {return}
     try {
       const res = await fetch('http://localhost:5001/sendLogin',
@@ -65,8 +76,11 @@ const LoginPage = () => {
           data: {email, password}
         })
       })
+      if(!res.ok){
+        throw new Error('Network response was not ok.')
+      } return await res.json();
     }catch (error) {
-      console.error('Error:', error);
+      throw new Error('Error sending login info: ' + error.message);
     }
   }
 
@@ -124,7 +138,7 @@ const LoginPage = () => {
           <br></br>
           <br></br>
 
-          <Button variant="primary" type="submit" onClick={sendLoginInfo}>
+          <Button variant="primary" type="submit">
             Log in
           </Button>
         </Form.Group>
