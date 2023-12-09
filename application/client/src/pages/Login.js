@@ -55,7 +55,7 @@ const LoginPage = () => {
     e.preventDefault()
     if (email == '' || password == '') {return}
     try {
-      const res = await fetch('http://localhost:5001/sendLogin',
+      const res = await fetch('http://54.219.143.67:5001/sendLogin',
       {
         method: 'POST',
         headers: {
