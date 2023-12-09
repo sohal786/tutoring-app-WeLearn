@@ -85,7 +85,7 @@ const HomePage = () => {
           <h1 className="titles">Meet our newest tutors</h1>
           <div className="recentTutorsContainer">
             {recentTutors.map((tutor, index) => (
-              <Link to="/tutor" key={index} className="recentTutorLink">
+              <Link to="/tutor" key={index} className="recentTutorLink" target="_blank" rel="noopener noreferrer">
                 <div key={index} className="recentTutorCard">
                   <img
                     src={tutor.profilePicture}

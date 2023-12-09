@@ -76,7 +76,7 @@ function SearchComponent() {
 
             <div style={{ marginTop: '20px', width: '100%' }}> {/* Ajustamos el ancho del contenedor de las tarjetas */}
                 {results.map((result, index) => (
-                    <Link to="/tutor">
+                    <Link to="/tutor" target="_blank" rel="noopener noreferrer">
                         <div key={index} style={cardStyle}>
                             <img
                                 src={result.profilePicture}
