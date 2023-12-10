@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button, FloatingLabel, Modal } from 'react-bootstrap';
 
+const backend_api = "54.219.143.67"
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -66,16 +68,7 @@ const LoginPage = () => {
     // e.preventDefault()
     if (email == '' || password == '') {return}
     try {
-      const res = await fetch('http://54.219.143.67:5001/sendLogin',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          data: {email, password}
-        })
-      })
+      const res = await fetch(backend_api + '/sendLogin?email='+email+'&password='+password);
       if(!res.ok){
         throw new Error('Network response was not ok.')
       } return await res.json();

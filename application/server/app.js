@@ -13,6 +13,7 @@ const corsOptions = {
   origin: '*', 
   optionsSuccessStatus: 200, 
 };
+const bcrypt = require('bcrypt');
 
 app.use(cors(corsOptions)); 
 const port = 5001;
@@ -183,35 +184,38 @@ app.post("/sendregister", (req,res)=>{
   var username = jsondata.fullName;
   var email = jsondata.email;
   var pass = jsondata.password;
-  
-  connection.query(
-    `INSERT INTO tutor_database.users (user_name, email, password) VALUES (?, ?, ?)`, [username, email, pass], (error, results, fields) => {
-      if(error) {
-        console.error('Error while inserting data:', error);
-        res.status(500).json({success: false});
-        return;
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(pass, salt, (err, hash)=> {
+      if(err){
+        console.error(err);
+      }else{
+        console.log('Hashed password', hash);
+        connection.query(
+          `INSERT INTO tutor_database.users (user_name, email, password) VALUES (?, ?, ?)`, [username, email, hash], (error, results, fields) => {
+            if(error) {
+              console.error('Error while inserting data:', error);
+              res.status(500).json({success: false});
+              return;
+            }
+            console.log('register success:', results);
+            res.status(200).json({success: true});
+            }
+          );
       }
-      console.log('register success:', results);
-      res.status(200).json({success: true});
-      }
-    );
+    })
+  })
   });
 
 
 
 
 
-app.post("/sendLogin", (req,res)=>{
-  const {data} = req.body;
-  const jsonstring = JSON.stringify(data);
-  const jsondata = JSON.parse(jsonstring);
-  console.log(jsondata.email);
-  console.log(jsondata.password);
-  var email = jsondata.email;
-  var pass = jsondata.password;
+app.get("/sendLogin", (req,res)=>{
+  const {email, password} = req.query;
+  console.log(email, password)
   
   connection.query(
-    `SELECT * FROM tutor_database.users WHERE email = ? AND password = ?`, [email, pass], (error, results, fields) => {
+    `SELECT password FROM tutor_database.users WHERE email = ?`, [email], (error, results, fields) => {
       if(error) {
         console.error('Error while checking login data:', error);
         return;
@@ -221,8 +225,22 @@ app.post("/sendLogin", (req,res)=>{
         res.json({success: false})
       }
       else{
-        console.log('Login success:', results);
-        res.json({success:true, email: email, pass: pass})
+        var hashedPassword = results[0].password
+        console.log(hashedPassword)
+        bcrypt.compare(password, hashedPassword, (err, isMatch) =>{
+          if(err){
+            console.error('Error while comparing passwords:', err);
+            res.status(500).json({success: false});
+          }else{
+            if(isMatch){
+              console.log('password matches. login success');
+              res.json({success: true});
+            }else{
+              console.log('password does not match. login fail');
+              res.json({success: false});
+            }
+          }
+        })
       }
     }
   ) 
