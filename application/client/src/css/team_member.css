@@ -1,6 +1,8 @@
+
 .container {
     margin-top: 50px;
-    padding: 20px;
+    margin-bottom: 50px;
+    padding: 50px;
     border: 1px solid #ced4da;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
@@ -15,6 +17,7 @@
   }
   
   /* Image styles */
+  
   .img-fluid {
     width: 100%;
     height: auto;
