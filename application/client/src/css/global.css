@@ -129,6 +129,18 @@ html, body {
    margin: 0 10px !important;
  }
 
+ /*Search bar*/
+ .searchBarContainer {
+  margin-top: 20px; 
+  right: 50px;
+  margin-left: 10em;
+ }
+
+ .searchBarResults {
+  margin-top: 20px;
+  width: 100% !important;
+ }
+
  /*Login form*/
  .loginContainer {
   margin-top: 30px;
