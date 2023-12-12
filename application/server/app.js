@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require("cors");
 const multer = require('multer'); // Import multer for file handling
+const bcrypt = require('bcrypt');
 
 const app = express();
 const port = 5001;
@@ -244,6 +245,78 @@ app.post('/apply-tutor', upload.fields([
     }
   });
 });
+
+app.post("/sendregister", (req,res)=>{
+  const {data} = req.body;
+  const jsonstring = JSON.stringify(data);
+  const jsondata = JSON.parse(jsonstring);
+  console.log(jsondata.fullName);
+  console.log(jsondata.email);
+  console.log(jsondata.password);
+  var username = jsondata.fullName;
+  var email = jsondata.email;
+  var pass = jsondata.password;
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(pass, salt, (err, hash)=> {
+      if(err){
+        console.error(err);
+      }else{
+        console.log('Hashed password', hash);
+        connection.query(
+          `INSERT INTO tutor_database.users (user_name, email, password) VALUES (?, ?, ?)`, [username, email, hash], (error, results, fields) => {
+            if(error) {
+              console.error('Error while inserting data:', error);
+              res.status(500).json({success: false});
+              return;
+            }
+            console.log('register success:', results);
+            res.status(200).json({success: true});
+            }
+          );
+      }
+    })
+  })
+  });
+
+
+
+
+
+app.get("/sendLogin", (req,res)=>{
+  const {email, password} = req.query;
+  console.log(email, password)
+  
+  connection.query(
+    `SELECT password FROM tutor_database.users WHERE email = ?`, [email], (error, results, fields) => {
+      if(error) {
+        console.error('Error while checking login data:', error);
+        return;
+      }
+      if(results.length === 0){
+        console.log('Login Fail:', results);
+        res.json({success: false})
+      }
+      else{
+        var hashedPassword = results[0].password
+        console.log(hashedPassword)
+        bcrypt.compare(password, hashedPassword, (err, isMatch) =>{
+          if(err){
+            console.error('Error while comparing passwords:', err);
+            res.status(500).json({success: false});
+          }else{
+            if(isMatch){
+              console.log('password matches. login success');
+              res.json({success: true});
+            }else{
+              console.log('password does not match. login fail');
+              res.json({success: false});
+            }
+          }
+        })
+      }
+    }
+  ) 
+})
 
 
 app.listen(port,()=> {

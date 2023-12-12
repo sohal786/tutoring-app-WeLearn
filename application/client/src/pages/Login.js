@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button, FloatingLabel, Modal } from 'react-bootstrap';
 
+const backend_api = "54.219.143.67"
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,16 +41,42 @@ const LoginPage = () => {
     return isValid;
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
 
     if (validateForm()) {
       console.log("[OK] Form validation success");
       // Add your login logic here
+      try{
+        const res = await sendLoginInfo();
+        if(res.success){
+          console.log("[Success] Login successful");
+          //switch to another page when login was successful
+        } else {
+          console.log("[ERROR] Login failed");
+        }
+      } catch (error) {
+        console.error("Error occured during login:", error);
+      }
     } else {
       console.log("[ERROR] Form validation failure");
     }
   };
+
+
+  async function sendLoginInfo(e){
+    // e.preventDefault()
+    if (email == '' || password == '') {return}
+    try {
+      const res = await fetch(backend_api + '/sendLogin?email='+email+'&password='+password);
+      if(!res.ok){
+        throw new Error('Network response was not ok.')
+      } return await res.json();
+    }catch (error) {
+      throw new Error('Error sending login info: ' + error.message);
+    }
+  }
+
 
   return (
     <div className="loginContainer">
