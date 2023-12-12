@@ -9,14 +9,14 @@ html, body {
    sans-serif;
 }
 
-#root {
+.app-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh !important;
+  height: 90vh !important;
 }
 
-.App {
-  height: 100vh;
+.app-main {
+  flex-grow: 1;
 }
 
 .content {
