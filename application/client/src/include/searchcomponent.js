@@ -1,50 +1,29 @@
 import React, { useState } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function SearchComponent() {
     const [searchText, setSearchText] = useState('');
     const [selectedOption, setSelectedOption] = useState('All');
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [results, setResults] = useState([]);
+    const navigate = useNavigate();
+
+    const handleInputChange = (e) => {
+        setSearchText(e.target.value);
+        console.log("Search Text:", e.target.value); // This should log every keystroke in the search input
+    };
 
     const handleSearch = () => {
-        fetch(`http://54.219.143.67:5001/search?category=${selectedOption}&searchTerm=${searchText}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setResults(data);
-            })
-            .catch((error) => {
-                console.error('API error:', error);
-            });
+        console.log("On Search - Text:", searchText, "Option:", selectedOption); 
+        navigate('/search-results', { state: { searchText, selectedOption } });
     };
 
-    const cardStyle = {
-        border: '1px solid #ddd',
-        padding: '10px',
-        borderRadius: '8px',
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        cursor: 'pointer',
-        width: '100%', // Ajustamos el ancho para que ocupe toda la pantalla
-        marginBottom: '15px',
-    };
-
-    const imageStyle = {
-        maxWidth: '150px',
-        height: 'auto',
-        borderRadius: '4px',
-        marginRight: '10px',
-    };
 
     return (
-        <div className="searchBarContainer">
-            <div className="justify-content-center">
-                <div className="col-md-20">
+        <div style={{ marginTop: '20px', fontFamily: 'Arial, sans-serif' }}>
+            <div className="d-flex justify-content-center">
+                <div className="col-md-6">
                     <div className="input-group">
-                        <Dropdown show={showDropdown} onToggle={(isOpen) => setShowDropdown(isOpen)} className="mr-2">
+                        <Dropdown className="mr-2">
                             <Dropdown.Toggle variant="outline-secondary" style={{ borderRadius: '4px 0 0 4px' }}>
                                 {selectedOption}
                             </Dropdown.Toggle>
@@ -59,7 +38,7 @@ function SearchComponent() {
                             className="form-control"
                             placeholder="Search..."
                             value={searchText}
-                            onChange={(e) => setSearchText(e.target.value)}
+                            onChange={handleInputChange} // Use the handleInputChange function here
                             style={{ maxWidth: '500px', marginLeft: '-10px', marginRight: '-10px'}}
                         />
                         <button
@@ -72,26 +51,6 @@ function SearchComponent() {
                         </button>
                     </div>
                 </div>
-            </div>
-
-            <div className="searchBarResults"> {/* Ajustamos el ancho del contenedor de las tarjetas */}
-                {results.map((result, index) => (
-                    <Link to="/tutor" target="_blank" rel="noopener noreferrer">
-                        <div key={index} style={cardStyle}>
-                            <img
-                                src={result.profilePicture}
-                                alt="Profile"
-                                style={imageStyle}
-                            />
-                            <div>
-                                <h3 style={{ color: '#333' }}>Tutor Name: {result.tutorName}</h3>
-                                <p style={{ margin: '8px 0', color: '#666' }}>Description: {result.description}</p>
-                                <p style={{ margin: '8px 0', color: '#666' }}>Topic Name: {result.topicName}</p>
-                                <p style={{ margin: '8px 0', color: '#666' }}>Resume: {result.resume}</p>
-                            </div>
-                        </div>
-                    </Link>
-                ))}
             </div>
         </div>
     );

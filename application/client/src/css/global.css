@@ -176,3 +176,10 @@ html, body {
       margin: 5% 20%;
     }
 }
+
+@media (max-width: 600px) {
+  .navbar-search {
+      /* Adjust styles for smaller screens */
+      max-width: 100%;
+  }
+}

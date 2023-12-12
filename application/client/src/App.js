@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import "./css/global.css";
-import SearchComponent from './include/searchcomponent'; // Adjust the path as needed
+
 import NavigationBar from './include/navigation.js';
 import Footer from "./include/footer.js";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import HomePage from "./pages/Home.js";
+import SearchResults from './pages/SearchResults';
 import TutorApply from "./pages/tutor_apply.js";
 import TutorPage from "./pages/TutorPage.js";
 import Login from './pages/Login'; // If you have a login component
@@ -49,6 +50,7 @@ class App extends Component {
             <Route path="/azi" element={<Azi />} />
             <Route path="/charter" element={<Charter />} />
             <Route path="/jorge" element={<Jorge />} />
+            <Route path="/search-results" element={<SearchResults />} />
           </Routes>
           <p className="App-intro">{this.state.home}</p>
         </main>
