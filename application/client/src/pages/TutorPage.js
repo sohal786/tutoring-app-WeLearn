@@ -54,7 +54,7 @@ function TutorPage() {
   };
 
   return (
-    <div>
+    <div className="tutor-content">
       <div className="container mt-4">
         <div className="row">
           <div className="col-md-4">

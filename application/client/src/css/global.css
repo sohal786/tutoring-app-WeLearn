@@ -132,6 +132,7 @@ html, body {
  /*Login form*/
  .loginContainer {
   margin-top: 30px;
+  padding-bottom: 5px;
   text-align: center;
  }
 
