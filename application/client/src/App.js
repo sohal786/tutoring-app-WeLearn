@@ -52,7 +52,7 @@ class App extends Component {
             <Route path="/jorge" element={<Jorge />} />
             <Route path="/search-results" element={<SearchResults />} />
           </Routes>
-          <p className="App-intro">{this.state.home}</p>
+          {/*<p className="App-intro">{this.state.home}</p>*/}
         </main>
         
         <footer className="app-footer">
