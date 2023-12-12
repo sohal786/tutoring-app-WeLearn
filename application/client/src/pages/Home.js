@@ -1,7 +1,7 @@
 // HomePage.js
 
 import React, { useState, useEffect } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../css/HomePage.css';
 
@@ -84,27 +84,30 @@ const HomePage = () => {
         <div className="featureContent">
           <h1 className="titles">Meet our newest tutors</h1>
           <div className="recentTutorsContainer">
-            {recentTutors.map((tutor, index) => (
-              <Link to="/tutor" key={index} className="recentTutorLink" target="_blank" rel="noopener noreferrer">
-                <div key={index} className="recentTutorCard">
-                  <img
-                    src={tutor.profilePicture}
-                    alt={tutor.tutorName}
-                  />
-                  <div>
-                    <h3>{tutor.tutorName}</h3>
-                    <p>Topic: {tutor.topicName}</p>
-                    <p>Description:</p>
-                    <p>{tutor.description}</p>
+            {recentTutors.map((tutor, index) => {
+              // Extracting only the image name from the path
+              const imageName = tutor.profilePicture.split('/').pop();
+
+              return (
+                <Link to="/tutor" key={index} className="recentTutorLink" target="_blank" rel="noopener noreferrer">
+                  <div key={index} className="recentTutorCard">
+                    <img
+                      src={tutor.profilePicture}
+                      alt={tutor.tutorName}
+                    />
+                    <div>
+                      <h3>{tutor.tutorName}</h3>
+                      <p>Topic: {tutor.topicName}</p>
+                      <p>Description:</p>
+                      <p>{tutor.description}</p>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
-    </div>
-</div>
-
+      </div>
 
       <div className="feature-background become-a-tutor">
         <div className="featureContent">
