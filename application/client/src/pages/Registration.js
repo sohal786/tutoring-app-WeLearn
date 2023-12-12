@@ -102,7 +102,7 @@ const Registration = () => {
 
   return (
     <div className="loginContainer">
-      <h2 className="mb-4">Registration</h2>
+      <h1 className="mb-4">Registration</h1>
 
       <Form noValidate onSubmit={handleRegistration} className="loginForm">
         <p>
