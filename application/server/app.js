@@ -15,6 +15,9 @@ const app = express();
 const port = 5001;
 const mysql = require("mysql2");
 
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+
 // Setup database connection
 const connection = mysql.createConnection({
   host: '54.219.143.67',
@@ -24,13 +27,15 @@ const connection = mysql.createConnection({
   password: 'your_password'
 });
 
+const sessionStore = new MySQLStore({}, connection);
+
 // CORS Configuration
 const corsOptions = {
-  origin: '*', 
-  optionsSuccessStatus: 200, 
+  origin: '*',
+  optionsSuccessStatus: 200,
 };
 
-app.use(cors(corsOptions)); 
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -48,6 +53,19 @@ console.log('uploadsFolderPath:', uploadsFolderPath);
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+app.use(
+  session({
+    secret: 'csc648 secret',
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+      secure: false,
+    },
+  })
+);
 
 const imageDir = path.join(__dirname, 'uploads');
 
@@ -80,7 +98,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);
@@ -91,14 +109,15 @@ app.use(function(err, req, res, next) {
 
 
 
-app.get("/", (req,res)=>{
+app.get("/", isLoggedIn, (req, res) => {
   res.send("success");
+  res.json({ user: req.session.user });
 });
 
-app.get("/topic", (req,res) =>{
+app.get("/topic", (req, res) => {
   connection.query(
-    "SELECT topic_name FROM tutor_database.topic", function(err, results) {
-      if(err) {
+    "SELECT topic_name FROM tutor_database.topic", function (err, results) {
+      if (err) {
         console.log(err);
       } else {
         res.send(results);
@@ -106,11 +125,11 @@ app.get("/topic", (req,res) =>{
     }
   )
 });
-app.get("/images2", (req,res) =>{
+app.get("/images2", (req, res) => {
   console.log("called")
-  
+
   res.send("success");
-  
+
 });
 
 app.get("/search", (req, res) => {
@@ -177,7 +196,7 @@ app.get("/search", (req, res) => {
   }
 });
 
-app.get("/recent_tutor", (req,res) =>{
+app.get("/recent_tutor", (req, res) => {
   connection.query(
     `SELECT 
       tutor_database.tutor.tutor_name AS tutorName,
@@ -188,9 +207,9 @@ app.get("/recent_tutor", (req,res) =>{
     FROM tutor_database.tutor
     LEFT JOIN tutor_database.topic ON tutor.fk_topic_id = topic.id
     WHERE tutor_database.tutor.status = 'approved'
-    ORDER BY tutor_database.tutor.id DESC LIMIT 3`, 
-    function(err, results) {
-      if(err) {
+    ORDER BY tutor_database.tutor.id DESC LIMIT 3`,
+    function (err, results) {
+      if (err) {
         console.log(err);
       } else {
         res.send(results);
@@ -246,8 +265,16 @@ app.post('/apply-tutor', upload.fields([
   });
 });
 
-app.post("/sendregister", (req,res)=>{
-  const {data} = req.body;
+const isLoggedIn = (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
+};
+
+app.post("/sendregister", (req, res) => {
+  const { data } = req.body;
   const jsonstring = JSON.stringify(data);
   const jsondata = JSON.parse(jsonstring);
   console.log(jsondata.fullName);
@@ -257,69 +284,72 @@ app.post("/sendregister", (req,res)=>{
   var email = jsondata.email;
   var pass = jsondata.password;
   bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(pass, salt, (err, hash)=> {
-      if(err){
+    bcrypt.hash(pass, salt, (err, hash) => {
+      if (err) {
         console.error(err);
-      }else{
+      } else {
         console.log('Hashed password', hash);
         connection.query(
           `INSERT INTO tutor_database.users (user_name, email, password) VALUES (?, ?, ?)`, [username, email, hash], (error, results, fields) => {
-            if(error) {
+            if (error) {
               console.error('Error while inserting data:', error);
-              res.status(500).json({success: false});
+              res.status(500).json({ success: false });
               return;
             }
             console.log('register success:', results);
-            res.status(200).json({success: true});
-            }
-          );
+            res.status(200).json({ success: true });
+          }
+        );
       }
     })
   })
-  });
+});
 
-
-
-
-
-app.get("/sendLogin", (req,res)=>{
-  const {email, password} = req.query;
+app.get("/sendLogin", (req, res) => {
+  const { email, password } = req.query;
   console.log(email, password)
-  
+
   connection.query(
-    `SELECT password FROM tutor_database.users WHERE email = ?`, [email], (error, results, fields) => {
-      if(error) {
+    `SELECT id, password FROM tutor_database.users WHERE email = ?`, [email], (error, results, fields) => {
+      if (error) {
         console.error('Error while checking login data:', error);
         return;
       }
-      if(results.length === 0){
+      if (results.length === 0) {
         console.log('Login Fail:', results);
-        res.json({success: false})
+        res.json({ success: false })
       }
-      else{
-        var hashedPassword = results[0].password
+      else {
+        const userId = results[0].id;
+        const hashedPassword = results[0].password;
         console.log(hashedPassword)
-        bcrypt.compare(password, hashedPassword, (err, isMatch) =>{
-          if(err){
+        bcrypt.compare(password, hashedPassword, (err, isMatch) => {
+          if (err) {
             console.error('Error while comparing passwords:', err);
-            res.status(500).json({success: false});
-          }else{
-            if(isMatch){
+            res.status(500).json({ success: false });
+          } else {
+            if (isMatch) {
+              req.session.user = {
+                userId: userId,
+                email: email,
+              };
+              
               console.log('password matches. login success');
-              res.json({success: true});
-            }else{
+              console.log(req.session);
+              res.json({ success: true });
+            } else {
               console.log('password does not match. login fail');
-              res.json({success: false});
+              res.json({ success: false });
             }
           }
         })
       }
     }
-  ) 
+  )
 })
 
 
-app.listen(port,()=> {
+app.listen(port, () => {
   console.log(`connect at Port:${port}`);
 });
 

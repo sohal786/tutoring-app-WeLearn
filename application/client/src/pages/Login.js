@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button, FloatingLabel, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
-const backend_api = "54.219.143.67"
+const backend_api = "http://localhost:5001";
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({
     email: '',
     password: ''
@@ -51,6 +53,7 @@ const LoginPage = () => {
         const res = await sendLoginInfo();
         if(res.success){
           console.log("[Success] Login successful");
+          navigate('/');
           //switch to another page when login was successful
         } else {
           console.log("[ERROR] Login failed");
