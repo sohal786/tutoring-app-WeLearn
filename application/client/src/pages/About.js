@@ -13,8 +13,9 @@ const AboutPage = () => {
   };
 
   const descriptionContainerStyle = {
-    width: '80%',
+    width: '75%',
     margin: '0 auto',
+    textAlign:'Center',
   };
   
   const containerStyle = {
@@ -63,7 +64,7 @@ const AboutPage = () => {
 
   return (
     <div>
-      <br></br>
+      <br />
       <h2 style={headingStyle}>About Us</h2>
       <br />
       <div style={descriptionContainerStyle}>
@@ -90,7 +91,7 @@ const AboutPage = () => {
           <div
             key={index}
             style={{
-              flex: '0 0 calc(33.33% - 100px)',
+              flex: '0 0 calc(50% - 20px)',
               padding: '10px',
               textAlign: 'center',
             }}
@@ -98,11 +99,6 @@ const AboutPage = () => {
             onMouseLeave={() => handleMouseLeave(index)}
           >
             <Link to={member.path} style={getCardStyle(index)}>
-              <img
-                src={require(`../images/${member.image}`)}
-                alt={`${member.name}'s Image`}
-                style={imageStyle}
-              />
               <div style={textContainerStyle}>
                 <h4>{member.name}</h4>
                 <p style={{ color: 'GrayText' }}>{member.role}</p>

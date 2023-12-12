@@ -1,12 +1,13 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import jorgeImage from "../images/jorge.jpg";
 
-const Akshat = () => {
+const Jorge = () => {
   return ( 
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-4">
-          <img src={require("../images/jorge.jpg") }alt="Jorge's Image" className="img-fluid rounded-circle" />
+          <img src={jorgeImage} alt="Jorge's Image" className="img-fluid rounded-circle" />
         </div>
         <div className="col-md-8">
           <h1 className="display-4">Jorge Pérez</h1>
@@ -19,4 +20,4 @@ const Akshat = () => {
   );
 }
 
-export default Akshat;
+export default Jorge;
