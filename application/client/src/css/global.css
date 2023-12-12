@@ -77,9 +77,8 @@ html, body {
     align-items: center;
     max-width: 100%;
     margin: 0 auto;
-    margin-left: 10%;
-    margin-right: 10%;
     border-bottom: 1px solid #f2f2f2;
+    justify-content: center !important;
  }
 
  .navbar h1 {
@@ -87,11 +86,11 @@ html, body {
  }
 
  .navbar .links {
-    margin-left: auto;
+    /* margin-left: auto; */
  }
 
  .navbar a, button {
-    margin-left: 16px;
+    margin: 16px;
     text-decoration: none;
     padding: 6px;
  }
@@ -132,7 +131,7 @@ html, body {
  /*Search bar*/
  .searchBarContainer {
   margin-top: 20px; 
-  right: 50px;
+  margin-right: 10em;
   margin-left: 10em;
  }
 
@@ -157,6 +156,7 @@ html, body {
  }
 
  /* Responsiveness */
+ /* For bigger screens */
  @media screen and (min-width:1085px) {
     .content{
         margin: 1%;
@@ -165,8 +165,21 @@ html, body {
     .loginForm{
       margin: 2% 30%;
     }
+
+    .searchBarContainer {
+      margin-right: 0px;
+      margin-right: 0px;
+    }
 }
 
+ @media screen and (max-width:1085px) {
+    .searchBarContainer {
+      margin-right: 0px;
+      margin-right: 0px;
+    }
+}
+
+/* For smaller screens */
 @media screen and (min-height:1000px) {
    .content {
       height: 100%;
@@ -174,5 +187,18 @@ html, body {
 
    .loginForm{
       margin: 5% 20%;
+    }
+
+    .searchBarContainer {
+      margin-right: 0px;
+      margin-left: 0px;
+    }
+}
+
+/* For even smaller screens */
+@media screen and (max-width:660px){
+  .searchBarContainer {
+      margin-right: 0px;
+      margin-left: 0px;
     }
 }
