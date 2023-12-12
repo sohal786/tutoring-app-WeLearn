@@ -5,6 +5,7 @@ import NavigationBar from './include/navigation.js';
 import Footer from "./include/footer.js";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import SearchResults from './pages/SearchResults';
 import Login from './pages/Login'; // If you have a login component
 import Registration from './pages/Registration';
 import AboutPage from './pages/About';
@@ -48,6 +49,7 @@ class App extends Component {
             <Route path="/azi" element={<Azi />} />
             <Route path="/charter" element={<Charter />} />
             <Route path="/jorge" element={<Jorge />} />
+            <Route path="/search-results" element={<SearchResults />} />
           </Routes>
 
         <p className="App-intro">{this.state.home}</p>

@@ -79,23 +79,33 @@ const HomePage = () => {
       </div>
 
       <div className="feature-background meet-our-tutors">
-        <div className="featureContent">
-          <h1 className="titles">Meet our newest tutors</h1>
-          <div className="recentTutorsContainer">
-            {recentTutors.map((tutor, index) => (
-              <Card key={index} className="recentTutorCard">
-                <Card.Img variant="top" src={tutor.profilePicture} alt={tutor.tutorName} />
-                <Card.Body>
-                  <Card.Title>{tutor.tutorName}</Card.Title>
-                  <Card.Text>Description: {tutor.description}</Card.Text>
-                  <Card.Text>Topic: {tutor.topicName}</Card.Text>
-                  <Card.Text>Resume: {tutor.resume}</Card.Text>
-                </Card.Body>
-              </Card>
-            ))}
-          </div>
+    <div className="featureContent">
+        <h1 className="titles">Meet our newest tutors</h1>
+        <div className="recentTutorsContainer">
+            {recentTutors.map((tutor, index) => {
+                // Extracting only the image name from the path
+                const imageName = tutor.profilePicture.split('/').pop();
+
+                return (
+                    <Card key={index} className="recentTutorCard">
+                        <Card.Img 
+                            variant="top" 
+                            src={`http://localhost:5001/images/${imageName}`} 
+                            alt={tutor.tutorName} 
+                        />
+                        <Card.Body>
+                            <Card.Title>{tutor.tutorName}</Card.Title>
+                            <Card.Text>Description: {tutor.description}</Card.Text>
+                            <Card.Text>Topic: {tutor.topicName}</Card.Text>
+                            <Card.Text>Resume: {tutor.resume}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                );
+            })}
         </div>
-      </div>
+    </div>
+</div>
+
 
       <div className="feature-background become-a-tutor">
         <div className="featureContent">
@@ -119,3 +129,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
