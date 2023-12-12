@@ -1,6 +1,6 @@
 // SearchResults.js
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const SearchResults = () => {
     const location = useLocation();
@@ -18,8 +18,6 @@ const SearchResults = () => {
             })
             .catch(error => console.error('API error:', error));
     }, [searchText, selectedOption]);
-    
-    
 
     // Reuse the styles from SearchComponent
     const cardStyle = {
@@ -31,7 +29,8 @@ const SearchResults = () => {
         flexDirection: 'row',
         alignItems: 'center',
         cursor: 'pointer',
-        width: '100%',
+        marginLeft:'15%',
+        marginRight:'15%',
         marginBottom: '15px',
     };
 
@@ -42,6 +41,11 @@ const SearchResults = () => {
         marginRight: '10px',
     };
 
+    const linkStyle = {
+        textDecoration: 'none',
+        color: 'inherit',     
+    };
+
     return (
         <div className="searchBarResults">
             {/* Map over the results and display each one */}
@@ -50,19 +54,27 @@ const SearchResults = () => {
                 const imageName = result.profilePicture.split('/').pop();
 
                 return (
-                    <div key={index} style={cardStyle}>
-                        <img
-                            src={`http://localhost:5001/images/${imageName}`}
-                            alt="Profile"
-                            style={imageStyle}
-                        />
-                        <div>
-                            <h3 style={{ color: '#333' }}>Tutor Name: {result.tutorName}</h3>
-                            <p style={{ margin: '8px 0', color: '#666' }}>Description: {result.description}</p>
-                            <p style={{ margin: '8px 0', color: '#666' }}>Topic Name: {result.topicName}</p>
-                            <p style={{ margin: '8px 0', color: '#666' }}>Resume: {result.resume}</p>
+                    <Link 
+                        to="/tutor" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        key={index}
+                        style={linkStyle}
+                    >
+                        <div key={index} style={cardStyle}>
+                            <img
+                                src={`http://localhost:5001/images/${imageName}`}
+                                alt="Profile"
+                                style={imageStyle}
+                            />
+                            <div>
+                                <h3 style={{ color: '#333' }}>Tutor Name: {result.tutorName}</h3>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Description: {result.description}</p>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Topic Name: {result.topicName}</p>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Resume: {result.resume}</p>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 );
             })}
         </div>
