@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import DashboardPopover from './DashboardPopover';
-import SearchComponent from './searchcomponent';
+import DashboardPopover from './DashboardPopover.js';
+import SearchComponent from './searchcomponent.js';
 
 const NavigationBar = () => {
     return (

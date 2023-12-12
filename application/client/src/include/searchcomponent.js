@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dropdown from 'react-bootstrap/Dropdown';
+import { Dropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function SearchComponent() {
@@ -19,9 +19,9 @@ function SearchComponent() {
 
 
     return (
-        <div style={{ marginTop: '20px', fontFamily: 'Arial, sans-serif' }}>
-            <div className="d-flex justify-content-center">
-                <div className="col-md-6">
+        <div className="searchBarContainer">
+            <div className="justify-content-center">
+                <div className="col-md-20">
                     <div className="input-group">
                         <Dropdown className="mr-2">
                             <Dropdown.Toggle variant="outline-secondary" style={{ borderRadius: '4px 0 0 4px' }}>

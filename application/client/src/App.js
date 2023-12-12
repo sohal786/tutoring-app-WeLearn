@@ -6,12 +6,12 @@ import Footer from "./include/footer.js";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import HomePage from "./pages/Home.js";
-import SearchResults from './pages/SearchResults';
+import SearchResults from './pages/SearchResults.js';
 import TutorApply from "./pages/tutor_apply.js";
 import TutorPage from "./pages/TutorPage.js";
-import Login from './pages/Login'; // If you have a login component
-import Registration from './pages/Registration';
-import AboutPage from './pages/About';
+import Login from './pages/Login.js'; // If you have a login component
+import Registration from './pages/Registration.js';
+import AboutPage from './pages/About.js';
 import Akshat from "./pages/akshat.js";
 import Aakanksha from "./pages/aakanksha.js";
 import Andy from "./pages/andy.js";
@@ -21,7 +21,7 @@ import Jorge from "./pages/jorge.js";
 
  // Bootstrap CSS and JS
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 class App extends Component {
   constructor(props) {

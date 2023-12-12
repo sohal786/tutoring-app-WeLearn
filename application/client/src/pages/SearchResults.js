@@ -43,7 +43,7 @@ const SearchResults = () => {
     };
 
     return (
-        <div style={{ marginTop: '20px', fontFamily: 'Arial, sans-serif' }}>
+        <div className="searchBarResults">
             {/* Map over the results and display each one */}
             {results.map((result, index) => {
                 // Extracting only the image name from the path
