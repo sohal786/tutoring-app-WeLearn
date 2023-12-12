@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import HomePage from "./pages/Home.js";
 import TutorApply from "./pages/tutor_apply.js";
+import TutorPage from "./pages/TutorPage.js";
 import Login from './pages/Login'; // If you have a login component
 import Registration from './pages/Registration';
 import AboutPage from './pages/About';
@@ -33,9 +34,11 @@ class App extends Component {
         <header className="App-header">
           <NavigationBar />
         </header>
+
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route path="/apply" element={<TutorApply />} />
+            <Route path="/tutor" element={<TutorPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Registration />} />
             <Route path="/about" element={<AboutPage />} />
