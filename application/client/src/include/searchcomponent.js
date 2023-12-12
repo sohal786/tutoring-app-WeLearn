@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
+import { Link } from 'react-router-dom';
 
 function SearchComponent() {
     const [searchText, setSearchText] = useState('');
@@ -39,9 +40,9 @@ function SearchComponent() {
     };
 
     return (
-        <div style={{ marginTop: '20px', fontFamily: 'Arial, sans-serif' }}>
-            <div className="d-flex justify-content-center" style={{ marginTop: '0px' }}>
-                <div className="col-md-6">
+        <div className="searchBarContainer">
+            <div className="justify-content-center">
+                <div className="col-md-20">
                     <div className="input-group">
                         <Dropdown show={showDropdown} onToggle={(isOpen) => setShowDropdown(isOpen)} className="mr-2">
                             <Dropdown.Toggle variant="outline-secondary" style={{ borderRadius: '4px 0 0 4px' }}>
@@ -73,21 +74,23 @@ function SearchComponent() {
                 </div>
             </div>
 
-            <div style={{ marginTop: '20px', width: '100%' }}> {/* Ajustamos el ancho del contenedor de las tarjetas */}
+            <div className="searchBarResults"> {/* Ajustamos el ancho del contenedor de las tarjetas */}
                 {results.map((result, index) => (
-                    <div key={index} style={cardStyle}>
-                        <img
-                            src={result.profilePicture}
-                            alt="Profile"
-                            style={imageStyle}
-                        />
-                        <div>
-                            <h3 style={{ color: '#333' }}>Tutor Name: {result.tutorName}</h3>
-                            <p style={{ margin: '8px 0', color: '#666' }}>Description: {result.description}</p>
-                            <p style={{ margin: '8px 0', color: '#666' }}>Topic Name: {result.topicName}</p>
-                            <p style={{ margin: '8px 0', color: '#666' }}>Resume: {result.resume}</p>
+                    <Link to="/tutor" target="_blank" rel="noopener noreferrer">
+                        <div key={index} style={cardStyle}>
+                            <img
+                                src={result.profilePicture}
+                                alt="Profile"
+                                style={imageStyle}
+                            />
+                            <div>
+                                <h3 style={{ color: '#333' }}>Tutor Name: {result.tutorName}</h3>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Description: {result.description}</p>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Topic Name: {result.topicName}</p>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Resume: {result.resume}</p>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

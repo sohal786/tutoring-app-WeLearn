@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import HomePage from "./pages/Home.js";
 import TutorApply from "./pages/tutor_apply.js";
+import TutorPage from "./pages/TutorPage.js";
 import Login from './pages/Login'; // If you have a login component
 import Registration from './pages/Registration';
 import AboutPage from './pages/About';
@@ -29,13 +30,16 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="app-container">
         <header className="App-header">
           <NavigationBar />
         </header>
+
+        <main className="app-main">
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route path="/apply" element={<TutorApply />} />
+            <Route path="/tutor" element={<TutorPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Registration />} />
             <Route path="/about" element={<AboutPage />} />
@@ -46,9 +50,12 @@ class App extends Component {
             <Route path="/charter" element={<Charter />} />
             <Route path="/jorge" element={<Jorge />} />
           </Routes>
-
-        <p className="App-intro">{this.state.home}</p>
-        <Footer />
+          <p className="App-intro">{this.state.home}</p>
+        </main>
+        
+        <footer className="app-footer">
+          <Footer />
+        </footer>
       </div>
     );
   }

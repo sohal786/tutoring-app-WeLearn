@@ -1,7 +1,7 @@
 /* HomePage.css */
 
 .homeContent {
-  margin: -24px auto;
+  margin: 0 auto;
   background-color: #e5f2ff;
   padding: 20px;
 }
@@ -187,7 +187,7 @@
   }
 
   .recentTutorCard img {
-    max-width: 100%; /* Adjust the maximum width of the images */
+    max-width: 100%;
     height: auto;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -205,8 +205,8 @@
   .recentTutorCard .card-title,
   .recentTutorCard p {
     color: #333;
-    text-align: center; /* Center text in each card */
+    text-align: center;
     max-width: 100%;
-    padding: 0 10px; /* Add padding to prevent text from sticking to the edges */
+    padding: 0 10px;
   }
 }

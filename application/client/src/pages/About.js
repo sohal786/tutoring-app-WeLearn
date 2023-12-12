@@ -63,6 +63,7 @@ const AboutPage = () => {
 
   return (
     <div>
+      <br></br>
       <h2 style={headingStyle}>About Us</h2>
       <br />
       <div style={descriptionContainerStyle}>
