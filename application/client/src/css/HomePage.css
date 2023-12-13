@@ -102,11 +102,13 @@
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between; /* Align cards with even spacing */
 }
 
 .recentTutorLink {
   text-decoration: none;
   width: 100%;
+  color: inherit;
 }
 
 .recentTutorCard {
@@ -114,12 +116,10 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   cursor: pointer;
-  width: 100%;
-  margin-bottom: 15px;
+  width: 100%; /* Set a fixed width for consistent card sizes */
+  margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
 .recentTutorCard img {
@@ -169,14 +169,9 @@
     align-items: center;
   }
 
-  .benefitItem {
-    flex: 0 0 90%;
-    margin: 10px;
-  }
-
   .recentTutorsContainer {
     flex-direction: column;
-    align-items: left;
+    align-items: center; /* Center cards on small screens */
   }
 
   .recentTutorCard {
@@ -184,6 +179,7 @@
     margin: 0 auto 20px;
     box-sizing: border-box;
     flex-direction: column;
+    text-align: center; /* Center text on small screens */
   }
 
   .recentTutorCard img {

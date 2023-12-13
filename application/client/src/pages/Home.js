@@ -48,6 +48,7 @@ const HomePage = () => {
       navigate('/apply');
     }
   };
+  
   const cardStyle = {
     border: '1px solid #ddd',
     padding: '10px',
@@ -61,16 +62,7 @@ const HomePage = () => {
     marginRight:'15%',
     marginBottom: '15px',
 };
-
-const imageStyle = {
-    maxWidth: '150px',
-    height: 'auto',
-    borderRadius: '4px',
-    marginRight: '10px',
-};
-
               
-
   return (
     <div className="homeContent">
     <div className="welcomeSection">
@@ -142,11 +134,10 @@ const imageStyle = {
 
 
                 return (
-                    <div key={index} style={cardStyle} onClick={() => navigateToTutor(tutor)}>
+                    <div className="recentTutorCard" key={index} style={cardStyle} onClick={() => navigateToTutor(tutor)}>
                     <img
                        src={`${API_ENDPOINT}/images/${imageName}`}
                         alt="Profile"
-                        style={imageStyle}
                     />
                             <div>
                                 <h3 style={{ color: '#333' }}>Tutor Name: {tutor.tutorName}</h3>
