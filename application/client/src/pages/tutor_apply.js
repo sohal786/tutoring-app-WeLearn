@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Form, Button, Col } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 const TutorApply = () => {
   const [formData, setFormData] = useState({
     topic: "",
     description: "",
-    course_numbers: "",
+    //course_numbers: "",
     resume: null,
     picture: null,
     video: null,
@@ -14,7 +14,7 @@ const TutorApply = () => {
   const [fieldStatus, setFieldStatus] = useState({
     topic: false,
     description: false,
-    course_numbers: false,
+    //course_numbers: false,
     resume: false,
   });
 
@@ -27,7 +27,6 @@ const TutorApply = () => {
       setFormData({ ...formData, [name]: value });
     }
 
-    // Update fieldStatus to indicate whether the field is filled
     setFieldStatus((prevFieldStatus) => ({
       ...prevFieldStatus,
       [name]: value.trim() !== "",
@@ -37,14 +36,32 @@ const TutorApply = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if mandatory fields are filled before submission
-    const mandatoryFields = ["topic", "description", "course_numbers", "resume"];
+    const mandatoryFields = ["topic", "description", "resume"];
     const isFormValid = mandatoryFields.every((field) => formData[field]);
 
     if (isFormValid) {
-      console.log(formData);
+      const data = new FormData();
+
+      // Append form data to FormData object
+      Object.keys(formData).forEach(key => {
+        data.append(key, formData[key]);
+      });
+
+      // Send form data to server
+      fetch('http://localhost:5001/apply-tutor', { // Replace with your server URL
+        method: 'POST',
+        body: data,
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log('Success:', data);
+        // You can handle UI updates based on response here
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Handle errors here
+      });
     } else {
-      // Alert the user that mandatory fields are not filled
       alert("Please fill in all mandatory fields.");
     }
   };
@@ -54,7 +71,7 @@ const TutorApply = () => {
       <div className="loginContainer">
         <h1>Tutor Application</h1>
         <Form onSubmit={handleSubmit} className="loginForm">
-          <p style={{ color: "GrayText" }}>
+        <p style={{ color: "GrayText" }}>
             Fields marked with <span style={{ color: "red" }}>*</span> are required
           </p>
           <br></br>
@@ -117,7 +134,7 @@ const TutorApply = () => {
               </span>
             <Form.Control
               type="file"
-              name="picture"
+              name="profile_picture"
               accept=".pdf,.jpg"
               onChange={handleInputChange}
               style={{ borderColor: fieldStatus.picture ? "green" : "" }}

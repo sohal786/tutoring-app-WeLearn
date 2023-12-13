@@ -201,4 +201,17 @@ html, body {
       margin-right: 0px;
       margin-left: 0px;
     }
+
+    .searchBarContainer {
+      margin-right: 0px;
+      margin-left: 0px;
+    }
+}
+
+/* For even smaller screens */
+@media screen and (max-width:660px){
+  .searchBarContainer {
+      margin-right: 0px;
+      margin-left: 0px;
+    }
 }

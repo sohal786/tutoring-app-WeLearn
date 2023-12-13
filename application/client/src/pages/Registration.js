@@ -65,10 +65,40 @@ const Registration = () => {
     if (validateForm()) {
       console.log("[OK] Form validation success");
       // Add your registration logic here
+      sendRegisterInfo()
     } else {
       console.log("[ERROR] Form validation failure");
     }
   };
+
+  
+  
+
+  async function sendRegisterInfo(){
+    // e.preventDefault()
+    if (fullName=='' || email == '' || password == '') {return}
+    try {
+      const res = await fetch('54.219.143.67:5001/sendRegister',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {fullName, email, password}
+        })
+      })
+      if(res.ok){
+        console.log('register was successful')
+        //switch page
+        fetch("/login")
+      }else{
+        console.log('register has failed')
+      }
+    }catch (error) {
+      console.error('Error:', error);
+    }
+  }
 
   return (
     <div className="loginContainer">
