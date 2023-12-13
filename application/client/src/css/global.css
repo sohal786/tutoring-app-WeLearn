@@ -128,12 +128,14 @@ html, body {
    margin: 0 10px !important;
  }
 
- /*Search bar*/
- .searchBarContainer {
-  margin-top: 20px; 
-  margin-right: 10em;
-  margin-left: 10em;
- }
+/*Search bar*/
+.searchBarContainer {
+  /*
+ margin-top: 20px; 
+ margin-right: 10em;
+ margin-left: 10em;
+ */
+}
 
  .searchBarResults {
   margin-top: 20px;
@@ -172,46 +174,45 @@ html, body {
     }
 }
 
- @media screen and (max-width:1085px) {
-    .searchBarContainer {
-      margin-right: 0px;
-      margin-right: 0px;
-    }
-}
+@media screen and (max-width:1085px) {
+   .searchBarContainer {
+     margin-right: 0px;
+     margin-right: 0px;
+   }
+} 
 
 /* For smaller screens */
 @media screen and (min-height:1000px) {
-   .content {
-      height: 100%;
-   }
+  .navbar {
+    flex-direction: column;
+  }
 
-   .loginForm{
-      margin: 5% 20%;
-    }
+  .searchBarContainer,
+  .links,
+  .dashboardMenu {
+    margin: 10px 0;
+    text-align: center; /* For inline or inline-block elements */
+  }
 
-    .searchBarContainer {
-      margin-right: 0px;
-      margin-left: 0px;
-    }
+  .dashboardMenu button {
+    margin: 0 auto; /* For block-level elements */
+  }
 }
 
 /* For even smaller screens */
 @media screen and (max-width:660px){
-  .searchBarContainer {
-      margin-right: 0px;
-      margin-left: 0px;
-    }
+  .navbar {
+    flex-direction: column;
+  }
 
-    .searchBarContainer {
-      margin-right: 0px;
-      margin-left: 0px;
-    }
-}
+  .searchBarContainer,
+  .links,
+  .dashboardMenu {
+    margin: 10px 0;
+    text-align: center; /* For inline or inline-block elements */
+  }
 
-/* For even smaller screens */
-@media screen and (max-width:660px){
-  .searchBarContainer {
-      margin-right: 0px;
-      margin-left: 0px;
-    }
+  .dashboardMenu button {
+    margin: 0 auto; /* For block-level elements */
+  }
 }
