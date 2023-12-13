@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button, FloatingLabel, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
-const backend_api = "54.219.143.67"
+const backend_api = "http://localhost:5001"
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({
@@ -52,8 +54,10 @@ const LoginPage = () => {
         if(res.success){
           console.log("[Success] Login successful");
           //switch to another page when login was successful
+          navigate('/')
         } else {
           console.log("[ERROR] Login failed");
+          alert("Login failed")
         }
       } catch (error) {
         console.error("Error occured during login:", error);

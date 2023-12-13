@@ -50,7 +50,12 @@ const TutorApply = () => {
       // Send form data to server
       fetch('http://localhost:5001/apply-tutor', { // Replace with your server URL
         method: 'POST',
-        body: data,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {formData}
+        })
       })
       .then(response => response.text())
       .then(data => {
@@ -130,12 +135,12 @@ const TutorApply = () => {
           <Form.Group className="mb-3" controlId="picture">
             <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>Picture: </Form.Label>
               <span style={{ fontSize: "0.8em", color: "GrayText", display: "block", textAlign: "left"}}>
-                Accepted formats: PDF, JPG
+                Accepted formats: PNG, JPG
               </span>
             <Form.Control
               type="file"
               name="profile_picture"
-              accept=".pdf,.jpg"
+              accept=".png,.jpg"
               onChange={handleInputChange}
               style={{ borderColor: fieldStatus.picture ? "green" : "" }}
               placeholder="Picture"
