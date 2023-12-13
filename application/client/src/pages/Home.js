@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../css/HomePage.css';
 import { AuthContext } from '../AuthContext.js';
 
-const API_ENDPOINT = 'http://localhost:5001/recent_tutor';
+const API_ENDPOINT = 'http://localhost:5001';
 
 const HomePage = () => {
   const [recentTutors, setRecentTutors] = useState([]);
@@ -13,7 +13,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(API_ENDPOINT)
+    fetch(`${API_ENDPOINT}/recent_tutor`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch recent tutors');
@@ -28,6 +28,19 @@ const HomePage = () => {
     navigate('/tutor', { state: { tutor } });
   };
 
+  const handleVideoClick = (event, videoPath) => {
+    event.preventDefault(); // Prevent the default anchor tag behavior
+  
+    // Construct the full video URL using videoPath
+    const fullVideoUrl = videoPath ? `${API_ENDPOINT}/images/${videoPath.split('/').pop()}` : null;
+  
+    if (!fullVideoUrl || fullVideoUrl.includes('null')) {
+      alert('Video does not exist');
+    } else {
+      window.open(fullVideoUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+  
   const handleApplyAsTutor = () => {
     if (!isLoggedIn) {
       navigate('/login');
@@ -35,6 +48,26 @@ const HomePage = () => {
       navigate('/apply');
     }
   };
+  const cardStyle = {
+    border: '1px solid #ddd',
+    padding: '10px',
+    borderRadius: '8px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    cursor: 'pointer',
+    marginLeft:'15%',
+    marginRight:'15%',
+    marginBottom: '15px',
+};
+
+const imageStyle = {
+    maxWidth: '150px',
+    height: 'auto',
+    borderRadius: '4px',
+    marginRight: '10px',
+};
 
               
 
@@ -101,22 +134,41 @@ const HomePage = () => {
           <h1 className="titles">Meet our newest tutors</h1>
           <div className="recentTutorsContainer">
             {recentTutors.map((tutor, index) => {
-              // The imageName should be declared inside the map function
-              const imageName = tutor.profilePicture.split('/').pop();
+                 console.log("Tutor data being passed:", tutor);
+                // Extracting only the image name from the path
+                const imageName =  tutor.profilePicture ? tutor.profilePicture.split('/').pop() : null;
+                const resume = tutor.resume ? tutor.resume.split('/').pop() : null;
+                const video = tutor.video ? `http://localhost:5001/images/${tutor.video.split('/').pop()}` : null;
 
-              return (
-                <div key={index} className="recentTutorCard" onClick={() => navigateToTutor(tutor)}>
-                  <img
-                    src={`http://localhost:5001/images/${imageName}`}
-                    alt={tutor.tutorName}
-                  />
-                  <div>
-                    <h3>{tutor.tutorName}</h3>
-                    <p>Topic: {tutor.topicName}</p>
-                    <p>Description:</p>
-                    <p>{tutor.description}</p>
-                  </div>
-                </div>
+
+                return (
+                    <div key={index} style={cardStyle} onClick={() => navigateToTutor(tutor)}>
+                    <img
+                       src={`${API_ENDPOINT}/images/${imageName}`}
+                        alt="Profile"
+                        style={imageStyle}
+                    />
+                            <div>
+                                <h3 style={{ color: '#333' }}>Tutor Name: {tutor.tutorName}</h3>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Description: {tutor.description}</p>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Topic Name: {tutor.topicName}</p>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Resume:
+                                 <a href= { `${API_ENDPOINT}/images/${resume}`} target="_blank" rel="noopener noreferrer">
+                                    Click here to view the resume</a></p>
+                                    <p style={{ margin: '8px 0', color: '#666' }}>
+                                  Video: 
+                                  <a href="#" onClick={(e) => handleVideoClick(e, tutor.video)}>
+                                  Click here to download the video
+                                 </a>
+                                  </p>
+
+
+
+
+
+                            </div>
+                        </div>
+                   
               );
             })}
           </div>

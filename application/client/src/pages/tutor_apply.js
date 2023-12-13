@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import {useNavigate} from "react-router";
+
 
 const TutorApply = () => {
   const [formData, setFormData] = useState({
@@ -10,10 +12,12 @@ const TutorApply = () => {
     picture: null,
     video: null,
   });
+  const navigate = useNavigate();
 
   const [fieldStatus, setFieldStatus] = useState({
     topic: false,
     description: false,
+    picture: false,
     //course_numbers: false,
     resume: false,
   });
@@ -36,7 +40,7 @@ const TutorApply = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const mandatoryFields = ["topic", "description", "resume"];
+    const mandatoryFields = ["topic", "description", "resume", "profile_picture"];
     const isFormValid = mandatoryFields.every((field) => formData[field]);
 
     if (isFormValid) {
@@ -47,29 +51,28 @@ const TutorApply = () => {
         data.append(key, formData[key]);
       });
 
-      // Send form data to server
       fetch('http://localhost:5001/apply-tutor', { // Replace with your server URL
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          data: {formData}
-        })
-      })
-      .then(response => response.text())
-      .then(data => {
-        console.log('Success:', data);
-        // You can handle UI updates based on response here
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        // Handle errors here
-      });
-    } else {
-      alert("Please fill in all mandatory fields.");
-    }
-  };
+      method: 'POST',
+      body: data,
+      credentials: 'include'
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log('Success:', data);
+      alert("Tutor application was sent, wait 24 hours for a response");
+      navigate('/'); // Assuming 'navigate' is defined and set up correctly
+      // You can handle UI updates based on response here
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert("There was an error submitting the application.");
+      // Handle errors here
+    });
+  } else {
+    alert("Please fill in all mandatory fields.");
+  }
+};
+
 
   return (
     <div className="content">
@@ -133,16 +136,16 @@ const TutorApply = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="picture">
-            <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>Picture: </Form.Label>
+            <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>Picture: <span style={{ color: "red" }}>*</span></Form.Label>
               <span style={{ fontSize: "0.8em", color: "GrayText", display: "block", textAlign: "left"}}>
-                Accepted formats: PNG, JPG
+                Accepted formats: PNG, JPG, JPEG
               </span>
             <Form.Control
               type="file"
               name="profile_picture"
-              accept=".png,.jpg"
+              accept=".png,.jpg, .jpeg"
               onChange={handleInputChange}
-              style={{ borderColor: fieldStatus.picture ? "green" : "" }}
+              style={{ borderColor: fieldStatus.picture ? "green" : "red" }}
               placeholder="Picture"
             />
           </Form.Group>
@@ -150,12 +153,12 @@ const TutorApply = () => {
           <Form.Group className="mb-3" controlId="video">
             <Form.Label style={{ textAlign: "left", display: "block", marginBottom: "0.5rem" }}>Video: </Form.Label>
             <span style={{ fontSize: "0.8em", color: "GrayText", display: "block", textAlign: "left"}}>
-                Accepted formats: MP4, MOV
+                Accepted formats: MP4, MOV, MKV
               </span>
             <Form.Control
               type="file"
               name="video"
-              accept=".mp4,.mov"
+              accept=".mp4, .mov, .mkv"
               onChange={handleInputChange}
               style={{ borderColor: fieldStatus.video ? "green" : "" }}
               placeholder="Video"

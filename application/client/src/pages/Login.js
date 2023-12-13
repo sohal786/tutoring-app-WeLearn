@@ -74,7 +74,9 @@ const LoginPage = () => {
     // e.preventDefault()
     if (email == '' || password == '') {return}
     try {
-      const res = await fetch(backend_api + '/sendLogin?email='+email+'&password='+password);
+      const res = await fetch(backend_api + '/sendLogin?email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password), {
+        credentials: 'include' 
+      });
       if(!res.ok){
         throw new Error('Network response was not ok.')
       } return await res.json();

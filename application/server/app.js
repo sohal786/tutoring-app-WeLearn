@@ -84,11 +84,12 @@ app.get('/images/:imageName', (req, res) => {
   // Use res.sendFile to send the image file
   res.sendFile(imagePath, (err) => {
     if (err) {
-      // Handle errors, for example, send a default image
-      res.sendFile(path.join(imageDir, 'default.jpg'));
+      // Handle the error by sending a 404 status code
+      res.status(404).send('Image not found');
     }
   });
 });
+
 
 
 // Multer configuration for file uploads
@@ -184,7 +185,8 @@ app.get("/search", (req, res) => {
       tutor_database.tutor.description AS description,
       tutor_database.tutor.resume AS resume,
       tutor_database.tutor.profile_picture AS profilePicture,
-      tutor_database.topic.topic_name AS topicName
+      tutor_database.topic.topic_name AS topicName,
+      tutor_database.tutor.video AS video
     FROM tutor_database.tutor
     LEFT JOIN tutor_database.topic ON tutor.fk_topic_id = topic.id
     WHERE tutor_database.tutor.status = 'approved'
@@ -238,11 +240,12 @@ app.get("/search", (req, res) => {
 app.get("/recent_tutor", (req, res) => {
   connection.query(
     `SELECT 
-      tutor_database.tutor.tutor_name AS tutorName,
-      tutor_database.tutor.description AS description,
-      tutor_database.tutor.resume AS resume,
-      tutor_database.tutor.profile_picture AS profilePicture,
-      tutor_database.topic.topic_name AS topicName
+        tutor_database.tutor.tutor_name AS tutorName,
+        tutor_database.tutor.description AS description,
+        tutor_database.tutor.resume AS resume,
+        tutor_database.tutor.profile_picture AS profilePicture,
+        tutor_database.topic.topic_name AS topicName,
+        tutor_database.tutor.video AS video
     FROM tutor_database.tutor
     LEFT JOIN tutor_database.topic ON tutor.fk_topic_id = topic.id
     WHERE tutor_database.tutor.status = 'approved'
@@ -257,56 +260,90 @@ app.get("/recent_tutor", (req, res) => {
   )
 });
 
-
 app.post('/apply-tutor', upload.fields([
   { name: 'resume', maxCount: 1 },
-  { name: 'profile_picture', maxCount: 1 }
+  { name: 'profile_picture', maxCount: 1 },
+  { name: 'video', maxCount: 1 }
 ]), (req, res) => {
-  const formData = req.body;
-  const jsonstring = JSON.stringify(formData);
-  const jsondata = JSON.parse(jsonstring);
+  if (!req.session || !req.session.user) {
+    return res.status(401).send('Unauthorized: User not logged in');
+  }
+
+  const userId = req.session.user.userId;
   const files = req.files;
+  const formData = req.body;
+  const selectedTopicName = req.body.topic; 
 
   // Construct file paths
   const resumePath = files.resume ? files.resume[0].path : null;
   const profilePicturePath = files.profile_picture ? files.profile_picture[0].path : null;
+  const videoPath = files.video? files.video[0].path : null;
 
-  // Example dummy values for testing
-  const tutorName = "Test Tutor"; // Replace with actual logic to get tutor name
-  const fkUsersId = 1; // Example user ID, replace with actual logic
-  const fkMessagesId = 1; // Example message ID, replace or set to NULL if optional
-  const fkTopicId = ""; // Example topic ID, replace with actual logic to get topic ID
 
-  // SQL query to insert data into the database
-  const insertQuery = `
-    INSERT INTO tutor (tutor_name, resume, profile_picture, description, fk_users_id, fk_messages_id, fk_topic_id, status)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+  const topicQuery = 'SELECT id FROM topic WHERE topic_name = ?';
+  connection.query(topicQuery, [selectedTopicName], (topicError, topicResults) => {
+    if (topicError) {
+      console.error('Database query error:', topicError);
+      return res.status(500).send('Internal Server Error');
+    }
 
-  // Values from the form and file paths
-  const values = [
-    tutorName,
-    resumePath,
-    profilePicturePath,
-    formData.description,
-    fkUsersId,
-    fkMessagesId,
-    fkTopicId,
-    'pending'
-  ];
+    if (topicResults.length === 0) {
+      return res.status(404).send('Topic not found');
+    }
 
-  // Execute the query
-  connection.query(insertQuery, values, (error, results, fields) => {
+    const fkTopicId = topicResults[0].id;
+
+  
+
+
+
+  // Retrieve user name from the database using userId
+  const userQuery = 'SELECT user_name FROM users WHERE id = ?';
+  connection.query(userQuery, [userId], (error, results) => {
     if (error) {
-      console.error('Error inserting data into database:', error);
-      res.status(500).send('Error saving application');
-    } else {
+      console.error('Database query error:', error);
+      return res.status(500).send('Internal Server Error');
+    }
+
+    if (results.length === 0) {
+      return res.status(404).send('User not found');
+    }
+
+    const tutorName = results[0].user_name; // Replace with actual column name
+
+    // SQL query to insert data into the database
+    const insertQuery = `
+      INSERT INTO tutor (tutor_name, resume, profile_picture, description, fk_users_id, fk_topic_id, status, video)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    // Values from the form, file paths, and session data
+    const values = [
+      tutorName,
+      resumePath,
+      profilePicturePath,
+      formData.description,
+      userId, // Use userId from session
+      fkTopicId, // Assuming this comes from the form
+      'pending',
+      videoPath
+    ];
+
+    // Execute the insert query
+    connection.query(insertQuery, values, (error, results, fields) => {
+      if (error) {
+        console.error('Error inserting data into database:', error);
+        return res.status(500).send('Error saving application');
+      }
+
       console.log('Application saved:', results);
       res.send('Application received and saved successfully');
-      console.log(jsondata.formData)
-    }
+    });
   });
 });
+});
+
+
 
 
 

@@ -4,12 +4,14 @@ import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 
+
+
 const SearchResults = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { searchText, selectedOption } = location.state || {};
     //console.log(searchText, selectedOption);
-
+    const backend_api = "http://localhost:5001";
     const [results, setResults] = useState([]);
 
     useEffect(() => {
@@ -27,6 +29,19 @@ const SearchResults = () => {
     const handleTutorSelect = (tutor) => {
         navigate('/tutor', { state: { tutor } });
     };
+
+    const handleVideoClick = (event, videoPath) => {
+        event.preventDefault(); // Prevent the default anchor tag behavior
+      
+        // Construct the full video URL using videoPath
+        const fullVideoUrl = videoPath ? `${backend_api}/images/${videoPath.split('/').pop()}` : null;
+      
+        if (!fullVideoUrl || fullVideoUrl.includes('null') || fullVideoUrl.includes('.jpg')) {
+          alert('Video does not exist');
+        } else {
+          window.open(fullVideoUrl, '_blank', 'noopener,noreferrer');
+        }
+      };
     // Reuse the styles from SearchComponent
     const cardStyle = {
         border: '1px solid #ddd',
@@ -57,23 +72,37 @@ const SearchResults = () => {
     return (
         <div className="searchBarResults">
             {/* Map over the results and display each one */}
-            {results.map((result, index) => {
-                 console.log("Tutor data being passed:", result);
+            {results.map((tutor, index) => {
+                 console.log("Tutor data being passed:", tutor);
                 // Extracting only the image name from the path
-                const imageName = result.profilePicture.split('/').pop();
+                const imageName =  tutor.profilePicture ? tutor.profilePicture.split('/').pop() : null;
+                const resume = tutor.resume ? tutor.resume.split('/').pop() : null;
+                const video = tutor.video ? tutor.video.split('/').pop() : null;
 
                 return (
-                    <div key={index} style={cardStyle} onClick={() => handleTutorSelect(result)}>
+                    <div key={index} style={cardStyle} onClick={() => handleTutorSelect(tutor)}>
                     <img
                         src={`http://localhost:5001/images/${imageName}`}
                         alt="Profile"
                         style={imageStyle}
                     />
                             <div>
-                                <h3 style={{ color: '#333' }}>Tutor Name: {result.tutorName}</h3>
-                                <p style={{ margin: '8px 0', color: '#666' }}>Description: {result.description}</p>
-                                <p style={{ margin: '8px 0', color: '#666' }}>Topic Name: {result.topicName}</p>
-                                <p style={{ margin: '8px 0', color: '#666' }}>Resume: {result.resume}</p>
+                                <h3 style={{ color: '#333' }}>Tutor Name: {tutor.tutorName}</h3>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Description: {tutor.description}</p>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Topic Name: {tutor.topicName}</p>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Resume:
+                                 <a href= { `${backend_api}/images/${resume}`} target="_blank" rel="noopener noreferrer">
+                                    Click here to view the resume</a></p>
+                                    <p style={{ margin: '8px 0', color: '#666' }}>
+                                  Video: 
+                                  <a href="#" onClick={(e) => handleVideoClick(e, tutor.video)}>
+                                  Click here to download the video
+                                 </a>
+                                  </p>
+
+
+
+
                             </div>
                         </div>
                    
