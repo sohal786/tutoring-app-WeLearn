@@ -52,7 +52,7 @@ const SearchResults = () => {
             {results.map((result, index) => {
                 // Extracting only the image name from the path
                 const imageName = result.profilePicture.split('/').pop();
-
+                const resume = result.resume.split('/').pop();
                 return (
                     <Link 
                         to="/tutor" 
@@ -71,7 +71,7 @@ const SearchResults = () => {
                                 <h3 style={{ color: '#333' }}>Tutor Name: {result.tutorName}</h3>
                                 <p style={{ margin: '8px 0', color: '#666' }}>Description: {result.description}</p>
                                 <p style={{ margin: '8px 0', color: '#666' }}>Topic Name: {result.topicName}</p>
-                                <p style={{ margin: '8px 0', color: '#666' }}>Resume: {result.resume}</p>
+                                <p style={{ margin: '8px 0', color: '#666' }}>Resume: <a href={`http://localhost:5001/images/${resume}`}>Click here to view the resume</a></p>
                             </div>
                         </div>
                     </Link>
