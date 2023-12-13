@@ -422,6 +422,32 @@ app.get("/sendLogin", (req, res) => {
   )
 })
 
+/* FOR DASHBOARD */
+app.get("/messages", (req, res) => {
+  // Assuming you want to fetch messages for user with ID 1
+  const receiverId = req.params.id;
+
+  // Query the database for messages sent to the specified receiver ID
+  connection.query(
+    `SELECT 
+        messages.sender_id,
+        messages.message_content,
+        users.username AS senderUsername
+     FROM messages
+     JOIN users ON messages.sender_id = users.id
+     WHERE messages.receiver_id = ?`,
+    [receiverId],
+    (error, results) => {
+      if (error) {
+        console.error('Error fetching messages:', error);
+        res.status(500).json({ error: 'An error occurred' });
+      } else {
+        res.json(results);
+      }
+    }
+  );
+});
+/* FOR DASHBOARD */
 
 app.listen(port, () => {
   console.log(`connect at Port:${port}`);

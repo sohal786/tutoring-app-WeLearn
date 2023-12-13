@@ -1,0 +1,65 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-profile-picture {
+    width: 50px; /* Adjust the size as needed */
+    height: 50px; /* Adjust the size as needed */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-profile-heading {
+    font-size: 24px; /* Adjust font size as needed */
+}
+
+.message-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 75%; /* Adjust the width as needed */
+    max-width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-height: 500px; /* Adjust the minimum height as needed */
+    max-height: 500px; /* Set a specific height */
+    overflow-y: auto; /* Add a vertical scrollbar when content exceeds the height */
+}
+
+.message-header {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.message-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.message-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.message-item strong {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* Optional: Add some spacing to the last item to avoid a double border */
+.message-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}

@@ -12,6 +12,7 @@ import TutorApply from "./pages/tutor_apply.js";
 import TutorPage from "./pages/TutorPage.js";
 import Login from './pages/Login.js'; // If you have a login component
 import Registration from './pages/Registration.js';
+import Dashboard from "./pages/Dashboard.js";
 import AboutPage from './pages/About.js';
 import Akshat from "./pages/akshat.js";
 import Aakanksha from "./pages/aakanksha.js";
@@ -45,6 +46,7 @@ class App extends Component {
             <Route path="/tutor" element={<TutorPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Registration />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/akshat" element={<Akshat />} />
             <Route path="/aakanksha" element={<Aakanksha />} />
