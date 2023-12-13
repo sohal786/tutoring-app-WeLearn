@@ -34,25 +34,28 @@ const NavigationBar = () => {
   };
 
   return (
-      <nav className="navbar">
-        <Link to="/">
-          <h1>weLearn</h1>
-        </Link>
-        <SearchComponent className="navbar-search"/>
-        <div className="links">
-          {/* Add an onClick event to the apply link */}
-          <Link to="/apply" onClick={handleApplyClick}>Apply as Tutor</Link>
-          <Link to="/register">Registration</Link>
-          {isLoggedIn ? (
-            <Link to="/" onClick={handleLogout}>Logout</Link>
-          ) : (
-            <Link to="/login">Login</Link>
-          )}
-          <Link>
-            <DashboardPopover />
+      <div className='navbar-container'>
+        <p style={{textAlign: 'center'}}>SFSU Software Engineering Project CSC 648-848, Fall 2023. For Demonstration Only</p>
+        <nav className="navbar">
+          <Link to="/">
+            <h1>weLearn</h1>
           </Link>
-        </div>
-      </nav>
+          <SearchComponent className="navbar-search"/>
+          <div className="links">
+            {/* Add an onClick event to the apply link */}
+            <Link to="/apply" onClick={handleApplyClick}>Apply as Tutor</Link>
+            <Link to="/register">Registration</Link>
+            {isLoggedIn ? (
+              <Link to="/" onClick={handleLogout}>Logout</Link>
+            ) : (
+              <Link to="/login">Login</Link>
+            )}
+            <Link>
+              <DashboardPopover />
+            </Link>
+          </div>
+        </nav>
+      </div>
     );
   };
   
