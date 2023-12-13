@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import defaultProfilePicture from "../img/DefaultProfile.jpeg";
 import '../css/TutorPage.css'; // Import your modified CSS file
+import { AuthContext } from '../AuthContext.js';
 
 function TutorPage() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [message, setMessage] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const tutorInfo = {
     name: "Tutor Name",
@@ -19,10 +23,15 @@ function TutorPage() {
 
   const profilePicture = tutorInfo.picture || defaultProfilePicture;
 
-  const handleContactButtonClick = () => {
-    setShowContactForm(!showContactForm);
-  };
+  
 
+  const handleContactButtonClick = () => {
+    if (!isLoggedIn) {
+      navigate('/login'); // Redirect to login if not logged in
+    } else {
+      setShowContactForm(!showContactForm); // Show contact form if logged in
+    }
+  };
   const handleSendMessage = () => {
     // Check if the message is not empty
     if (!message.trim()) {

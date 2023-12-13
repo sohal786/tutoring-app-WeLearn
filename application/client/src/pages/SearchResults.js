@@ -56,7 +56,6 @@ const SearchResults = () => {
                 return (
                     <Link 
                         to="/tutor" 
-                        target="_blank" 
                         rel="noopener noreferrer"
                         key={index}
                         style={linkStyle}

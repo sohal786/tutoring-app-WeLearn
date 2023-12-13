@@ -4,6 +4,7 @@ import "./css/global.css";
 import NavigationBar from './include/navigation.js';
 import Footer from "./include/footer.js";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './AuthContext.js'; 
 
 import HomePage from "./pages/Home.js";
 import SearchResults from './pages/SearchResults.js';
@@ -31,6 +32,7 @@ class App extends Component {
 
   render() {
     return (
+      <AuthProvider> {/* Wrap your app with AuthProvider */}
       <div className="app-container">
         <header className="App-header">
           <NavigationBar />
@@ -59,6 +61,7 @@ class App extends Component {
           <Footer />
         </footer>
       </div>
+      </AuthProvider>
     );
   }
 }

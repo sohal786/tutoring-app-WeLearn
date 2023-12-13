@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react'; 
 import { Link } from 'react-router-dom';
 import { Form, Button, FloatingLabel, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
+import { AuthContext } from '../AuthContext.js';
 
 const backend_api = "http://localhost:5001";
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { logIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({
     email: '',
@@ -42,27 +44,28 @@ const LoginPage = () => {
     setErrors(newErrors);
     return isValid;
   };
+  
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
     if (validateForm()) {
-      console.log("[OK] Form validation success");
-      // Add your login logic here
-      try{
+      try {
         const res = await sendLoginInfo();
-        if(res.success){
+        if (res.success) {
           console.log("[Success] Login successful");
-          navigate('/');
-          //switch to another page when login was successful
+          logIn(); // Update global auth state
+          navigate('/'); // Navigate to homepage
         } else {
           console.log("[ERROR] Login failed");
+          // Handle login failure
         }
       } catch (error) {
-        console.error("Error occured during login:", error);
+        console.error("Error occurred during login:", error);
+        // Handle errors
       }
     } else {
       console.log("[ERROR] Form validation failure");
+      // Handle form validation failure
     }
   };
 

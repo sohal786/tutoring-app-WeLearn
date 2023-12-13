@@ -1,14 +1,16 @@
 // HomePage.js
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/HomePage.css';
+import { AuthContext } from '../AuthContext.js';
 
 const API_ENDPOINT = 'http://54.219.143.67:5001/recent_tutor';
 
 const HomePage = () => {
   const [recentTutors, setRecentTutors] = useState([]);
+  const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(API_ENDPOINT)
@@ -21,6 +23,13 @@ const HomePage = () => {
       .then((data) => setRecentTutors(data))
       .catch((error) => console.error('Fetch error:', error));
   }, []);
+  const handleApplyAsTutor = () => {
+    if (!isLoggedIn) {
+      navigate('/login');
+    } else {
+      navigate('/apply');
+    }
+  };
 
   return (
     <div className="homeContent">
@@ -89,7 +98,7 @@ const HomePage = () => {
               const imageName = tutor.profilePicture.split('/').pop();
 
               return (
-                <Link to="/tutor" key={index} className="recentTutorLink" target="_blank" rel="noopener noreferrer">
+                <Link to="/tutor" key={index} className="recentTutorLink" rel="noopener noreferrer">
                   <div key={index} className="recentTutorCard">
                     <img
                       src={tutor.profilePicture}
@@ -119,11 +128,9 @@ const HomePage = () => {
             Consider becoming a tutor with us!
           </p>
           <br />
-          <Link to="/apply">
-            <Button variant="primary" size="lg">
-              Become a Tutor
-            </Button>
-          </Link>
+          <Button variant="primary" size="lg" onClick={handleApplyAsTutor}>
+          Become a Tutor
+        </Button>
         </div>
       </div>
     </div>

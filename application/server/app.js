@@ -31,9 +31,14 @@ const sessionStore = new MySQLStore({}, connection);
 
 // CORS Configuration
 const corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200,
+  origin: 'http://localhost:3000', // Replace with your frontend's origin
+  credentials: true, // Important for cookies, authorization headers with HTTPS
+  optionsSuccessStatus: 200
 };
+
+
+
+
 
 app.use(cors(corsOptions));
 app.use(logger('dev'));
@@ -106,8 +111,42 @@ app.use(function (err, req, res, next) {
 });
 
 
+const isLoggedIn = (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
+};
 
 
+app.get("/api/check-session", (req, res) => {
+    console.log("i am here");
+  if (req.session && req.session.user) {
+    // User is logged in
+    res.json({ isLoggedIn: true, user: req.session.user });
+  } else {
+    // User is not logged in
+    res.json({ isLoggedIn: false });
+  }
+});
+app.post("/api/logout", (req, res) => {
+  if (req.session) {
+    // Destroy the session
+    req.session.destroy(err => {
+      if (err) {
+        // Handle error
+        res.status(500).send('Could not log out, please try again');
+      } else {
+        // Session destroyed, user logged out
+        res.send('Logout successful');
+      }
+    });
+  } else {
+    // No session found, nothing to do
+    res.send('No active session');
+  }
+});
 
 app.get("/", isLoggedIn, (req, res) => {
   res.send("success");
@@ -265,13 +304,7 @@ app.post('/apply-tutor', upload.fields([
   });
 });
 
-const isLoggedIn = (req, res, next) => {
-  if (req.session.user) {
-    next();
-  } else {
-    res.status(401).json({ message: 'Unauthorized' });
-  }
-};
+
 
 app.post("/sendregister", (req, res) => {
   const { data } = req.body;
