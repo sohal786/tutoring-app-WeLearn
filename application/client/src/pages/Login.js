@@ -4,7 +4,7 @@ import { Form, Button, FloatingLabel, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../AuthContext.js';
 
-const backend_api = "http://localhost:5001";
+const backend_api = "http://54.219.143.67:5001";
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');

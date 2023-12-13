@@ -31,7 +31,7 @@ const sessionStore = new MySQLStore({}, connection);
 
 // CORS Configuration
 const corsOptions = {
-  origin: 'http://localhost:3000', // Replace with your frontend's origin
+  origin: 'http://54.219.143.67', // Replace with your frontend's origin
   credentials: true, // Important for cookies, authorization headers with HTTPS
   optionsSuccessStatus: 200
 };

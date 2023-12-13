@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../css/HomePage.css';
 import { AuthContext } from '../AuthContext.js';
 
-const API_ENDPOINT = 'http://localhost:5001';
+const API_ENDPOINT = 'http://54.219.143.67:5001';
 
 const HomePage = () => {
   const [recentTutors, setRecentTutors] = useState([]);
@@ -130,11 +130,11 @@ const HomePage = () => {
                 // Extracting only the image name from the path
                 const imageName =  tutor.profilePicture ? tutor.profilePicture.split('/').pop() : null;
                 const resume = tutor.resume ? tutor.resume.split('/').pop() : null;
-                const video = tutor.video ? `http://localhost:5001/images/${tutor.video.split('/').pop()}` : null;
+                const video = tutor.video ? `http://54.219.143.67:5001/images/${tutor.video.split('/').pop()}` : null;
 
 
                 return (
-                    <div className="recentTutorCard" key={index} style={cardStyle} onClick={() => navigateToTutor(tutor)}>
+                    <div className="recentTutorCard" key={index} style={cardStyle}>
                     <img
                        src={`${API_ENDPOINT}/images/${imageName}`}
                         alt="Profile"
