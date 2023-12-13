@@ -7,7 +7,6 @@ import { AuthContext } from '../AuthContext.js';
 const backend_api = "http://localhost:5001";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { logIn } = useContext(AuthContext);
