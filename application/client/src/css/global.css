@@ -148,6 +148,7 @@ button {
 }
 
 /* For smaller screens */
+/* For smaller screens */
 @media screen and (min-height:1000px) {
   .content {
      height: 100%;
