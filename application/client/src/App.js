@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./css/global.css";
 import ReactGA4 from 'react-ga4';
-import { withRouter } from 'react-router-dom';
 import NavigationBar from './include/navigation.js';
 import Footer from "./include/footer.js";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -27,25 +26,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 class App extends Component {
-  componentDidMount() {
-    ReactGA4.initialize('G-QT8ZBG53V3');
-
-    this.trackPageView(this.props.location.pathname);
-
-    // Listen for page changes
-    this.unlisten = this.props.history.listen((location, action) => {
-      this.trackPageView(location.pathname);
-    });
+  constructor(props) {
+    super(props);
+    this.state = { apiResponse: "" };
   }
 
-  componentWillUnmount() {
-    // Stop listening to page changes when the component unmounts
-    this.unlisten();
-  }
-
-  trackPageView(page) {
-    ReactGA4.send({ hitType: "pageview", page: page });
-  }
   render() {
     return (
       <AuthProvider> {/* Wrap your app with AuthProvider */}
@@ -83,4 +68,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default App;

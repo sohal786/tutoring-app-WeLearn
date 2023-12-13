@@ -8,15 +8,14 @@ const Dashboard = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    /* need to fetch current userID and name from sessions. Name is for the 
-    heaeding at the top of the page */
-    const userId = 1;
-
-    fetch('http://54.219.143.67:5001/messages?userId=$userId=${userId}')
-      .then(response => response.json())
-      .then(data => setMessages(data))
-      .catch(error => console.error('Error fetching messages:', error));
-  }, []); 
+    fetch('http://localhost:5001/messages', {
+      credentials: 'include' // To send the session cookie
+    })
+    .then(response => response.json())
+    .then(data => setMessages(data))
+    .catch(error => console.error('Error fetching messages:', error));
+  }, []);
+  
 
   return (
     <div className="dashboard-container">
@@ -26,11 +25,12 @@ const Dashboard = () => {
         <div className="message-container">
             <h2 className="message-header">Your Messages:</h2>
             <ul className="message-list">
-                {messages.map((item) => (
-                <li key={item.id} className="message-item">
-                    <strong>{item.sender}:</strong> {item.content}
-                </li>
-                ))}
+            {messages.map((item, index) => (
+  <li key={index} className="message-item">
+    <strong>{item.senderUsername}:</strong> {item.content}
+  </li>
+))}
+
             </ul>
         </div>
     </div>

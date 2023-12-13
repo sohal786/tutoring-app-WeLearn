@@ -13,7 +13,7 @@ function TutorPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const { user } = useContext(AuthContext);
   const location = useLocation();
   const tutor = location.state?.tutor || {
 
@@ -27,7 +27,8 @@ function TutorPage() {
   const isDefaultData = tutor.name === "No Tutor Selected";
 
   //console.log("Received tutor data:", result); 
-
+  const senderId = user?.id;
+  const receiverId = tutor.tutorId;
   const profilePicture = tutor.profilePicture 
     ? tutor.profilePicture.split('/').pop()
     : defaultProfilePicture;
@@ -40,28 +41,45 @@ function TutorPage() {
       setShowContactForm(!showContactForm); // Show contact form if logged in
     }
   };
-  const handleSendMessage = () => {
-    // Check if the message is not empty
+  const handleSendMessage = async () => {
     if (!message.trim()) {
-      // If the message is empty, set an error message
       setErrorMessage("Please enter a message before sending.");
       return;
     }
 
-    // Add logic to send the message to the tutor (e.g., using an API)
-    console.log("Message sent:", message);
+    try {
+      const response = await fetch('http://localhost:5001/send-message', { // Replace with your actual API endpoint
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', 
+        body: JSON.stringify({
+          sender_id: senderId,
+          receiver_id: receiverId,
+          content: message,
+        }),
+      });
 
-    // Clear the message input, hide the contact form, and set the success message
-    setMessage("");
-    setShowContactForm(false);
-    setMessageSent(true);
-    setErrorMessage(""); // Clear the error message
-
-    // Reset the success message after a delay (e.g., 3 seconds)
-    setTimeout(() => {
-      setMessageSent(false);
-    }, 3000);
+      if (response.ok) {
+        // Handle successful message sending
+        setMessage("");
+        setShowContactForm(false);
+        setMessageSent(true);
+        setErrorMessage("");
+        setTimeout(() => {
+          setMessageSent(false);
+        }, 3000);
+      } else {
+        // Handle errors
+        throw new Error('Network response was not ok.');
+      }
+    } catch (error) {
+      setErrorMessage("Failed to send the message.");
+      console.error('There was a problem with your fetch operation:', error);
+    }
   };
+
 
   const handleCancel = () => {
     // Clear the message input, hide the contact form, and clear the error message

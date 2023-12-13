@@ -181,6 +181,7 @@ app.get("/search", (req, res) => {
 
   let query = `
     SELECT 
+      tutor_database.tutor.id AS tutorId,
       tutor_database.tutor.tutor_name AS tutorName,
       tutor_database.tutor.description AS description,
       tutor_database.tutor.resume AS resume,
@@ -421,32 +422,73 @@ app.get("/sendLogin", (req, res) => {
     }
   )
 })
+app.post("/send-message", (req, res) => {
+  if (!req.session || !req.session.user) {
+    return res.status(401).send('Unauthorized: User not logged in');
+  }
+
+  const senderId = req.session.user.userId; // Assuming sender's ID is stored in session
+  const { receiver_id, content } = req.body;
+
+  if (!receiver_id || !content) {
+    return res.status(400).send('Missing receiver ID or message');
+  }
+
+  const query = `
+    INSERT INTO messages (sender_id, receiver_id, content, sent_at)
+    VALUES (?, ?, ?, NOW())
+  `;
+  const values = [senderId, receiver_id, content];
+
+  connection.query(query, values, (error, results) => {
+    if (error) {
+      console.error('Error sending message:', error);
+      res.status(500).send('Error sending message');
+    } else {
+      res.send('Message sent successfully');
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
+
 
 /* FOR DASHBOARD */
 app.get("/messages", (req, res) => {
-  // Assuming you want to fetch messages for user with ID 1
-  const receiverId = req.params.id;
+  if (!req.session || !req.session.user) {
+    return res.status(401).send('Unauthorized: User not logged in');
+  }
 
-  // Query the database for messages sent to the specified receiver ID
-  connection.query(
-    `SELECT 
+  const receiverId = req.session.user.userId;
+
+  const query = `
+    SELECT 
         messages.sender_id,
-        messages.message_content,
-        users.username AS senderUsername
+        messages.content,
+        users.user_name AS senderUsername
      FROM messages
      JOIN users ON messages.sender_id = users.id
-     WHERE messages.receiver_id = ?`,
-    [receiverId],
-    (error, results) => {
-      if (error) {
+     WHERE messages.receiver_id = ?
+  `;
+  const values = [receiverId];
+
+  connection.query(query, values, (error, results) => {
+    if (error) {
         console.error('Error fetching messages:', error);
         res.status(500).json({ error: 'An error occurred' });
-      } else {
+    } else {
         res.json(results);
-      }
     }
-  );
+  });
 });
+
 /* FOR DASHBOARD */
 
 app.listen(port, () => {
