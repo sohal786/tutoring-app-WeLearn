@@ -1,8 +1,170 @@
-/*
-  Login.js
-  Author: Azistara
-*/
+import React, { useState, useContext } from 'react'; 
+import { Link } from 'react-router-dom';
+import { Form, Button, FloatingLabel, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../AuthContext.js';
 
+const backend_api = "http://localhost:5001";
+
+const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { logIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [errors, setErrors] = useState({
+    email: '',
+    password: ''
+  });
+
+  // Initialize show and handleClose
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
+  // Define handleOpen
+  const handleOpen = () => setShow(true);
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { ...errors };
+
+    if (!email.trim() || !/^[^\s@]+@sfsu\.edu|mail\.sfsu\.edu$/.test(email)) {
+      newErrors.email = 'Enter a valid SFSU email address';
+      isValid = false;
+    } else {
+      newErrors.email = '';
+    }
+
+    if (!password || !/^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,20}$/.test(password)) {
+      newErrors.password = 'Password must meet the requirements';
+      isValid = false;
+    } else {
+      newErrors.password = '';
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+  
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      try {
+        const res = await sendLoginInfo();
+        if (res.success) {
+          console.log("[Success] Login successful");
+          logIn(); // Update global auth state
+          navigate('/'); // Navigate to homepage
+        } else {
+          console.log("[ERROR] Login failed");
+          // Handle login failure
+        }
+      } catch (error) {
+        console.error("Error occurred during login:", error);
+        // Handle errors
+      }
+    } else {
+      console.log("[ERROR] Form validation failure");
+      // Handle form validation failure
+    }
+  };
+
+
+  async function sendLoginInfo(e){
+    // e.preventDefault()
+    if (email == '' || password == '') {return}
+    try {
+      const res = await fetch(backend_api + '/sendLogin?email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password), {
+        credentials: 'include' 
+      });
+      if(!res.ok){
+        throw new Error('Network response was not ok.')
+      } return await res.json();
+    }catch (error) {
+      throw new Error('Error sending login info: ' + error.message);
+    }
+  }
+
+
+  return (
+    <div className="loginContainer">
+      <h1 className="mb-4">Hello.</h1>
+      <Form noValidate onSubmit={handleLogin} className="loginForm">
+        <p className="mb-4">
+          Log in to your account using your San Francisco State University 
+          email address.
+        </p>
+        <FloatingLabel
+          controlId="email"
+          label="SFSU Email Address"
+          className="mb-3"
+        >
+          <Form.Control
+            type="email"
+            placeholder="SFSU Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            isInvalid={errors.email !== ''}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.email}
+          </Form.Control.Feedback>
+        </FloatingLabel>
+
+        <FloatingLabel
+          controlId="password"
+          label="Password"
+          className="mb-3"
+        >
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            isInvalid={errors.password !== ''}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.password}
+          </Form.Control.Feedback>
+        </FloatingLabel>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <a href="#" onClick={handleOpen}>
+            Forgot password?
+          </a>
+          <p> </p>
+          <Link to="/register">
+            <a>Don't have an account? Sign Up </a>
+          </Link>
+
+          <br></br>
+          <br></br>
+
+          <Button variant="primary" type="submit">
+            Log in
+          </Button>
+        </Form.Group>
+      </Form>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body>
+          <Form>
+            The password reset service will not be implemented.
+          </Form>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+};
+
+export default LoginPage;
+
+/*
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {Form, Button, OverlayTrigger, Tooltip, FloatingLabel, Modal} from "react-bootstrap";
@@ -53,7 +215,7 @@ const LoginPage = () => {
     <div className="content">
       <div className="loginContainer">
         <h1>Hello.</h1>
-        {/* Login form provided by react-bootstrap */}
+        {/* Login form provided by react-bootstrap */ /*
         <Form
           className="loginForm"
           noValidate
@@ -63,8 +225,8 @@ const LoginPage = () => {
             Sign in using your San Francisco State University email address to
             get started.
           </p>
- */}
-          {/* Email Address form */}
+ */ /*
+          {/* Email Address form */ /*
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <FloatingLabel
               required
@@ -95,7 +257,7 @@ const LoginPage = () => {
             </FloatingLabel>
           </Form.Group>
 
-          {/* Password form */}
+          {/* Password form */ /*
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <FloatingLabel
               required
@@ -150,4 +312,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LoginPage; */

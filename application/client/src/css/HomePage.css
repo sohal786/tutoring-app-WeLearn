@@ -1,0 +1,208 @@
+/* HomePage.css */
+
+.homeContent {
+  margin: 0 auto;
+  background-color: #e5f2ff;
+  padding: 20px;
+}
+
+.titles {
+  text-align: center;
+  border-bottom: 0.5px solid #bebebe;
+  padding-bottom: 15px;
+}
+
+.welcomeSection {
+  padding: 50px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  text-align: center;
+}
+
+.featureContent {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.button-row {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.button-row a {
+  flex: 1;
+  margin: 0 5px;
+  max-width: 200px;
+}
+
+.benefitsContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.benefitItem {
+  flex: 0 0 30%;
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.benefitItem h3 {
+  color: #333;
+}
+
+.benefitItem p {
+  margin-top: 10px;
+  color: #666;
+}
+
+.why-choose-us,
+.meet-our-tutors,
+.become-a-tutor {
+  padding: 50px;
+  text-align: center;
+}
+
+.why-choose-us {
+  background-color: #ffff;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-top: 75px;
+  padding-bottom: 75px;
+}
+
+.meet-our-tutors {
+  background-color: #f2f2f2;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.become-a-tutor {
+  background-color: #e5f2ff;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-top: 75px;
+  padding-bottom: 75px;
+}
+
+.sectionText {
+  padding: 10px;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.recentTutorsContainer {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Align cards with even spacing */
+}
+
+.recentTutorLink {
+  text-decoration: none;
+  width: 100%;
+  color: inherit;
+}
+
+.recentTutorCard {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  width: 100%; /* Set a fixed width for consistent card sizes */
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.recentTutorCard img {
+  max-width: 150px;
+  height: auto;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.recentTutorCard div {
+  display: flex;
+  flex-direction: column;
+}
+
+.recentTutorCard h3,
+.recentTutorCard p {
+  padding-left: 10px;
+  color: #333;
+  text-align: left;
+}
+
+@media screen and (max-width: 767px) {
+  .homeContent {
+    margin: 0 auto;
+    padding: 10px;
+  }
+
+  .welcomeSection {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .button-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-row a {
+    flex: 1;
+    margin: 0 5px;
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .benefitsContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .recentTutorsContainer {
+    flex-direction: column;
+    align-items: center; /* Center cards on small screens */
+  }
+
+  .recentTutorCard {
+    width: 100%;
+    margin: 0 auto 20px;
+    box-sizing: border-box;
+    flex-direction: column;
+    text-align: center; /* Center text on small screens */
+  }
+
+  .recentTutorCard img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    align-self: center;
+  }
+
+  .recentTutorCard div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .recentTutorCard h3,
+  .recentTutorCard .card-title,
+  .recentTutorCard p {
+    color: #333;
+    text-align: center;
+    max-width: 100%;
+    padding: 0 10px;
+  }
+}
