@@ -1,15 +1,15 @@
 // HomePage.js
-
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../css/HomePage.css';
+import { Link, useLocation } from 'react-router-dom';
 
 const API_ENDPOINT = 'http://54.219.143.67:5001/recent_tutor';
 
 const HomePage = () => {
   const [recentTutors, setRecentTutors] = useState([]);
-
+  const navigate = useNavigate(); 
   useEffect(() => {
     fetch(API_ENDPOINT)
       .then((response) => {
@@ -21,6 +21,11 @@ const HomePage = () => {
       .then((data) => setRecentTutors(data))
       .catch((error) => console.error('Fetch error:', error));
   }, []);
+    const navigateToTutor = (tutor) => {
+      navigate('/tutor', { state: { tutor } });
+    };
+
+
 
   return (
     <div className="homeContent">
@@ -84,27 +89,26 @@ const HomePage = () => {
         <div className="featureContent">
           <h1 className="titles">Meet our newest tutors</h1>
           <div className="recentTutorsContainer">
-            {recentTutors.map((tutor, index) => {
-              // Extracting only the image name from the path
-              const imageName = tutor.profilePicture.split('/').pop();
-
-              return (
-                <Link to="/tutor" key={index} className="recentTutorLink" target="_blank" rel="noopener noreferrer">
-                  <div key={index} className="recentTutorCard">
-                    <img
-                      src={tutor.profilePicture}
-                      alt={tutor.tutorName}
-                    />
-                    <div>
-                      <h3>{tutor.tutorName}</h3>
-                      <p>Topic: {tutor.topicName}</p>
-                      <p>Description:</p>
-                      <p>{tutor.description}</p>
-                    </div>
+            {recentTutors.map((tutor, index) => (
+              <div 
+                key={index} 
+                className="recentTutorCard" 
+                onClick={() => navigateToTutor(tutor)}
+              >
+                <img
+                  src={tutor.profilePicture}
+                  alt={tutor.tutorName}
+                  className="tutorImage"
+                />
+                <div>
+                  <h3>{tutor.tutorName}</h3>
+                  <p>Topic: {tutor.topicName}</p>
+                  <p>Description:</p>
+                  <p>{tutor.description}</p>
+                </div>
                   </div>
-                </Link>
-              );
-            })}
+                
+            ))}
           </div>
         </div>
       </div>
