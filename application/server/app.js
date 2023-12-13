@@ -257,11 +257,14 @@ app.get("/recent_tutor", (req, res) => {
   )
 });
 
+
 app.post('/apply-tutor', upload.fields([
   { name: 'resume', maxCount: 1 },
   { name: 'profile_picture', maxCount: 1 }
 ]), (req, res) => {
   const formData = req.body;
+  const jsonstring = JSON.stringify(formData);
+  const jsondata = JSON.parse(jsonstring);
   const files = req.files;
 
   // Construct file paths
@@ -272,7 +275,7 @@ app.post('/apply-tutor', upload.fields([
   const tutorName = "Test Tutor"; // Replace with actual logic to get tutor name
   const fkUsersId = 1; // Example user ID, replace with actual logic
   const fkMessagesId = 1; // Example message ID, replace or set to NULL if optional
-  const fkTopicId = 1; // Example topic ID, replace with actual logic to get topic ID
+  const fkTopicId = ""; // Example topic ID, replace with actual logic to get topic ID
 
   // SQL query to insert data into the database
   const insertQuery = `
@@ -300,6 +303,7 @@ app.post('/apply-tutor', upload.fields([
     } else {
       console.log('Application saved:', results);
       res.send('Application received and saved successfully');
+      console.log(jsondata.formData)
     }
   });
 });

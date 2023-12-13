@@ -25,6 +25,9 @@ function TutorPage() {
 
   
 
+  const profilePicture = tutor.profilePicture 
+    ? tutor.profilePicture.split('/').pop()
+    : defaultProfilePicture;
   const handleContactButtonClick = () => {
     if (!isLoggedIn) {
       navigate('/login'); // Redirect to login if not logged in
@@ -61,73 +64,70 @@ function TutorPage() {
     setShowContactForm(false);
     setErrorMessage("");
   };
+  const imageName = tutor.profilePicture.split('/').pop();
 
   return (
     <div className="tutor-content">
-      <div className="container mt-4">
-        <div className="row">
-          <div className="col-md-4">
-            <img src={profilePicture} alt="Profile" className="img-fluid rounded" />
+      {isDefaultData ? (
+        <div className="container mt-4">
+          <div className="alert alert-warning">
+            <h2>Oops, something went wrong.</h2>
+            <p>Please try opening the website again.</p>
           </div>
-          <div className="col-md-8">
-            <h1 className="display-4">{tutorInfo.name}</h1>
-            <p className="lead">
-              <strong>Topic:</strong> <br />{tutorInfo.topic}<br /><br />
-              <strong>Description:</strong> <br />{tutorInfo.description}<br /><br />
-              <strong>Video:</strong>
-            </p>
-            {tutorInfo.video ? (
-              <div className="row justify-content-center mt-4">
-                <div className="col-md-12">
+        </div>
+      ) : (
+        <div className="container mt-4">
+          <div className="row">
+            <div className="col-md-4">
+              <img src={`http://localhost:5001/images/${imageName}`} alt="Profile" className="img-fluid rounded" />
+            </div>
+            <div className="col-md-8">
+              <h1 className="display-4">{tutor.tutorName}</h1>
+              <p className="lead">
+                <strong>Topic:</strong> <br />{tutor.topicName}<br /><br />
+                <strong>Description:</strong> <br />{tutor.description}
+              </p>
+              {tutor.video ? (
+                <div>
                   <h2>Video</h2>
                   <video width="100%" controls>
-                    <source src={tutorInfo.video} type="video/mp4" />
+                    <source src={tutor.video} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 </div>
+              ) : (
+                <p className="text-muted">No video provided</p>
+              )}
+              <div className="contact-section mt-4">
+                <button className="btn btn-primary contact-button" onClick={handleContactButtonClick}>
+                  Contact Tutor
+                </button>
               </div>
-            ) : (
-              <p className="text-muted">No video provided</p>
-            )}
-            <br /><br />
-            <div className="contact-section mt-4">
-              <button className="btn btn-primary contact-button" onClick={handleContactButtonClick}>
-                Contact Tutor
-              </button>
             </div>
           </div>
+          {showContactForm && (
+            <div className="container mt-4">
+              <div className="contact-form mt-3">
+                <p className="text-muted">
+                  Please provide your contact information in the message so the tutor can reach out to you.
+                </p>
+                <textarea
+                  className="form-control"
+                  rows="4"
+                  placeholder="Type your message..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                ></textarea>
+                {errorMessage && <div className="alert alert-danger mt-2">{errorMessage}</div>}
+                <div className="button-row mt-3">
+                  <button className="btn btn-secondary cancel-button" onClick={handleCancel}>Cancel</button>
+                  <button className="btn btn-primary send-button" onClick={handleSendMessage}>Send</button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-      </div>
-      <div className={`container mt-4 ${showContactForm ? 'visible' : 'hidden'}`}>
-        {showContactForm && (
-          <div className="contact-form mt-3">
-            <p className="text-muted">
-              Please provide your contact information in the message so the tutor 
-              can reach out to you.
-            </p>
-            <textarea
-              className="form-control"
-              rows="4"
-              placeholder="Type your message..."
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            ></textarea>
-            {errorMessage && (
-              <div className="alert alert-danger mt-2">{errorMessage}</div>
-            )}
-            <div className="button-row mt-3">
-              <button className="btn btn-secondary cancel-button" onClick={handleCancel}>
-                Cancel
-              </button>
-              <button className="btn btn-primary send-button" onClick={handleSendMessage}>
-                Send
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Display success message */}
+      )}
       {messageSent && (
         <div className="container mt-4 alert alert-success">
           Message sent successfully! Thank you.
@@ -135,6 +135,6 @@ function TutorPage() {
       )}
     </div>
   );
-}
+};
 
 export default TutorPage;

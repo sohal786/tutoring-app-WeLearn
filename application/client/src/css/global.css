@@ -1,185 +1,179 @@
 /*Global CSS*/
 
 html, body {
-   height: 100%;
-   margin: 0;
-   padding: 0;
-   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Variable', 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 
-   'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-   sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Variable', 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 
+  'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
 }
 
 .app-container {
-  display: flex;
-  flex-direction: column;
-  height: 90vh !important;
+ display: flex;
+ flex-direction: column;
+ height: 90vh !important;
 }
 
 .app-main {
-  flex-grow: 1;
+ flex-grow: 1;
 }
 
 .content {
-    flex-grow: 1;
-    padding: 20px;
- }
+   flex-grow: 1;
+   padding: 20px;
+}
 
- h1 {
-   font-weight: 600 !important;
- }
+h1 {
+  font-weight: 600 !important;
+}
 
- p { 
-   font-size: 20px;
- }
+p { 
+  font-size: 20px;
+}
 
- .card {
-  padding: 10px;
- }
+.card {
+ padding: 10px;
+}
 
- .card .cardFooter {
-    display:flex;
-    justify-content: end;
- }
+.card .cardFooter {
+   display:flex;
+   justify-content: end;
+}
 
- .contactCard {
-  width: 18rem;
- }
+.contactCard {
+ width: 18rem;
+}
 
- .contactContainer {
-  display: flex;
-  gap: 25px;
- }
+.contactContainer {
+ display: flex;
+ gap: 25px;
+}
 
- /*Profile image*/
- .profileImage {
-  border-radius: 100%;
-  max-width: 256px;
-  max-height: 256px;
- }
+/*Profile image*/
+.profileImage {
+ border-radius: 100%;
+ max-width: 256px;
+ max-height: 256px;
+}
 
- /*User information area*/
- .userInformationArea {
-  display:flex;
-  align-items: flex-start;
-  gap: 50px;
- }
+/*User information area*/
+.userInformationArea {
+ display:flex;
+ align-items: flex-start;
+ gap: 50px;
+}
 
- /* Recent messages container */
- .messageContainer .card{
-  padding: 0px;
-  margin-bottom: 15px;
- }
+/* Recent messages container */
+.messageContainer .card{
+ padding: 0px;
+ margin-bottom: 15px;
+}
 
 /*Navbar*/
 .navbar {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    max-width: 100%;
-    margin: 0 auto;
-    margin-left: 10%;
-    margin-right: 10%;
-    border-bottom: 1px solid #f2f2f2;
- }
+   padding: 20px;
+   display: flex;
+   align-items: center;
+   max-width: 100%;
+   margin: 0 auto;
+   border-bottom: 1px solid #f2f2f2;
+   margin-right: 10%;
+   margin-left:10%;
+}
 
  .navbar h1 {
     color: #f1356d;
  }
 
- .navbar .links {
-    margin-left: auto;
- }
-
- .navbar a, button {
-    margin-left: 16px;
-    text-decoration: none;
-    padding: 6px;
- }
-
-
- /*Homepage*/
- /*
- .hero, .feature-background {
-  text-align: center;
-   background-color: rgb(202, 230, 255);
-   /* background: url("../img/Paper Planes.jpg");
-   background-position: -30px -150px; 
-   width: 100%;
-   height:35vh auto;
-   border-radius: 20px;
-   padding: 25px;
-   padding: 0 !important;
-   margin: 0 !important;
- } */
- /*Reusable Components*/
- /*
- .feature-background {
-   background-color: rgb(236, 236, 236);
- } */
-
- /*
-  .featureContent {
-   margin: 50px 30px;
-   padding: 50px;
- }
- */
+.navbar a, button {
+   margin: 16px;
+   text-decoration: none;
+   padding: 6px;
+}
 
  /*Flex*/
  button {
    margin: 0 10px !important;
  }
 
- /*Search bar*/
- .searchBarContainer {
-  margin-top: 20px; 
-  right: 50px;
-  margin-left: 10em;
- }
-
- .searchBarResults {
-  margin-top: 20px;
-  width: 100% !important;
- }
-
- /*Login form*/
- .loginContainer {
-  margin-top: 30px;
-  padding-bottom: 5px;
-  text-align: center;
- }
-
- .loginForm {
-   padding: 3%;
-   margin: 2% 0%;
-   /* border: 1px solid #8e8e8e; */
-   border-radius: 10px;
-   box-shadow: 2px 2px 50px #00000023
- }
-
- /* Responsiveness */
- @media screen and (min-width:1085px) {
-    .content{
-        margin: 1%;
-    }
-
-    .loginForm{
-      margin: 2% 30%;
-    }
+.searchBarResults {
+ margin-top: 20px;
+ width: 100% !important;
 }
 
-@media screen and (min-height:1000px) {
-   .content {
-      height: 100%;
+/*Login form*/
+.loginContainer {
+ margin-top: 30px;
+ padding-bottom: 5px;
+ text-align: center;
+}
+
+.loginForm {
+  padding: 3%;
+  margin: 2% 0%;
+  /* border: 1px solid #8e8e8e; */
+  border-radius: 10px;
+  box-shadow: 2px 2px 50px #00000023
+}
+
+/* Responsiveness */
+/* For bigger screens */
+@media screen and (min-width:1085px) {
+   .content{
+       margin: 1%;
    }
 
    .loginForm{
-      margin: 5% 20%;
-    }
+     margin: 2% 30%;
+   }
+
+   .searchBarContainer {
+     margin-right: 0px;
+     margin-right: 0px;
+   }
 }
 
-@media (max-width: 600px) {
-  .navbar-search {
-      /* Adjust styles for smaller screens */
-      max-width: 100%;
+@media screen and (max-width:1085px) {
+   .searchBarContainer {
+     margin-right: 0px;
+     margin-right: 0px;
+   }
+} 
+
+/* For smaller screens */
+/* For smaller screens */
+@media screen and (min-height:1000px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .searchBarContainer,
+  .links,
+  .dashboardMenu {
+    margin: 10px 0;
+    text-align: center; /* For inline or inline-block elements */
+  }
+
+  .dashboardMenu button {
+    margin: 0 auto; /* For block-level elements */
+  }
+}
+
+/* For even smaller screens */
+@media screen and (max-width:660px){
+  .navbar {
+    flex-direction: column;
+  }
+
+  .searchBarContainer,
+  .links,
+  .dashboardMenu {
+    margin: 10px 0;
+    text-align: center; /* For inline or inline-block elements */
+  }
+
+  .dashboardMenu button {
+    margin: 0 auto; /* For block-level elements */
   }
 }

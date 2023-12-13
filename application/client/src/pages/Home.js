@@ -111,9 +111,8 @@ const HomePage = () => {
                       <p>{tutor.description}</p>
                     </div>
                   </div>
-                </Link>
-              );
-            })}
+                
+            ))}
           </div>
         </div>
       </div>
