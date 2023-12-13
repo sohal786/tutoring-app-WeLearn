@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Button, FloatingLabel } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
 const Registration = () => {
+  const navigate = useNavigate();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -78,7 +80,7 @@ const Registration = () => {
     // e.preventDefault()
     if (fullName=='' || email == '' || password == '') {return}
     try {
-      const res = await fetch('54.219.143.67:5001/sendRegister',
+      const res = await fetch('http://localhost:5001/sendRegister',
       {
         method: 'POST',
         headers: {
@@ -91,9 +93,10 @@ const Registration = () => {
       if(res.ok){
         console.log('register was successful')
         //switch page
-        fetch("/login")
+        navigate('/login')
       }else{
         console.log('register has failed')
+        alert("Register failed")
       }
     }catch (error) {
       console.error('Error:', error);
