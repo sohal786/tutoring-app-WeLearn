@@ -8,7 +8,7 @@ const Dashboard = () => {
   const [messages, setMessages] = useState(null);
 
   useEffect(() => {
-    fetch('http://54.219.143.67:5001/messages', {
+    fetch('http://localhost:5001/messages', {
       credentials: 'include' // To send the session cookie
     })
     .then(response => response.json())
@@ -33,7 +33,12 @@ const Dashboard = () => {
             {Array.isArray(messages) ? (
               messages.map((item, index) => (
                 <li key={index} className="message-item">
-                  <strong>{item.senderUsername}:</strong> {item.content}
+                  <div>
+                    <strong>{item.senderUsername}:</strong> {item.content}
+                  </div>
+                  <div className="message-timestamp">
+                    {item.sent_at}
+                  </div>
                 </li>
               ))
             ) : (

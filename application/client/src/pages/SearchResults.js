@@ -11,12 +11,12 @@ const SearchResults = () => {
     const navigate = useNavigate();
     const { searchText, selectedOption } = location.state || {};
     //console.log(searchText, selectedOption);
-    const backend_api = "http://54.219.143.67:5001";
+    const backend_api = "http://localhost:5001";
     const [results, setResults] = useState([]);
 
     useEffect(() => {
         // Fetch data regardless of whether searchText is empty or not
-        fetch(`http://54.219.143.67:5001/search?category=${selectedOption}&searchTerm=${searchText}`)
+        fetch(`http://localhost:5001/search?category=${selectedOption}&searchTerm=${searchText}`)
             .then(response => response.json())
             .then(data => {
                 setResults(data);

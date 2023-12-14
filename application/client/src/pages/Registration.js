@@ -80,7 +80,7 @@ const Registration = () => {
     // e.preventDefault()
     if (fullName=='' || email == '' || password == '') {return}
     try {
-      const res = await fetch('http://54.219.143.67:5001/sendRegister',
+      const res = await fetch('http://localhost:5001/sendRegister',
       {
         method: 'POST',
         headers: {

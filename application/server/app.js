@@ -31,7 +31,7 @@ const sessionStore = new MySQLStore({}, connection);
 
 // CORS Configuration
 const corsOptions = {
-  origin: 'http://54.219.143.67', // Replace with your frontend's origin
+  origin: 'http://localhost:3000', // Replace with your frontend's origin
   credentials: true, // Important for cookies, authorization headers with HTTPS
   optionsSuccessStatus: 200
 };
@@ -492,10 +492,12 @@ app.get("/messages", (req, res) => {
       SELECT 
           messages.sender_id,
           messages.content,
+          messages.sent_at,
           users.user_name AS senderUsername
       FROM messages
       JOIN users ON messages.sender_id = users.id
       WHERE messages.receiver_id = ?
+      ORDER BY messages.sent_at DESC
     `;
     console.log(`Executing query to fetch messages for receiverId: ${receiverId}`);
     connection.query(query, [receiverId], (error, results) => {

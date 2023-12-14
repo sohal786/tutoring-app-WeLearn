@@ -12,7 +12,7 @@ const NavigationBar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://54.219.143.67:5001/api/logout', { 
+      const response = await fetch('http://localhost:5001/api/logout', { 
         method: 'POST', 
         credentials: 'include' 
       });

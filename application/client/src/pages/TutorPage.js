@@ -48,7 +48,7 @@ function TutorPage() {
     }
 
     try {
-      const response = await fetch('http://54.219.143.67:5001/send-message', { // Replace with your actual API endpoint
+      const response = await fetch('http://localhost:5001/send-message', { // Replace with your actual API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

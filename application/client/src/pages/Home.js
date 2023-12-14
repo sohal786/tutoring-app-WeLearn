@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../css/HomePage.css';
 import { AuthContext } from '../AuthContext.js';
 
-const API_ENDPOINT = 'http://54.219.143.67:5001';
+const API_ENDPOINT = 'http://localhost:5001';
 
 const HomePage = () => {
   const [recentTutors, setRecentTutors] = useState([]);

@@ -51,7 +51,7 @@ const TutorApply = () => {
         data.append(key, formData[key]);
       });
 
-      fetch('http://54.219.143.67:5001/apply-tutor', { // Replace with your server URL
+      fetch('http://localhost:5001/apply-tutor', { // Replace with your server URL
       method: 'POST',
       body: data,
       credentials: 'include'
