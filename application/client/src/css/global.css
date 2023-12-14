@@ -12,10 +12,12 @@ html, body {
 .app-container {
  display: flex;
  flex-direction: column;
- height: 90vh !important;
+ min-height: 100vh;
+ margin-bottom: -30px;
 }
 
 .app-main {
+  min-height: 100%;
  flex-grow: 1;
 }
 
