@@ -48,7 +48,7 @@ function TutorPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:5001/send-message', { // Replace with your actual API endpoint
+      const response = await fetch('http://54.219.143.67:5001/send-message', { // Replace with your actual API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ function TutorPage() {
         <div className="container mt-4">
           <div className="row">
             <div className="col-md-4">
-              <img src={`http://localhost:5001/images/${imageName}`} alt="Profile" className="img-fluid rounded" />
+              <img src={`http://54.219.143.67:5001/images/${imageName}`} alt="Profile" className="img-fluid rounded" />
             </div>
             <div className="col-md-8">
               <h1 className="display-4">{tutor.tutorName}</h1>

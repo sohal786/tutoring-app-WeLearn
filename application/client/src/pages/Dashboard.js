@@ -8,7 +8,7 @@ const Dashboard = () => {
   const [messages, setMessages] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5001/messages', {
+    fetch('http://54.219.143.67:5001/messages', {
       credentials: 'include' // To send the session cookie
     })
     .then(response => response.json())
