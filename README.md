@@ -1,25 +1,31 @@
-# csc648 Repository
 
-## Please when ready add your teams application URL or IP to the repository description. This will help with grading. Teams are expected to keep this value up to date.
+<img width="835" alt="Screenshot 2024-06-22 at 10 17 42 AM" src="https://github.com/sohal786/tutoring-app-WeLearn/assets/91308200/1c4adabf-5a9a-41d1-9e7a-1d19db0dc7c2">
 
-## Please do the following steps before completing Milestone 0.
-1. Change the name of the repository. All that needs to change is the NN to your respective team number. Team numbers whose value is less than 10, please pad with a 0. Ex team 1 is Team01 team 11 is Team11. Please make sure to also remove the username from the repository as well. Teams with incorrectly name repository will have points deducted from their milestone 0 grades.
-      - Please follow the naming convention assigned by your instructor.
 
-1. PLEASE REMOVE THE USERNAME FROM THE REPOSITORY NAME!!!
+<img width="694" alt="Screenshot 2024-06-22 at 10 20 29 AM" src="https://github.com/sohal786/tutoring-app-WeLearn/assets/91308200/9fa237b2-59ae-46c7-b9e2-07a25c3adbbf">
 
-2. Add ALL members of your team to this repository. For it to count, they must ACCEPT the invite.
 
-3. Fill out the table below
+<img width="798" alt="Screenshot 2024-06-21 at 5 17 32 PM" src="https://github.com/sohal786/tutoring-app-WeLearn/assets/91308200/134010b6-0c7a-4d45-b483-00079401c140">
 
+
+Product Screenshots:
+
+
+
+<img width="644" alt="Screenshot 2024-06-22 at 10 19 27 AM" src="https://github.com/sohal786/tutoring-app-WeLearn/assets/91308200/4c5b4ccd-ab76-421e-8988-9c55c69efb6c">
+
+<img width="665" alt="Screenshot 2024-06-22 at 10 23 02 AM" src="https://github.com/sohal786/tutoring-app-WeLearn/assets/91308200/72742178-de02-44c4-85d5-292e2e36f7ab">
+
+<img width="637" alt="Screenshot 2024-06-22 at 10 19 58 AM" src="https://github.com/sohal786/tutoring-app-WeLearn/assets/91308200/8972fca3-05ab-43ca-9837-b3b16b8c1978">
+
+
+Team Members:
 
 | Student Name          | Student Email         | GitHub Username |
 |         :---:         |         :---:         |      :---:      |
-| Akshat sohal          |       asohal@mail.sfsu.edu                | sohal786        |
+| Akshat sohal          |asohal@mail.sfsu.edu   | sohal786        | 
 | Zuriel Respicio       | zrespicio@sfsu.edu    | Azistara        |
 | Charter Lin           | clin25@sfsu.edu       | charterlin      |
 | Andy Byeon            | abyeon@mail.sfsu.edu  | AndyByeon       |
 | Aakanksha Devarapally | adevarapally@sfsu.edu | ardevarap       |
-| Jorge Pérez           | jperezmora@sfsu.edu   | Carcris23       |
-
-## NO code needs to be stored in the root of your repository. You may rename the application folder if you like to your team's application name. But all source code related to your team's application should be stored inside the application folder.
+| Jorge Pérez           | jperezmora@sfsu.edu   | Carcris23       | 
